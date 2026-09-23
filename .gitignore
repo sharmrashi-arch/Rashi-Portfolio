@@ -1,0 +1,13 @@
+# Secrets — kabhi GitHub par nahi
+backend/.env
+
+# Logs
+backend/*.log
+*.log
+
+# Node
+node_modules/
+
+# System
+.DS_Store
+Thumbs.db

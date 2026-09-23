@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rashi Sharma | Digital Marketer & AI Enthusiast</title>
+    <meta
+      name="description"
+      content="Rashi Sharma - Digital Marketing with AI specialist and web developer. Building websites, games and intelligent digital solutions."
+    />
+    <meta property="og:title" content="Rashi Sharma | Digital Marketer & AI Enthusiast" />
+    <meta property="og:description" content="Digital Marketing with AI. Web & Game Development. Technology is my canvas, marketing is my voice." />
+    <meta property="og:type" content="website" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Exo:wght@300;400;600;700&family=Sora:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="preconnect" href="https://zip-repl-anjali-kids-school.vercel.app" />
+    <link rel="preconnect" href="https://block-blast-7161.ai.studio" />
+    <link rel="dns-prefetch" href="//zip-repl-anjali-kids-school.vercel.app" />
+    <link rel="dns-prefetch" href="//block-blast-7161.ai.studio" />
+
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div id="cursor"></div>
+    <div id="cursor-dot"></div>
+    <canvas id="particles"></canvas>
+
+    <nav id="navbar">
+      <div class="container nav-inner">
+        <a href="#hero" class="logo"><span class="logo-accent">RASHI</span><span class="logo-light">.SHARMA</span></a>
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#vision">Vision</a></li>
+          <li><a href="#contact" class="nav-cta">Contact</a></li>
+        </ul>
+        <button id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <div id="mobile-menu">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#vision">Vision</a>
+        <a href="#contact" class="nav-cta">Contact</a>
+      </div>
+    </nav>
+
+    <header id="hero" class="section">
+      <video class="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+        <source src="videos/hero.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-video-overlay"></div>
+      <div class="container hero-inner">
+        <div class="hero-text">
+          <p class="hero-greeting">Hello, welcome to my world</p>
+          <h1 class="font-exo">I am <span class="typewriter" id="typewriter"></span><span class="type-caret"></span></h1>
+          <p class="hero-tagline">The creative mind behind intelligent digital experiences</p>
+          <div class="hero-actions">
+            <a href="#about" class="btn btn-outline">Explore My Journey</a>
+            <a href="#projects" class="btn btn-primary">View My Work</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="profile-ring">
+            <span class="ping-ring"></span>
+            <span class="ping-ring delay"></span>
+            <img src="images/rashi-hero.svg" alt="Rashi Sharma - Digital Marketer & AI Enthusiast" />
+          </div>
+        </div>
+      </div>
+      <a href="#about" class="scroll-arrow" aria-label="Scroll to about">&#8595;</a>
+    </header>
+
+    <section id="about" class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="section-label">About Me</p>
+          <h2 class="font-exo">Who is <span class="text-gradient">Rashi Sharma</span></h2>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-image reveal">
+            <div class="about-photo">
+              <img src="images/rashi-about.svg" alt="Rashi Sharma" />
+            </div>
+          </div>
+
+          <div class="about-content">
+            <h3 class="about-subhead font-exo">Digital Marketer &amp; AI Enthusiast</h3>
+            <p>
+              I am Rashi Sharma, a digital marketing specialist from Pundri, learning to harness the
+              power of Artificial Intelligence. I believe technology and marketing, when combined with
+              creativity, can build experiences people remember.
+            </p>
+            <p>
+              I completed my schooling in Pundri - finishing 10th in 2023 and 12th in 2024. Then I
+              successfully completed my NIELIT O Level course, where I mastered essential programming
+              languages including HTML, CSS, JavaScript, Python, IoT and C++. I am currently pursuing
+              a Digital Marketing with AI course to bring intelligent, data-driven strategies to brands.
+            </p>
+            <p>
+              Beyond studies, I love building things. I have designed websites and developed games that
+              turn ideas into working, interactive products - every project is a chance to learn,
+              create and grow.
+            </p>
+            <p class="highlight-line">
+              Technology is my canvas, and marketing is my voice - I create work that people remember.
+            </p>
+          </div>
+        </div>
+
+        <div class="journey-card reveal">
+          <div class="corner corner-tl"></div>
+          <div class="corner corner-br"></div>
+          <h3 class="font-exo">My Journey</h3>
+          <p>
+            I didn't stop at just learning - I applied everything. From writing my first lines of
+            code in O Level to building complete websites and games, my journey has been powered by
+            curiosity and a habit of turning knowledge into creation.
+          </p>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-year">2023</div>
+              <div class="timeline-content">
+                Completed my Class 10th - this is where I discovered my love for technology.
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-year">2024</div>
+              <div class="timeline-content">
+                Completed my Class 12th and began exploring computers and programming seriously.
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-year">2025</div>
+              <div class="timeline-content">
+                Completed my NIELIT O Level - mastering HTML, CSS, JavaScript, Python, IoT and C++.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="section-label">What I Know</p>
+          <h2 class="font-exo">My <span class="text-gradient">Capabilities</span></h2>
+        </div>
+
+        <div class="skills-grid">
+          <div class="skill-card reveal">
+            <div class="skill-badge"><img src="images/icons/html5.svg" alt="HTML5" /></div>
+            <h4>HTML &amp; CSS</h4>
+            <p>Building clean, responsive and accessible web pages.</p>
+          </div>
+          <div class="skill-card reveal">
+            <div class="skill-badge"><img src="images/icons/javascript.svg" alt="JavaScript" /></div>
+            <h4>JavaScript</h4>
+            <p>Adding interactivity and logic to modern websites.</p>
+          </div>
+          <div class="skill-card reveal">
+            <div class="skill-badge"><img src="images/icons/python.svg" alt="Python" /></div>
+            <h4>Python</h4>
+            <p>Programming, automation and data-driven thinking.</p>
+          </div>
+          <div class="skill-card reveal">
+            <div class="skill-badge"><img src="images/icons/cpp.svg" alt="C++" /></div>
+            <h4>C++</h4>
+            <p>Strong fundamentals in logic building and programming.</p>
+          </div>
+          <div class="skill-card reveal">
+            <div class="skill-badge"><img src="images/icons/iot.svg" alt="IoT" /></div>
+            <h4>IoT</h4>
+            <p>Connecting smart devices with real-world applications.</p>
+          </div>
+          <div class="skill-card reveal">
+            <div class="skill-badge"><img src="images/icons/msoffice.svg" alt="MS Office" /></div>
+            <h4>MS Office</h4>
+            <p>Word, PowerPoint and everyday productivity tools.</p>
+          </div>
+          <div class="skill-card reveal">
+            <div class="skill-badge"><img src="images/icons/excel.svg" alt="Excel" /></div>
+            <h4>Excel</h4>
+            <p>Spreadsheets, formulas, charts and data analysis.</p>
+          </div>
+          <div class="skill-card reveal">
+            <div class="skill-badge"><img src="images/icons/libre.svg" alt="LibreOffice" /></div>
+            <h4>LibreOffice</h4>
+            <p>Open-source office suite for efficient document work.</p>
+          </div>
+          <div class="skill-card reveal">
+            <div class="skill-badge"><img src="images/icons/webdev.svg" alt="Website Development" /></div>
+            <h4>Website Development</h4>
+            <p>Designing and developing complete, functional websites.</p>
+          </div>
+          <div class="skill-card reveal">
+            <div class="skill-badge"><img src="images/icons/game.svg" alt="Game Development" /></div>
+            <h4>Game Development</h4>
+            <p>Creating interactive games that are fun to play.</p>
+          </div>
+          <div class="skill-card reveal">
+            <div class="skill-badge"><img src="images/icons/marketing.svg" alt="Digital Marketing" /></div>
+            <h4>Digital Marketing</h4>
+            <p>Growing brands with modern marketing strategies.</p>
+          </div>
+          <div class="skill-card reveal">
+            <div class="skill-badge"><img src="images/icons/ai.svg" alt="AI Tools" /></div>
+            <h4>AI Tools &amp; Automation</h4>
+            <p>Using artificial intelligence to work smarter and faster.</p>
+          </div>
+          <div class="skill-card reveal">
+            <div class="skill-badge"><img src="images/icons/seo.svg" alt="SEO & Content" /></div>
+            <h4>SEO &amp; Content</h4>
+            <p>Optimising content so the right people find it.</p>
+          </div>
+        </div>
+
+        <div class="stats reveal">
+          <div class="stat">
+            <div class="stat-number" data-target="6">0</div>
+            <div class="stat-label">Languages Learned</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number" data-target="4">0</div>
+            <div class="stat-label">Projects Built</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number" data-target="100">0</div>
+            <div class="stat-label">Percent Dedication</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="section-label">My Work</p>
+          <h2 class="font-exo">My <span class="text-gradient">Projects</span></h2>
+        </div>
+
+        <div class="projects-grid">
+          <article class="project-card reveal">
+            <div class="project-thumb thumb-website">
+              <img src="images/anjali-hero.webp" alt="Anjali Kids School website preview" />
+              <span class="project-tag tag-web">Web Development</span>
+            </div>
+            <div class="project-body">
+              <h3>Anjali Kids School Website</h3>
+              <p>
+                A modern, responsive website for kids school - designed and developed from scratch
+                using HTML, CSS and JavaScript. Clean layouts, smooth interactions and a
+                user-first experience.
+              </p>
+              <div class="tech-chips">
+                <span>HTML</span><span>CSS</span><span>JavaScript</span>
+              </div>
+              <a href="https://zip-repl-anjali-kids-school.vercel.app/" class="btn btn-primary btn-sm" target="_blank" rel="noopener">View Website</a>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-thumb thumb-game">
+              <img src="images/real-game.png" alt="Block Blast game preview" />
+              <span class="project-tag tag-game">Game Development</span>
+            </div>
+            <div class="project-body">
+              <h3>Block Blast Game</h3>
+              <p>
+                An interactive block puzzle game built with JavaScript - featuring fun mechanics,
+                score tracking and smooth gameplay. Proof that I can turn ideas into playable
+                experiences.
+              </p>
+              <div class="tech-chips">
+                <span>JavaScript</span><span>HTML</span><span>CSS</span>
+              </div>
+              <a href="https://block-blast-7161.ai.studio" class="btn btn-primary btn-sm" target="_blank" rel="noopener">View Game</a>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-thumb thumb-marketing">
+              <img src="images/project-marketing.svg" alt="AI marketing campaign preview" />
+              <span class="project-tag tag-mkt">Digital Marketing</span>
+            </div>
+            <div class="project-body">
+              <h3>AI Marketing Campaign</h3>
+              <p>
+                A digital marketing strategy powered by AI tools - content planning, audience targeting
+                and automation to grow visibility and engagement.
+              </p>
+              <div class="tech-chips">
+                <span>AI Tools</span><span>SEO</span><span>Content</span>
+              </div>
+              <a href="#" class="btn btn-primary btn-sm" target="_blank" rel="noopener">View Website</a>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-thumb thumb-app">
+              <img src="images/project-soon.svg" alt="Next project preview" />
+              <span class="project-tag tag-app">More Coming Soon</span>
+            </div>
+            <div class="project-body">
+              <h3>Next Project Coming Soon</h3>
+              <p>
+                I'm always building. New projects are in progress - more websites, more games and more
+                intelligent solutions to share with the world.
+              </p>
+              <div class="tech-chips">
+                <span>HTML</span><span>JavaScript</span><span>Python</span>
+              </div>
+              <a href="#contact" class="btn btn-outline btn-sm">Let's Talk</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="vision" class="section">
+      <div class="vision-rings" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="container vision-inner">
+        <div class="section-head reveal">
+          <p class="section-label">My Vision</p>
+          <h2 class="font-exo">What I <span class="text-gradient">Believe</span></h2>
+        </div>
+        <div class="vision-slides">
+          <div class="vision-slide active font-exo">I don't chase trends. I create value.</div>
+          <div class="vision-slide font-exo">I don't build projects. I build experiences.</div>
+          <div class="vision-slide font-exo">I don't just market. I make brands unforgettable.</div>
+        </div>
+        <div class="vision-cta">
+          <a href="#contact" class="btn btn-primary">Let's Connect</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="section-label">Contact</p>
+          <h2 class="font-exo">Let's Build the <span class="text-gradient">Future Together</span></h2>
+          <p class="section-sub">
+            Have a project idea? Want to collaborate? Let's connect and make something extraordinary.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <form id="contact-form" class="contact-form reveal" novalidate>
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="user_name" placeholder="Enter your name" required />
+            <label for="email">Your Email</label>
+            <input type="email" id="email" name="user_email" placeholder="Enter your email" required />
+            <label for="message">Your Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="Tell me about your project or idea" required></textarea>
+            <button type="submit" class="btn btn-primary" id="form-submit">Send Message</button>
+            <p class="form-status" id="form-status"></p>
+          </form>
+
+          <div class="contact-info reveal">
+            <h3 class="font-exo">Let's Connect</h3>
+            <p><span class="info-icon">&#9993;</span> rashi.sharma@email.com</p>
+            <p><span class="info-icon">&#128205;</span> Pundri, Haryana, India</p>
+            <div class="socials">
+              <a href="#" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
+              <a href="#" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a>
+              <a href="#" target="_blank" rel="noopener" aria-label="GitHub">GitHub</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container footer-inner">
+        <p>&copy; 2026 Rashi Sharma. All rights reserved.</p>
+        <p class="footer-tagline">The Future of Digital Innovation</p>
+      </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>

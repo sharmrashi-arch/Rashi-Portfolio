@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="288" viewBox="0 0 512 288">
+  <rect width="512" height="288" fill="#fff4e6"/>
+  <circle cx="70" cy="60" r="10" fill="#ffd166"/>
+  <circle cx="120" cy="100" r="6" fill="#ffc9a0"/>
+  <circle cx="440" cy="70" r="12" fill="#ffc9a0"/>
+  <circle cx="460" cy="130" r="7" fill="#ffd166"/>
+  <circle cx="90" cy="180" r="5" fill="#fb923c"/>
+  <circle cx="440" cy="210" r="9" fill="#ffd166"/>
+  <path d="M 130 210 Q 150 170 250 150 T 400 90" fill="none" stroke="#ffd9b8" stroke-width="5" stroke-linecap="round" stroke-dasharray="10 10"/>
+  <rect x="150" y="40" width="110" height="34" rx="6" fill="#1e1b2e"/>
+  <polygon points="192,30 192,78 208,78 208,30 200,18 184,30" fill="none" stroke="#1e1b2e" stroke-width="5" stroke-linejoin="round"/>
+  <rect x="182" y="66" width="46" height="16" rx="8" fill="#fb923c"/>
+  <rect x="176" y="84" width="58" height="10" rx="5" fill="#fb923c"/>
+  <rect x="192" y="98" width="26" height="10" rx="5" fill="#fb923c"/>
+  <rect x="320" y="150" width="130" height="26" rx="6" fill="#f97316"/>
+  <text x="385" y="168" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">Coming Soon</text>
+  <rect x="150" y="180" width="212" height="12" rx="6" fill="#ffd9b8"/>
+</svg>
