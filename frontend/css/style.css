@@ -670,7 +670,7 @@ background: var(--surface);
   display: block;
 }
 
-.skill-card h4 {
+.skill-card h3 {
   color: var(--ink);
   font-size: 0.95rem;
   margin-bottom: 8px;
@@ -1156,7 +1156,7 @@ body {
   .skill-card {
     padding: 20px 14px;
   }
-  .skill-card h4 {
+  .skill-card h3 {
     font-size: 0.85rem;
   }
   .skill-card p {
