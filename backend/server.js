@@ -124,33 +124,56 @@ async function handleSend(req, res) {
       "<h3>Message</h3>" +
       "<p>" + escapeHtml(message).replace(/\n/g, "<br/>") + "</p>";
 
-    const apiRes = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        "Authorization": "Bearer " + RESEND_KEY,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        from: FROM_EMAIL,
-        to: [TO_EMAIL],
-        subject: "Portfolio message from " + name,
-        reply_to: email,
-        html: html
-      })
-    });
+    const apiPayload = {
+      from: FROM_EMAIL,
+      to: [TO_EMAIL],
+      subject: "Portfolio message from " + name,
+      reply_to: email,
+      html: html
+    };
 
-    const apiData = await apiRes.json().catch(function () {
-      return {};
-    });
+    let apiRes = null;
+    let apiData = {};
+    for (let attempt = 0; attempt < 3; attempt++) {
+      try {
+        apiRes = await fetch("https://api.resend.com/emails", {
+          method: "POST",
+          headers: {
+            "Authorization": "Bearer " + RESEND_KEY,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(apiPayload)
+        });
+        apiData = await apiRes.json().catch(function () {
+          return {};
+        });
+        if (apiRes.ok) break;
+        if (apiRes.status === 429 || apiRes.status >= 500) {
+          await new Promise(function (r) {
+            setTimeout(r, 700 * (attempt + 1));
+          });
+          continue;
+        }
+        break;
+      } catch (networkError) {
+        await new Promise(function (r) {
+          setTimeout(r, 700 * (attempt + 1));
+        });
+        apiData = { message: "Email network error (attempt " + (attempt + 1) + ")" };
+      }
+    }
 
-    if (apiRes.ok) {
+    if (apiRes && apiRes.ok) {
+      console.log("Email sent to " + TO_EMAIL + " from " + name + " (" + email + ")");
       res.writeHead(200, { "Content-Type": "application/json" });
       res.end(JSON.stringify({ ok: true }));
     } else {
+      console.error("Resend error:", apiData);
       res.writeHead(502, { "Content-Type": "application/json" });
       res.end(JSON.stringify({ ok: false, error: apiData.message || "Email service error. Please try again." }));
     }
   } catch (e) {
+    console.error("Send handler error:", e && e.stack ? e.stack : e);
     res.writeHead(500, { "Content-Type": "application/json" });
     res.end(JSON.stringify({ ok: false, error: "Server error. Please try again." }));
   }
