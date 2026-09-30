@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Admin Panel · Rashi Sharma</title>
+<style>
+  :root { --line: rgba(255,255,255,.08); --text: #e8eefc; --muted: #9fb0d0; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; display: grid; place-items: center;
+    background: radial-gradient(900px 600px at 20% -10%, #16265a 0%, transparent 60%),
+                radial-gradient(700px 500px at 110% 10%, #0e3a5c 0%, transparent 55%),
+                linear-gradient(180deg, #0b1224 0%, #070d1c 100%);
+    color: var(--text); font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    padding: 24px;
+  }
+  .card {
+    width: 100%; max-width: 430px; background: rgba(18,28,51,.85);
+    border: 1px solid var(--line); border-radius: 18px; padding: 34px 28px;
+    text-align: center; box-shadow: 0 24px 60px rgba(0,0,0,.35);
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+    color: #7dd3fc; border: 1px solid rgba(125,211,252,.28);
+    background: rgba(125,211,252,.08); padding: 6px 12px; border-radius: 999px;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: #38bdf8; box-shadow: 0 0 10px #38bdf8; }
+  h1 { font-size: 21px; margin: 20px 0 8px; }
+  p { color: var(--muted); font-size: 14px; line-height: 1.6; margin: 0 0 22px; }
+  .btn {
+    display: inline-block; text-decoration: none; font-size: 15px; font-weight: 600;
+    color: #04121f; background: linear-gradient(135deg, #6ea8fe, #38bdf8);
+    padding: 13px 26px; border-radius: 12px; border: 0;
+  }
+  .alt { display: block; margin-top: 16px; font-size: 13px; color: var(--muted); }
+  .alt a { color: #7dd3fc; }
+  .spin {
+    width: 15px; height: 15px; border: 2px solid rgba(4,18,31,.35);
+    border-top-color: #04121f; border-radius: 50%;
+    display: inline-block; vertical-align: -2px; margin-right: 8px;
+    animation: sp .7s linear infinite;
+  }
+  @keyframes sp { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+  <main class="card">
+    <span class="badge"><span class="dot"></span>Admin Panel</span>
+    <h1>Admin login par bhej rahe hain…</h1>
+    <p><span class="spin"></span>Security ke liye admin panel alag domain par hai (Render), jahan login ka secure cookie banta hai.</p>
+    <a class="btn" id="go" href="https://rashi-portfolio-96cw.onrender.com/admin">Open admin panel</a>
+    <span class="alt">Ya wapas <a href="/">portfolio par jayein</a></span>
+  </main>
+
+<script>
+  /* Vercel par API base inject ho jayega (config file se) */
+  var API = (window.PORTFOLIO_API_BASE || "https://rashi-portfolio-96cw.onrender.com") + "/admin";
+  document.getElementById("go").href = API;
+  setTimeout(function () { window.location.replace(API); }, 600);
+</script>
+</body>
+</html>
