@@ -78,8 +78,6 @@
 
         /* Navbar */
         --nav-bg: rgba(11, 18, 34, 0.85);
-        --mobile-bg: rgba(13, 20, 40, 0.98);
-        --nav-link: #c7d5f0;
 
         /* Surface glow dots (same pattern as portfolio) */
         --dots: rgba(59, 130, 246, 0.5);
@@ -87,34 +85,9 @@
         --scroll-thumb: rgba(59, 130, 246, 0.4);
       }
 
-      /* OS light mode support — same design, lighter palette */
-      @media (prefers-color-scheme: light) {
-        :root {
-          color-scheme: light;
-          --cream: #f3f7ff;
-          --cream-soft: #ffffff;
-          --cream-end: #e7eeff;
-          --surface: #ffffff;
-          --ink: #0b1224;
-          --muted: #4f5f80;
-          --accent: #2563eb;
-          --accent-light: #3b82f6;
-          --gold: #b45309;
-          --border: rgba(37, 99, 235, 0.16);
-          --nav-bg: rgba(255, 255, 255, 0.88);
-          --mobile-bg: rgba(255, 255, 255, 0.98);
-          --nav-link: #2a3a5c;
-          --dots: rgba(37, 99, 235, 0.5);
-          --scroll-track: #dbe6ff;
-          --scroll-thumb: rgba(37, 99, 235, 0.4);
-        }
-        body {
-          background-image:
-            radial-gradient(circle at 18% 22%, rgba(37, 99, 235, 0.1), transparent 42%),
-            radial-gradient(circle at 84% 72%, rgba(37, 99, 235, 0.08), transparent 38%),
-            linear-gradient(to bottom right, var(--cream), var(--cream-end));
-        }
-      }
+      /* NOTE: Light mode override hataya gaya hai taaki blog page ka background
+         hamesha portfolio jaisa dark blue rahe (index.html bhi hamesha dark hai).
+         Neeche :root values hi exact portfolio palette hain. */
 
       /* ── Reset & base ── */
       * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -152,6 +125,14 @@
         z-index: 2;
       }
 
+      /* Portfolio jaisa hi floating particle background */
+      #particles {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+      }
+
       /* ── Navbar (same look & behaviour as portfolio) ── */
       #navbar {
         position: fixed;
@@ -179,85 +160,28 @@
       }
       .logo-accent { color: var(--accent); text-shadow: 0 0 12px rgba(59, 130, 246, 0.25); }
       .logo-light { color: var(--ink); }
-      .nav-links {
-        display: flex;
+      /* Sirf ek link — wapas portfolio pe jane ke liye */
+      .back-link {
+        display: inline-flex;
         align-items: center;
-        gap: 28px;
-        list-style: none;
-      }
-      .nav-links a {
-        font-size: 0.85rem;
-        letter-spacing: 2px;
+        gap: 8px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        letter-spacing: 1.5px;
         text-transform: uppercase;
-        color: var(--nav-link);
-        transition: color 0.3s ease;
-      }
-      .nav-links a:hover { color: var(--accent); }
-      /* Active page indicator — "Blog" bhi highlight dikhe */
-      .nav-links a.active { color: var(--accent); position: relative; }
-      .nav-links a.active::after {
-        content: "";
-        position: absolute;
-        left: 0; right: 0; bottom: -8px;
-        height: 2px;
-        border-radius: 2px;
-        background: var(--accent);
-      }
-      .nav-links .nav-cta {
-        border: 1px solid var(--accent);
-        border-radius: 30px;
-        padding: 10px 22px;
         color: var(--accent);
+        border: 1px solid rgba(59, 130, 246, 0.45);
         background: rgba(59, 130, 246, 0.08);
-        transition: background 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 30px;
+        padding: 10px 20px;
+        transition: background 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
       }
-      .nav-links .nav-cta:hover {
+      .back-link:hover {
         background: var(--accent);
         box-shadow: 0 0 18px rgba(59, 130, 246, 0.35);
         color: #fff;
       }
-      .nav-cta.active::after { display: none; }
-      #menu-toggle {
-        display: none;
-        flex-direction: column;
-        gap: 5px;
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 8px;
-      }
-      #menu-toggle span {
-        width: 24px;
-        height: 2px;
-        background: var(--ink);
-        border-radius: 2px;
-        transition: transform 0.3s ease, opacity 0.3s ease;
-      }
-      #menu-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-      #menu-toggle.open span:nth-child(2) { opacity: 0; }
-      #menu-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-      #mobile-menu {
-        display: none;
-        flex-direction: column;
-        gap: 4px;
-        padding: 8px 24px 20px;
-        background: var(--mobile-bg);
-        border-top: 1px solid var(--border);
-      }
-      #mobile-menu.open { display: flex; }
-      #mobile-menu a {
-        padding: 12px 0;
-        color: var(--nav-link);
-        border-bottom: 1px solid rgba(148, 165, 201, 0.12);
-      }
-      #mobile-menu a.active { color: var(--accent); }
-      #mobile-menu .nav-cta {
-        border: 1px solid var(--accent);
-        border-radius: 8px;
-        text-align: center;
-        color: var(--accent);
-        margin-top: 8px;
-      }
+      .back-arrow { font-size: 1rem; line-height: 1; }
 
       /* ── Hero ── */
       .page-hero {
@@ -310,7 +234,7 @@
       }
 
       /* ── Article content ── */
-      main { position: relative; }
+      main { position: relative; z-index: 2; }
       /* same dotted grid overlay as the portfolio sections */
       section > .container::before {
         content: "";
@@ -320,7 +244,6 @@
         background-size: 30px 30px;
         opacity: 0.07;
         pointer-events: none;
-        z-index: -1;
       }
       .section {
         display: block;
@@ -329,7 +252,10 @@
       .section-anchor { scroll-margin-top: 90px; }
 
       .panel {
-        background: var(--surface);
+        /* Halka transparent card — peeche portfolio ka blue glow dikhta rahe */
+        background: rgba(21, 31, 58, 0.55);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
         border: 1px solid var(--border);
         border-radius: 18px;
         padding: 46px;
@@ -393,10 +319,7 @@
         border-radius: 20px;
         border: 1px solid rgba(59, 130, 246, 0.4);
         background: rgba(59, 130, 246, 0.08);
-        color: #1d4ed8;
-      }
-      @media (prefers-color-scheme: light) {
-        .chips span { color: #2563eb; background: rgba(37, 99, 235, 0.08); }
+        color: var(--accent-light);
       }
 
       /* two-column intro rows inside panels */
@@ -505,40 +428,29 @@
 
       /* ── Responsive ── */
       @media (max-width: 860px) {
-        .nav-links { display: none; }
-        #menu-toggle { display: flex; }
         .panel { padding: 30px 22px; }
         .two-col { grid-template-columns: 1fr; }
         .page-hero { padding: 140px 0 50px; }
+      }
+      @media (max-width: 520px) {
+        .back-link { font-size: 0.72rem; padding: 9px 15px; letter-spacing: 1px; }
+        .logo { font-size: 1.05rem; }
       }
     </style>
   </head>
 
   <body>
-    <!-- ═══ NAVBAR — same style as the portfolio, "Blog" is the active link ═══ -->
+    <!-- ═══ Particles canvas — portfolio jaisa hi floating background ═══ -->
+    <canvas id="particles" aria-hidden="true"></canvas>
+
+    <!-- ═══ NAVBAR — minimal: sirf "Back to Portfolio" link (koi section link nahi) ═══ -->
     <header class="site-header">
-      <nav id="navbar" aria-label="Primary navigation">
+      <nav id="navbar" aria-label="Back to portfolio">
         <div class="container nav-inner">
-          <a href="/" class="logo" aria-label="Home"><span class="logo-accent">RASHI</span><span class="logo-light">.SHARMA</span></a>
-          <ul class="nav-links">
-            <li><a href="/#about">About</a></li>
-            <li><a href="/#skills">Skills</a></li>
-            <li><a href="/#projects">Projects</a></li>
-            <li><a href="/blog.html" class="active" aria-current="page">Blog</a></li>
-            <li><a href="/#vision">Vision</a></li>
-            <li><a href="/#contact" class="nav-cta active-link">Contact</a></li>
-          </ul>
-          <button id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
-            <span></span><span></span><span></span>
-          </button>
-        </div>
-        <div id="mobile-menu">
-          <a href="/#about">About</a>
-          <a href="/#skills">Skills</a>
-          <a href="/#projects">Projects</a>
-          <a href="/blog.html" class="active">Blog</a>
-          <a href="/#vision">Vision</a>
-          <a href="/#contact" class="nav-cta">Contact</a>
+          <a href="index.html" class="logo" aria-label="Back to portfolio"><span class="logo-accent">RASHI</span><span class="logo-light">.SHARMA</span></a>
+          <a href="index.html" class="back-link">
+            <span class="back-arrow" aria-hidden="true">&#8592;</span> Back to Portfolio
+          </a>
         </div>
       </nav>
     </header>
@@ -888,35 +800,31 @@
               combine AI, design and development to build something memorable.
             </p>
             <div class="btn-row">
-              <a href="/#contact" class="btn btn-primary">Contact Me</a>
-              <a href="/" class="btn btn-outline">Back to Home</a>
+              <a href="index.html#contact" class="btn btn-primary">Contact Me</a>
+              <a href="index.html" class="btn btn-outline">&#8592; Back to Portfolio</a>
             </div>
           </div>
         </div>
       </section>
     </main>
 
-    <!-- ═══ FOOTER — same as the portfolio ═══ -->
+    <!-- ═══ FOOTER — sirf back to portfolio link ═══ -->
     <footer>
       <div class="container footer-inner">
-        <nav class="footer-links" aria-label="Footer navigation">
-          <a href="/">Home</a>
-          <a href="/#about">About</a>
-          <a href="/#skills">Skills</a>
-          <a href="/#projects">Projects</a>
-          <a href="/blog.html">Blog</a>
-          <a href="/#vision">Vision</a>
-          <a href="/#contact">Contact</a>
+        <nav class="footer-links" aria-label="Back to portfolio">
+          <a href="index.html">&#8592; Back to Portfolio</a>
         </nav>
         <p>&copy; 2026 Rashi Sharma. All rights reserved.</p>
         <p class="footer-tagline">The Future of Digital Innovation</p>
       </div>
     </footer>
 
-    <!-- ═══ Small script: navbar scroll state + mobile menu (same as portfolio) ═══ -->
+    <!-- ═══ Script: navbar scroll state + background particles ═══ -->
     <script>
       (function () {
         "use strict";
+
+        /* ---- Navbar scroll state ---- */
         var navbar = document.getElementById("navbar");
         function onScroll() {
           if (window.scrollY > 50) navbar.classList.add("scrolled");
@@ -925,20 +833,63 @@
         window.addEventListener("scroll", onScroll, { passive: true });
         onScroll();
 
-        var toggle = document.getElementById("menu-toggle");
-        var menu = document.getElementById("mobile-menu");
-        toggle.addEventListener("click", function () {
-          var open = menu.classList.toggle("open");
-          toggle.classList.toggle("open", open);
-          toggle.setAttribute("aria-expanded", String(open));
-        });
-        menu.querySelectorAll("a").forEach(function (a) {
-          a.addEventListener("click", function () {
-            menu.classList.remove("open");
-            toggle.classList.remove("open");
-            toggle.setAttribute("aria-expanded", "false");
-          });
-        });
+        /* ---- Floating particles (portfolio jaisa background) ---- */
+        var canvas = document.getElementById("particles");
+        if (!canvas || !canvas.getContext) return;
+        var ctx = canvas.getContext("2d");
+        var particles = [];
+        var pCount = Math.min(70, Math.floor(window.innerWidth / 22));
+
+        function resizeCanvas() {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        }
+        window.addEventListener("resize", resizeCanvas);
+        resizeCanvas();
+
+        var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (reduceMotion) {
+          canvas.style.display = "none";
+          return;
+        }
+
+        function spawnParticle(first) {
+          var speed = 0.15 + Math.random() * 0.35;
+          return {
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            r: first ? 2.2 : 1 + Math.random() * 1.8,
+            vx: (Math.random() - 0.5) * speed,
+            vy: (Math.random() - 0.5) * speed
+          };
+        }
+
+        for (var i = 0; i < pCount; i++) particles.push(spawnParticle(true));
+
+        (function draw() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+          for (var j = 0; j < particles.length; j++) {
+            var p = particles[j];
+            p.x += p.vx;
+            p.y += p.vy;
+
+            if (p.x < -10) p.x = canvas.width + 10;
+            if (p.x > canvas.width + 10) p.x = -10;
+            if (p.y < -10) p.y = canvas.height + 10;
+            if (p.y > canvas.height + 10) p.y = -10;
+
+            var g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
+            g.addColorStop(0, "rgba(122,176,255,0.55)");
+            g.addColorStop(1, "rgba(122,176,255,0)");
+            ctx.fillStyle = g;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fill();
+          }
+
+          requestAnimationFrame(draw);
+        })();
       })();
     </script>
   </body>
