@@ -1,6 +1,21 @@
 (function () {
   "use strict";
 
+  /* ============ API base (backend on Render) ============
+     config.js mein API_BASE set karo, ya
+     <head> se pehle:  <script>window.PORTFOLIO_API_BASE="https://xxx.onrender.com"</script>
+     Khali chhodne par same-origin use hoga (local testing).            */
+  function API(path) {
+    var base =
+      (typeof window !== "undefined" && window.PORTFOLIO_API_BASE) ||
+      (typeof document !== "undefined" &&
+        document.querySelector('meta[name="api-base"]') &&
+        document.querySelector('meta[name="api-base"]').content) ||
+      "";
+    base = String(base).replace(/\/+$/, "");
+    return base + path;
+  }
+
   var isTouch = window.matchMedia("(hover: none), (pointer: coarse)").matches;
   var prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -449,7 +464,7 @@
     }).join("");
   }
 
-  fetch("/api/site")
+  fetch(API("/api/site"))
     .then(function (r) { return r.ok ? r.json() : null; })
     .then(function (d) {
       if (!d || !d.ok) return;
@@ -520,7 +535,7 @@
     statusEl.textContent = "";
 
     try {
-      var res = await fetch("/api/send", {
+      var res = await fetch(API("/api/send"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: name, email: email, message: message })
@@ -538,7 +553,8 @@
         statusEl.style.color = "#c0392b";
       }
     } catch (err) {
-      statusEl.textContent = "Could not reach the server. Start the Node server and try again.";
+      statusEl.textContent =
+        "Server band hai — start.bat par double-click karke dobara try karein.";
       statusEl.style.color = "#c0392b";
     }
 

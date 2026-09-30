@@ -44,6 +44,9 @@ function loadEnv(file) {
 }
 loadEnv(path.join(__dirname, ".env"));
 
+/* store.js ko .env load ke BAAD require karo (usko env chahiye) */
+const storeLib = require("./store.js");
+
 /* ── Config ── */
 const PORT = Number(process.env.PORT) || 3000;
 const RESEND_KEY = process.env.RESEND_KEY || (process.env.RESENDKEY || "");
@@ -52,8 +55,13 @@ const TO_EMAIL = process.env.TO_EMAIL || "sharmaaaarashi@gmail.com";
 
 const SESSION_SECRET = process.env.ADMIN_SESSION_SECRET || "dev-session-secret-change-me";
 const SESSION_TTL_MS = 12 * 60 * 60 * 1000;
-const DATA_FILE = path.join(__dirname, "data.json");
-const AUTH_FILE = path.join(__dirname, "auth.json");
+
+/* ── Allowed origins (Vercel frontend → Render backend) ── */
+const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || "")
+  .split(",")
+  .map(function (s) { return s.trim().replace(/\/+$/, ""); })
+  .filter(Boolean);
+
 const RECOVERY_EMAIL = String(process.env.RECOVERY_EMAIL || TO_EMAIL).trim().toLowerCase();
 const RESET_CODE_TTL_MS = 10 * 60 * 1000;
 const RESET_TOKEN_TTL_MS = 15 * 60 * 1000;
@@ -114,35 +122,10 @@ function passwordProblem(pw) {
   return null;
 }
 
-function loadAuth() {
-  let saved = null;
-  try {
-    saved = JSON.parse(fs.readFileSync(AUTH_FILE, "utf8"));
-  } catch (e) {
-    saved = null;
-  }
-  if (saved && saved.username && saved.salt && saved.hash) {
-    return { username: String(saved.username), salt: String(saved.salt), hash: String(saved.hash) };
-  }
-  const user = safeUsername(process.env.ADMIN_USER || "admin") || "admin";
-  const pass = process.env.ADMIN_PASS || "admin123";
-  const fresh = { username: user, salt: "", hash: "" };
-  Object.assign(fresh, hashPassword(pass));
-  try {
-    fs.writeFileSync(AUTH_FILE, JSON.stringify(fresh, null, 2));
-  } catch (e) {
-    console.error("auth.json write failed:", e && e.message);
-  }
-  return fresh;
-}
 function saveAuth() {
-  try {
-    fs.writeFileSync(AUTH_FILE, JSON.stringify(auth, null, 2));
-  } catch (e) {
-    console.error("auth.json save failed:", e && e.message);
-  }
+  storeLib.saveAuth(auth);
 }
-const auth = loadAuth();
+let auth = { username: "admin", salt: "", hash: "" };
 
 function clientIp(req) {
   return String(req.socket && req.socket.remoteAddress ? req.socket.remoteAddress : "unknown");
@@ -279,13 +262,7 @@ const DEFAULT_PROJECTS = [
   }
 ];
 
-function loadData() {
-  let raw = null;
-  try {
-    raw = JSON.parse(fs.readFileSync(DATA_FILE, "utf8"));
-  } catch (e) {
-    raw = null;
-  }
+function loadData(raw) {
   const d = raw && typeof raw === "object" ? raw : {};
   const legacy = !raw || raw.site === undefined;
   d.messages = Array.isArray(d.messages) ? d.messages : [];
@@ -333,16 +310,33 @@ function normaliseJourney(raw) {
   }
   return base;
 }
-let store = loadData();
+/* ── Boot: Supabase se load, warna local file ── */
+let store = {};
+let ready = false;
+
+/* Writes ko jod-ta hai: bahut saare changes par ek hi Supabase call */
+let saveTimer = null;
+let savePending = false;
 
 function saveData() {
-  try {
-    fs.writeFileSync(DATA_FILE, JSON.stringify(store, null, 2));
-  } catch (e) {
-    console.error("data.json save failed:", e && e.message);
-  }
+  if (!ready) return;
+  if (saveTimer) clearTimeout(saveTimer);
+  saveTimer = setTimeout(function () {
+    saveTimer = null;
+    storeLib.saveStore(store);
+  }, 400);
 }
-if (store.site) saveData();
+
+async function boot() {
+  /* data aur credentials dono ek saath lo (parallel) */
+  const results = await Promise.all([storeLib.loadStore(), storeLib.loadAuth()]);
+  store = loadData(results[0]);
+  auth = results[1];
+  ready = true;
+  saveData();
+  console.log("Data store ready (" + (storeLib.SB_ON ? "Supabase" : "local file") + ")");
+  console.log("Supabase link: " + (storeLib.sbHealthy() ? "healthy" : "offline -> local mode"));
+}
 
 /* ── Sessions ── */
 function tokenHash(t) {
@@ -557,6 +551,32 @@ function siteOrigin(req) {
   const host = String(req.headers.host || "localhost:" + PORT);
   const isLocal = /^localhost$|^127\.0\.0\.1$|^\[::1\]$/i.test(host.split(":")[0]);
   return (isLocal ? "http://" : "https://") + host;
+}
+
+/* ── CORS: Vercel frontend → Render backend ── */
+function applyCors(req, res) {
+  const origin = String(req.headers.origin || "").replace(/\/+$/, "");
+  if (!origin) return;
+
+  const allowed =
+    ALLOWED_ORIGINS.length > 0
+      ? ALLOWED_ORIGINS.indexOf(origin) !== -1
+      : /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(origin) ||
+        /\.vercel\.app$/i.test(origin) ||
+        /\.onrender\.com$/i.test(origin);
+
+  if (!allowed) return;
+
+  res.setHeader("Access-Control-Allow-Origin", origin);
+  res.setHeader("Vary", "Origin");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE,OPTIONS");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization, X-Requested-With, Accept"
+  );
+  res.setHeader("Access-Control-Expose-Headers", "Content-Length, Content-Type");
+  res.setHeader("Access-Control-Max-Age", "86400");
 }
 
 /* ── Contact send via Resend ── */
@@ -840,8 +860,28 @@ const server = http.createServer(function (req, res) {
   const method = req.method || "GET";
   const isAdmin = verifySession(req);
 
+  /* CORS for every request (Vercel frontend -> Render backend) */
+  applyCors(req, res);
+
+  /* Preflight */
+  if (method === "OPTIONS") {
+    res.writeHead(204);
+    res.end();
+    return;
+  }
+
+  /* health check for uptime monitors */
+  if (pathname === "/api/health" && method === "GET") {
+    sendJson(res, 200, { ok: true, ready: ready, supabase: storeLib.SB_ON, uptime: process.uptime() });
+    return;
+  }
+
   /* public: site content consumed by the frontend */
   if (pathname === "/api/site" && method === "GET") {
+    if (!ready) {
+      sendJson(res, 503, { ok: false, error: "Server is starting, please retry in a few seconds." });
+      return;
+    }
     sendJson(res, 200, {
       ok: true,
       data: {
@@ -1363,4 +1403,10 @@ async function handleAdminApi(req, res, pathname, method) {
 server.listen(PORT, function () {
   console.log("Portfolio running at http://localhost:" + PORT);
   console.log("Admin at http://localhost:" + PORT + "/admin");
+  console.log("Supabase: " + (storeLib.SB_ON ? "connected" : "not configured (using local file)"));
+
+  boot().catch(function (e) {
+    console.error("Boot failed:", e && e.message);
+    ready = true;
+  });
 });

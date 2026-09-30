@@ -248,6 +248,10 @@
 <script>
   const $ = (id) => document.getElementById(id);
 
+  /* Server band hone par har jagah yehi message dikhega */
+  const SERVER_DOWN_MSG =
+    "Server band hai. Portfolio folder mein start.bat par double-click karein, phir dobara try karein.";
+
   const loginForm = $("loginForm");
   const err = $("err");
   const errText = $("errText");
@@ -282,7 +286,10 @@
       errText.textContent = d.error || "Login failed. Please try again.";
       err.style.display = "flex";
     } catch (x) {
-      errText.textContent = "Network error. Is the server running?";
+      errText.innerHTML =
+        "<strong>Server band hai — login nahi ho sakta.</strong><br>" +
+        "Fix: portfolio folder mein <strong>start.bat</strong> par double-click karein " +
+        "(server khud chal jayega), phir dobara login karein.";
       err.style.display = "flex";
     }
     btn.disabled = false;
@@ -352,7 +359,7 @@
     try {
       d = await postJson("/api/admin/recover/start", { email: $("recEmail").value }, $("step1Btn"), "Sending…");
     } catch (x) {
-      showRecErr("Network error. Is the server running?");
+      showRecErr(SERVER_DOWN_MSG);
       return;
     }
     if (!d.ok) { showRecErr(d.error || "Code bheja nahi ja saka."); return; }
@@ -377,7 +384,7 @@
     try {
       d = await postJson("/api/admin/recover/start", { email: recEmail }, this, "Sending…");
     } catch (x) {
-      showRecErr("Network error. Is the server running?");
+      showRecErr(SERVER_DOWN_MSG);
       return;
     }
     if (!d.ok) { showRecErr(d.error || "Code dobara nahi bheja ja saka."); return; }
@@ -394,7 +401,7 @@
     try {
       d = await postJson("/api/admin/recover/verify", { email: recEmail, code: $("recCode").value }, $("step2Btn"), "Verifying…");
     } catch (x) {
-      showRecErr("Network error. Is the server running?");
+      showRecErr(SERVER_DOWN_MSG);
       return;
     }
     if (!d.ok) { showRecErr(d.error || "Code sahi nahi hai."); return; }
@@ -415,7 +422,7 @@
     try {
       d = await postJson("/api/admin/recover/reset", { token: recToken, newPassword: p1 }, $("step3Btn"), "Saving…");
     } catch (x) {
-      showRecErr("Network error. Is the server running?");
+      showRecErr(SERVER_DOWN_MSG);
       return;
     }
     if (!d.ok) { showRecErr(d.error || "Password set nahi hua."); return; }
