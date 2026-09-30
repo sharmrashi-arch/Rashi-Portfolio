@@ -1040,22 +1040,6 @@ footer {
   text-transform: uppercase;
   margin-top: 6px;
 }
-.footer-admin {
-  margin-top: 10px;
-  font-size: 0.75rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-.footer-admin a {
-  color: var(--muted);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: color 0.2s ease, border-color 0.2s ease;
-}
-.footer-admin a:hover {
-  color: var(--accent);
-  border-color: var(--accent);
-}
 
 /* ============ Projects: See More ============ */
 .projects-more {
