@@ -12,6 +12,35 @@
     <meta property="og:description" content="Digital Marketing with AI. Web & Game Development. Technology is my canvas, marketing is my voice." />
     <meta property="og:type" content="website" />
 
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Rashi Sharma",
+        "jobTitle": "Web Developer & Digital Marketing Specialist",
+        "description": "Web developer and digital marketing specialist from Pundri, Haryana, building modern websites, games and AI-powered solutions.",
+        "knowsAbout": [
+          "HTML5",
+          "CSS",
+          "JavaScript",
+          "Python",
+          "C++",
+          "Internet of Things",
+          "Website Development",
+          "Game Development",
+          "Digital Marketing",
+          "Search Engine Optimization"
+        ],
+        "sameAs": ["https://github.com/sharmrashi-arch"],
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Pundri",
+          "addressRegion": "Haryana",
+          "addressCountry": "IN"
+        }
+      }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -39,7 +68,7 @@
           <li><a href="#about">About</a></li>
           <li><a href="#skills">Skills</a></li>
           <li><a href="#projects">Projects</a></li>
-          <li><a href="#blog">Blog</a></li>
+          <li><a href="blog.html">Blog</a></li>
           <li><a href="#vision">Vision</a></li>
           <li><a href="#contact" class="nav-cta">Contact</a></li>
         </ul>
@@ -51,7 +80,7 @@
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
         <a href="#projects">Projects</a>
-        <a href="#blog">Blog</a>
+        <a href="blog.html">Blog</a>
         <a href="#vision">Vision</a>
         <a href="#contact" class="nav-cta">Contact</a>
       </div>
@@ -59,25 +88,22 @@
     </header>
 
     <section id="hero" class="section">
-      <video class="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
-        <source src="videos/hero.mp4" type="video/mp4" />
-      </video>
-      <div class="hero-video-overlay"></div>
       <div class="container hero-inner">
         <div class="hero-text">
-          <p class="hero-greeting">Hello, welcome to my world</p>
+          <p class="hero-greeting" id="heroGreeting">Hello, welcome to my world</p>
           <h1 class="font-exo">I am <span class="typewriter" id="typewriter"></span><span class="type-caret"></span></h1>
-          <p class="hero-tagline">The creative mind behind intelligent digital experiences</p>
+          <p class="hero-tagline" id="heroTagline">The creative mind behind intelligent digital experiences</p>
           <div class="hero-actions">
             <a href="#about" class="btn btn-outline">Explore My Journey</a>
             <a href="#projects" class="btn btn-primary">View My Work</a>
+            <a href="#contact" class="btn btn-outline" id="heroCta">Get In Touch</a>
           </div>
         </div>
         <div class="hero-visual">
           <div class="profile-ring">
             <span class="ping-ring"></span>
             <span class="ping-ring delay"></span>
-            <img src="images/portfolio.jpg" alt="Rashi Sharma - Digital Marketer & AI Enthusiast" />
+            <img id="heroImg" src="images/portfolio.webp" alt="Rashi Sharma - Digital Marketer & AI Enthusiast" />
           </div>
         </div>
       </div>
@@ -94,29 +120,31 @@
         <div class="about-grid">
           <div class="about-image reveal">
             <div class="about-photo">
-              <img src="images/rashi-about.svg" alt="Rashi Sharma, Web Developer &amp; Digital Marketer from Pundri, Haryana" />
+              <img id="aboutImg" src="images/rashi-about.svg" alt="Rashi Sharma, Web Developer &amp; Digital Marketer from Pundri, Haryana" loading="lazy" decoding="async" />
             </div>
           </div>
 
           <div class="about-content">
-            <h3 class="about-subhead font-exo">Digital Marketer &amp; AI Enthusiast</h3>
-            <p>
-              I am Rashi Sharma, a digital marketing specialist from Pundri, learning to harness the
-              power of Artificial Intelligence. I believe technology and marketing, when combined with
-              creativity, can build experiences people remember.
-            </p>
-            <p>
-              I completed my schooling in Pundri - finishing 10th in 2023 and 12th in 2024. Then I
-              successfully completed my NIELIT O Level course, where I mastered essential programming
-              languages including HTML, CSS, JavaScript, Python, IoT and C++. I am currently pursuing
-              a Digital Marketing with AI course to bring intelligent, data-driven strategies to brands.
-            </p>
-            <p>
-              Beyond studies, I love building things. I have designed websites and developed games that
-              turn ideas into working, interactive products - every project is a chance to learn,
-              create and grow.
-            </p>
-            <p class="highlight-line">
+            <h3 class="about-subhead font-exo" id="aboutSubhead">Digital Marketer &amp; AI Enthusiast</h3>
+            <div id="aboutParas">
+              <p>
+                I am Rashi Sharma, a digital marketing specialist from Pundri, learning to harness the
+                power of Artificial Intelligence. I believe technology and marketing, when combined with
+                creativity, can build experiences people remember.
+              </p>
+              <p>
+                I completed my schooling in Pundri - finishing 10th in 2023 and 12th in 2024. Then I
+                successfully completed my NIELIT O Level course, where I mastered essential programming
+                languages including HTML, CSS, JavaScript, Python, IoT and C++. I am currently pursuing
+                a Digital Marketing with AI course to bring intelligent, data-driven strategies to brands.
+              </p>
+              <p>
+                Beyond studies, I love building things. I have designed websites and developed games that
+                turn ideas into working, interactive products - every project is a chance to learn,
+                create and grow.
+              </p>
+            </div>
+            <p class="highlight-line" id="aboutHighlight">
               Technology is my canvas, and marketing is my voice - I create work that people remember.
             </p>
           </div>
@@ -125,13 +153,13 @@
         <div class="journey-card reveal">
           <div class="corner corner-tl"></div>
           <div class="corner corner-br"></div>
-          <h3 class="font-exo">My Journey</h3>
-          <p>
+          <h3 class="font-exo" id="journeyTitle">My Journey</h3>
+          <p id="journeyIntro">
             I didn't stop at just learning - I applied everything. From writing my first lines of
             code in O Level to building complete websites and games, my journey has been powered by
             curiosity and a habit of turning knowledge into creation.
           </p>
-          <div class="timeline">
+          <div class="timeline" id="journeyTimeline">
             <div class="timeline-item">
               <div class="timeline-dot"></div>
               <div class="timeline-year">2023</div>
@@ -165,75 +193,75 @@
           <h2 class="font-exo">My <span class="text-gradient">Capabilities</span></h2>
         </div>
 
-        <div class="skills-grid">
+        <div class="skills-grid" id="skillsGrid">
           <div class="skill-card reveal">
-            <div class="skill-badge"><img src="images/icons/html5.svg" alt="HTML5 icon representing frontend web development skill" /></div>
+            <div class="skill-badge"><img src="images/icons/html5.svg" alt="HTML5 icon representing frontend web development skill" loading="lazy" decoding="async" /></div>
             <h3>HTML &amp; CSS</h3>
             <p>Building clean, responsive and accessible web pages.</p>
           </div>
           <div class="skill-card reveal">
-            <div class="skill-badge"><img src="images/icons/javascript.svg" alt="JavaScript icon representing interactive web development skill" /></div>
+            <div class="skill-badge"><img src="images/icons/javascript.svg" alt="JavaScript icon representing interactive web development skill" loading="lazy" decoding="async" /></div>
             <h3>JavaScript</h3>
             <p>Adding interactivity and logic to modern websites.</p>
           </div>
           <div class="skill-card reveal">
-            <div class="skill-badge"><img src="images/icons/python.svg" alt="Python icon representing programming and automation skill" /></div>
+            <div class="skill-badge"><img src="images/icons/python.svg" alt="Python icon representing programming and automation skill" loading="lazy" decoding="async" /></div>
             <h3>Python</h3>
             <p>Programming, automation and data-driven thinking.</p>
           </div>
           <div class="skill-card reveal">
-            <div class="skill-badge"><img src="images/icons/cpp.svg" alt="C++ icon representing programming capability" /></div>
+            <div class="skill-badge"><img src="images/icons/cpp.svg" alt="C++ icon representing programming capability" loading="lazy" decoding="async" /></div>
             <h3>C++</h3>
             <p>Strong fundamentals in logic building and programming.</p>
           </div>
           <div class="skill-card reveal">
-            <div class="skill-badge"><img src="images/icons/iot.svg" alt="IoT icon representing connected-devices skill" /></div>
+            <div class="skill-badge"><img src="images/icons/iot.svg" alt="IoT icon representing connected-devices skill" loading="lazy" decoding="async" /></div>
             <h3>IoT</h3>
             <p>Connecting smart devices with real-world applications.</p>
           </div>
           <div class="skill-card reveal">
-            <div class="skill-badge"><img src="images/icons/msoffice.svg" alt="MS Office icon representing office productivity skill" /></div>
+            <div class="skill-badge"><img src="images/icons/msoffice.svg" alt="MS Office icon representing office productivity skill" loading="lazy" decoding="async" /></div>
             <h3>MS Office</h3>
             <p>Word, PowerPoint and everyday productivity tools.</p>
           </div>
           <div class="skill-card reveal">
-            <div class="skill-badge"><img src="images/icons/excel.svg" alt="Excel icon representing data analysis skill" /></div>
+            <div class="skill-badge"><img src="images/icons/excel.svg" alt="Excel icon representing data analysis skill" loading="lazy" decoding="async" /></div>
             <h3>Excel</h3>
             <p>Spreadsheets, formulas, charts and data analysis.</p>
           </div>
           <div class="skill-card reveal">
-            <div class="skill-badge"><img src="images/icons/libre.svg" alt="LibreOffice icon representing document productivity skill" /></div>
+            <div class="skill-badge"><img src="images/icons/libre.svg" alt="LibreOffice icon representing document productivity skill" loading="lazy" decoding="async" /></div>
             <h3>LibreOffice</h3>
             <p>Open-source office suite for efficient document work.</p>
           </div>
           <div class="skill-card reveal">
-            <div class="skill-badge"><img src="images/icons/webdev.svg" alt="Web development icon" /></div>
+            <div class="skill-badge"><img src="images/icons/webdev.svg" alt="Web development icon" loading="lazy" decoding="async" /></div>
             <h3>Website Development</h3>
             <p>Designing and developing complete, functional websites.</p>
           </div>
           <div class="skill-card reveal">
-            <div class="skill-badge"><img src="images/icons/game.svg" alt="Game development icon" /></div>
+            <div class="skill-badge"><img src="images/icons/game.svg" alt="Game development icon" loading="lazy" decoding="async" /></div>
             <h3>Game Development</h3>
             <p>Creating interactive games that are fun to play.</p>
           </div>
           <div class="skill-card reveal">
-            <div class="skill-badge"><img src="images/icons/marketing.svg" alt="Digital marketing icon" /></div>
+            <div class="skill-badge"><img src="images/icons/marketing.svg" alt="Digital marketing icon" loading="lazy" decoding="async" /></div>
             <h3>Digital Marketing</h3>
             <p>Growing brands with modern marketing strategies.</p>
           </div>
           <div class="skill-card reveal">
-            <div class="skill-badge"><img src="images/icons/ai.svg" alt="AI tools icon representing automation and efficiency skill" /></div>
+            <div class="skill-badge"><img src="images/icons/ai.svg" alt="AI tools icon representing automation and efficiency skill" loading="lazy" decoding="async" /></div>
             <h3>AI Tools &amp; Automation</h3>
             <p>Using artificial intelligence to work smarter and faster.</p>
           </div>
           <div class="skill-card reveal">
-            <div class="skill-badge"><img src="images/icons/seo.svg" alt="SEO icon representing search rank improvement and content optimization skill" /></div>
+            <div class="skill-badge"><img src="images/icons/seo.svg" alt="SEO icon representing search rank improvement and content optimization skill" loading="lazy" decoding="async" /></div>
             <h3>SEO &amp; Content</h3>
             <p>Optimising content so the right people find it.</p>
           </div>
         </div>
 
-        <div class="stats reveal">
+        <div class="stats reveal" id="statsRow">
           <div class="stat">
             <div class="stat-number" data-target="6">0</div>
             <div class="stat-label">Languages Learned</div>
@@ -257,10 +285,10 @@
           <h2 class="font-exo">My <span class="text-gradient">Projects</span></h2>
         </div>
 
-        <div class="projects-grid">
+        <div class="projects-grid" id="projectsGrid">
           <article class="project-card reveal">
             <div class="project-thumb thumb-website">
-              <img src="images/anjali-hero.webp" alt="Anjali Kids School website preview" />
+              <img src="images/anjali-hero.webp" alt="Anjali Kids School website preview" loading="lazy" decoding="async" />
               <span class="project-tag tag-web">Web Development</span>
             </div>
             <div class="project-body">
@@ -279,7 +307,7 @@
 
           <article class="project-card reveal">
             <div class="project-thumb thumb-game">
-              <img src="images/real-game.png" alt="Block Blast game preview" />
+              <img src="images/real-game.webp" alt="Block Blast game preview" loading="lazy" decoding="async" />
               <span class="project-tag tag-game">Game Development</span>
             </div>
             <div class="project-body">
@@ -298,7 +326,7 @@
 
           <article class="project-card reveal">
             <div class="project-thumb thumb-marketing">
-              <img src="images/project-marketing.svg" alt="AI marketing campaign preview" />
+              <img src="images/project-marketing.svg" alt="AI marketing campaign preview" loading="lazy" decoding="async" />
               <span class="project-tag tag-mkt">Digital Marketing</span>
             </div>
             <div class="project-body">
@@ -316,7 +344,7 @@
 
           <article class="project-card reveal">
             <div class="project-thumb thumb-app">
-              <img src="images/project-soon.svg" alt="Next project preview" />
+              <img src="images/project-soon.svg" alt="Next project preview" loading="lazy" decoding="async" />
               <span class="project-tag tag-app">More Coming Soon</span>
             </div>
             <div class="project-body">
@@ -332,21 +360,9 @@
             </div>
           </article>
         </div>
-      </div>
-    </section>
 
-    <section id="blog" class="section">
-      <div class="container">
-        <div class="section-head reveal">
-          <p class="section-label">Blog</p>
-          <h2 class="font-exo">Insights & <span class="text-gradient">Experiences</span></h2>
-        </div>
-        <div class="blog-grid">
-          <article class="blog-card reveal">
-            <div class="blog-tag">Coming Soon</div>
-            <h3>Post heading aayega</h3>
-            <p>Yahan pehla blog post judega â€” digital marketing aur AI pe Rashi ke insights.</p>
-          </article>
+        <div class="projects-more" id="projectsMore" hidden>
+          <button type="button" class="btn btn-primary" id="projectsToggle">See More Projects</button>
         </div>
       </div>
     </section>
@@ -358,7 +374,7 @@
           <p class="section-label">My Vision</p>
           <h2 class="font-exo">What I <span class="text-gradient">Believe</span></h2>
         </div>
-        <div class="vision-slides">
+        <div class="vision-slides" id="visionSlides">
           <div class="vision-slide active font-exo">I don't chase trends. I create value.</div>
           <div class="vision-slide font-exo">I don't build projects. I build experiences.</div>
           <div class="vision-slide font-exo">I don't just market. I make brands unforgettable.</div>
@@ -393,13 +409,9 @@
 
           <div class="contact-info reveal">
             <h3 class="font-exo">Let's Connect</h3>
-            <p><span class="info-icon">&#9993;</span> rashi.sharma@email.com</p>
-            <p><span class="info-icon">&#128205;</span> Pundri, Haryana, India</p>
-            <div class="socials">
-              <a href="#" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
-              <a href="#" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a>
-              <a href="#" target="_blank" rel="noopener" aria-label="GitHub">GitHub</a>
-            </div>
+            <p><span class="info-icon">&#9993;</span> <span id="contactEmail">rashi.sharma@email.com</span></p>
+            <p><span class="info-icon">&#128205;</span> <span id="contactLocation">Pundri, Haryana, India</span></p>
+            <div class="socials" id="socials"></div>
           </div>
         </div>
       </div>
@@ -407,8 +419,17 @@
 
     <footer>
       <div class="container footer-inner">
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="#hero">Home</a>
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="blog.html">Blog</a>
+          <a href="#vision">Vision</a>
+          <a href="#contact">Contact</a>
+        </nav>
         <p>&copy; 2026 Rashi Sharma. All rights reserved.</p>
-        <p class="footer-tagline">The Future of Digital Innovation</p>
+        <p class="footer-tagline" id="footerTagline">The Future of Digital Innovation</p>
       </div>
     </footer>
 

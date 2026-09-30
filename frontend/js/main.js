@@ -288,6 +288,210 @@
     setInterval(nextSlide, 3800);
   }
 
+  /* ============ Dynamic site content (from /api/site) ============ */
+  var PROJECTS_EXPANDED = false;
+
+  function setText(id, value) {
+    var el = document.getElementById(id);
+    if (el && typeof value === "string" && value.trim()) el.textContent = value;
+  }
+
+  function escHtml(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  function projectCardHtml(p) {
+    var img = p.image
+      ? '<img src="' + escHtml(p.image) + '" alt="' + escHtml(p.title) + '" loading="lazy" decoding="async" />'
+      : "";
+    var tag = p.tag ? '<span class="project-tag">' + escHtml(p.tag) + "</span>" : "";
+    var chips = (p.chips || []).length
+      ? '<div class="tech-chips">' + p.chips.map(function (c) { return "<span>" + escHtml(c) + "</span>"; }).join("") + "</div>"
+      : "";
+    var ctaText = escHtml(p.cta || "View Project");
+    var cta = p.url
+      ? '<a href="' + escHtml(p.url) + '" class="btn btn-primary btn-sm" target="_blank" rel="noopener">' + ctaText + "</a>"
+      : '<a href="#contact" class="btn btn-outline btn-sm">' + ctaText + "</a>";
+    return '<article class="project-card reveal visible">' +
+      '<div class="project-thumb">' + img + tag + "</div>" +
+      '<div class="project-body">' +
+        "<h3>" + esc(p.title) + "</h3>" +
+        "<p>" + esc(p.desc) + "</p>" +
+        chips + cta +
+      "</div>" +
+    "</article>";
+  }
+
+  function skillCardHtml(s) {
+    var icon = s.icon ? '<img src="' + escHtml(s.icon) + '" alt="' + escHtml(s.name) + '" loading="lazy" decoding="async" />' : "";
+    return '<div class="skill-card reveal visible">' +
+      '<div class="skill-badge">' + icon + "</div>" +
+      "<h3>" + escHtml(s.name) + "</h3>" +
+      "<p>" + escHtml(s.desc) + "</p>" +
+    "</div>";
+  }
+
+  function renderProjects(projects, visibleCount, ctaText) {
+    var grid = document.getElementById("projectsGrid");
+    var more = document.getElementById("projectsMore");
+    var toggle = document.getElementById("projectsToggle");
+    if (!grid) return;
+
+    var label = (typeof ctaText === "string" && ctaText.trim()) ? ctaText.trim() : "View All Projects";
+
+    if (!projects.length) {
+      grid.innerHTML = '<div class="empty-state"><p>No projects added yet.</p></div>';
+      if (more) more.hidden = true;
+      return;
+    }
+
+    grid.innerHTML = projects.map(projectCardHtml).join("");
+
+    var n = typeof visibleCount === "number" ? visibleCount : 2;
+    var cards = grid.querySelectorAll(".project-card");
+    if (n <= 0 || n >= cards.length) {
+      cards.forEach(function (c) { c.classList.remove("is-hidden"); });
+      if (more) more.hidden = true;
+      return;
+    }
+
+    function paint() {
+      cards.forEach(function (c, i) {
+        c.classList.toggle("is-hidden", !PROJECTS_EXPANDED && i >= n);
+      });
+    }
+    paint();
+
+    if (more) {
+      more.hidden = false;
+      if (toggle) {
+        toggle.textContent = PROJECTS_EXPANDED ? "Show Less" : label;
+        toggle.onclick = function () {
+          PROJECTS_EXPANDED = !PROJECTS_EXPANDED;
+          paint();
+          toggle.textContent = PROJECTS_EXPANDED ? "Show Less" : label;
+        };
+      }
+    }
+  }
+
+  function renderJourney(journey) {
+    if (!journey || typeof journey !== "object") return;
+    setText("journeyTitle", journey.title);
+    setText("journeyIntro", journey.intro);
+
+    var box = document.getElementById("journeyTimeline");
+    if (!box) return;
+    var items = Array.isArray(journey.items) ? journey.items : [];
+    if (!items.length) {
+      box.innerHTML = '<p class="timeline-content">No milestones added yet.</p>';
+      return;
+    }
+    box.innerHTML = items.map(function (i) {
+      return '<div class="timeline-item">' +
+        '<div class="timeline-dot"></div>' +
+        '<div class="timeline-year">' + escHtml(i.year) + "</div>" +
+        '<div class="timeline-content">' + escHtml(i.text) + "</div>" +
+      "</div>";
+    }).join("");
+  }
+
+  function renderStats(stats) {
+    var row = document.getElementById("statsRow");
+    if (!row || !Array.isArray(stats) || !stats.length) return;
+    row.innerHTML = stats.map(function (s) {
+      return '<div class="stat">' +
+        '<div class="stat-number" data-target="' + (Number(s.number) || 0) + '">0</div>' +
+        '<div class="stat-label">' + escHtml(s.label) + "</div>" +
+      "</div>";
+    }).join("");
+    statEls = row.querySelectorAll(".stat-number");
+    statEls.forEach(function (el) { statObserver.observe(el); });
+  }
+
+  function renderVision(slides) {
+    var box = document.getElementById("visionSlides");
+    if (!box || !Array.isArray(slides) || !slides.length) return;
+    box.innerHTML = slides
+      .filter(function (s) { return String(s || "").trim(); })
+      .map(function (s, i) {
+        return '<div class="vision-slide font-exo' + (i === 0 ? " active" : "") + '">' + escHtml(s) + "</div>";
+      })
+      .join("");
+    slides = box.querySelectorAll(".vision-slide");
+    currentSlide = 0;
+  }
+
+  function renderSkills(skills) {
+    var grid = document.getElementById("skillsGrid");
+    if (!grid || !Array.isArray(skills)) return;
+    grid.innerHTML = skills.length
+      ? skills.map(skillCardHtml).join("")
+      : '<div class="empty-state"><p>No capabilities added yet.</p></div>';
+  }
+
+  function renderSocials(site) {
+    var box = document.getElementById("socials");
+    if (!box) return;
+    var links = [
+      ["LinkedIn", site.socialLinkedin],
+      ["Instagram", site.socialInstagram],
+      ["GitHub", site.socialGithub]
+    ].filter(function (row) { return row[1] && String(row[1]).trim(); });
+    if (!links.length) {
+      box.innerHTML = '<span class="socials-empty">Add social links from the admin panel</span>';
+      return;
+    }
+    box.innerHTML = links.map(function (row) {
+      return '<a href="' + escHtml(row[1]) + '" target="_blank" rel="noopener noreferrer" aria-label="' +
+        escHtml(row[0]) + '">' + escHtml(row[0]) + "</a>";
+    }).join("");
+  }
+
+  fetch("/api/site")
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (d) {
+      if (!d || !d.ok) return;
+      var site = d.data.site || {};
+
+      if (site.heroImage) {
+        var heroImg = document.getElementById("heroImg");
+        if (heroImg) heroImg.src = site.heroImage;
+      }
+      if (site.aboutImage) {
+        var aboutImg = document.getElementById("aboutImg");
+        if (aboutImg) aboutImg.src = site.aboutImage;
+      }
+      setText("heroGreeting", site.heroGreeting);
+      setText("heroTagline", site.heroTagline);
+      setText("heroCta", site.heroCtaText);
+      setText("aboutSubhead", site.aboutSubhead);
+      setText("aboutHighlight", site.aboutHighlight);
+      setText("contactEmail", site.contactEmail);
+      setText("contactLocation", site.contactLocation);
+      setText("footerTagline", site.footerTagline);
+
+      var paras = document.getElementById("aboutParas");
+      if (paras && Array.isArray(site.aboutParas) && site.aboutParas.length) {
+        paras.innerHTML = site.aboutParas
+          .filter(function (t) { return String(t || "").trim(); })
+          .map(function (t) { return "<p>" + escHtml(t) + "</p>"; })
+          .join("");
+      }
+
+      renderSocials(site);
+      renderVision(site.visionSlides);
+      renderStats(site.stats);
+      renderJourney(d.data.journey);
+      renderSkills(d.data.skills);
+      renderProjects(d.data.projects || [], site.projectsVisible, site.projectsCtaText);
+
+      thumbImgs = document.querySelectorAll(".project-thumb img");
+      if (thumbImgs.length && !prefersReduced) parallaxThumbs();
+    })
+    .catch(function () {});
+
   /* ============ Contact form ============ */
   var form = document.getElementById("contact-form");
   var statusEl = document.getElementById("form-status");

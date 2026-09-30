@@ -1,5 +1,6 @@
 # Secrets — kabhi GitHub par nahi
 backend/.env
+backend/auth.json
 
 # Logs
 backend/*.log

@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Admin Dashboard — Rashi Portfolio</title>
+<style>
+  :root {
+    --bg: #0a0e17;
+    --sidebar: #0f1523;
+    --panel: #131b2b;
+    --panel-2: #182134;
+    --line: #212c42;
+    --line-soft: #1a2334;
+    --text: #e8ecf4;
+    --muted: #8d99ae;
+    --muted-2: #667287;
+    --accent: #4f7cff;
+    --accent-soft: rgba(79, 124, 255, .12);
+    --green: #35c46b;
+    --green-soft: rgba(53, 196, 107, .12);
+    --red: #ff6b6b;
+    --red-soft: rgba(255, 107, 107, .1);
+    --amber: #f5b544;
+    --radius: 12px;
+    --sb-w: 258px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; }
+
+  .layout { display: flex; min-height: 100vh; }
+
+  .sidebar {
+    width: var(--sb-w);
+    flex: 0 0 var(--sb-w);
+    background: var(--sidebar);
+    border-right: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    z-index: 40;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 11px;
+    padding: 20px 18px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .brand-mark {
+    width: 36px; height: 36px; flex: 0 0 36px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent), #7b5cff);
+    display: grid; place-items: center;
+    font-weight: 700; font-size: 15px; color: #fff;
+  }
+  .brand-txt strong { display: block; font-size: 14px; letter-spacing: .01em; }
+  .brand-txt span { display: block; font-size: 11px; color: var(--muted-2); margin-top: 1px; }
+
+  .nav { flex: 1; overflow-y: auto; padding: 14px 10px; }
+  .nav-label {
+    font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--muted-2); padding: 12px 10px 7px; font-weight: 600;
+  }
+  .nav-item {
+    display: flex; align-items: center; gap: 11px;
+    width: 100%;
+    padding: 10px 11px;
+    margin-bottom: 2px;
+    border: 0; border-radius: 9px;
+    background: transparent; color: var(--muted);
+    font-size: 13.5px; font-weight: 500;
+    cursor: pointer; text-align: left;
+    transition: background .15s, color .15s;
+  }
+  .nav-item svg { width: 17px; height: 17px; flex: 0 0 17px; stroke-width: 1.8; }
+  .nav-item:hover { background: var(--panel); color: var(--text); }
+  .nav-item.active { background: var(--accent-soft); color: #9dbaff; }
+  .nav-item.active svg { color: var(--accent); }
+  .nav-count {
+    margin-left: auto;
+    min-width: 20px; padding: 1px 6px;
+    border-radius: 20px;
+    background: var(--accent); color: #fff;
+    font-size: 10.5px; font-weight: 700; text-align: center;
+  }
+  .nav-count.zero { background: var(--panel-2); color: var(--muted-2); }
+
+  .sb-foot { padding: 12px; border-top: 1px solid var(--line-soft); }
+  .sb-user { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 9px; background: var(--panel); }
+  .avatar {
+    width: 30px; height: 30px; flex: 0 0 30px; border-radius: 50%;
+    background: linear-gradient(135deg, #35c46b, #1f9d55);
+    display: grid; place-items: center; font-size: 12px; font-weight: 700; color: #fff;
+  }
+  .sb-user .who { min-width: 0; }
+  .sb-user .who strong { display: block; font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sb-user .who span { display: block; font-size: 10.5px; color: var(--muted-2); }
+  .logout {
+    width: 100%; margin-top: 9px; padding: 9px 11px;
+    display: flex; align-items: center; gap: 10px;
+    border: 1px solid var(--line); border-radius: 9px;
+    background: transparent; color: var(--muted);
+    font-size: 13px; cursor: pointer; transition: .15s;
+  }
+  .logout:hover { border-color: var(--red); color: var(--red); background: var(--red-soft); }
+  .logout svg { width: 16px; height: 16px; }
+
+  .main { flex: 1; min-width: 0; margin-left: var(--sb-w); display: flex; flex-direction: column; }
+  .topbar {
+    position: sticky; top: 0; z-index: 30;
+    display: flex; align-items: center; gap: 16px;
+    padding: 16px 28px;
+    background: rgba(10, 14, 23, .88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .burger { display: none; }
+  .topbar h1 { font-size: 19px; font-weight: 650; letter-spacing: -.01em; }
+  .topbar p { font-size: 12.5px; color: var(--muted-2); margin-top: 2px; }
+  .top-actions { margin-left: auto; display: flex; align-items: center; gap: 9px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 8px 14px; border-radius: 9px;
+    border: 1px solid var(--line); background: var(--panel); color: var(--text);
+    font-size: 13px; font-weight: 500; cursor: pointer; transition: .15s;
+  }
+  .btn:hover { border-color: var(--accent); color: #fff; background: var(--panel-2); }
+  .btn svg { width: 15px; height: 15px; }
+  .btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+  .btn-primary:hover { background: #3f6bef; border-color: #3f6bef; color: #fff; }
+  .btn-danger-ghost { border-color: transparent; background: transparent; color: var(--muted); }
+  .btn-danger-ghost:hover { border-color: var(--red); color: var(--red); background: var(--red-soft); }
+  .btn-sm { padding: 6px 11px; font-size: 12.5px; }
+  .btn:disabled { opacity: .5; cursor: not-allowed; }
+
+  .view { padding: 26px 28px 60px; max-width: 1180px; }
+  section.page { display: none; }
+  section.page.active { display: block; animation: fade .18s ease; }
+  @keyframes fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(168px, 1fr)); gap: 14px; margin-bottom: 24px; }
+  .card {
+    padding: 17px 18px;
+    border: 1px solid var(--line); border-radius: var(--radius);
+    background: linear-gradient(180deg, var(--panel), var(--panel-2));
+    position: relative; overflow: hidden;
+  }
+  .card::after { content: ""; position: absolute; inset: 0 auto auto 0; width: 100%; height: 2px; opacity: .5; }
+  .card.c1::after { background: var(--accent); }
+  .card.c2::after { background: var(--amber); }
+  .card.c3::after { background: #7b5cff; }
+  .card.c4::after { background: var(--green); }
+  .card .ico { color: var(--muted-2); margin-bottom: 10px; }
+  .card .ico svg { width: 18px; height: 18px; }
+  .card .n { font-size: 26px; font-weight: 700; letter-spacing: -.02em; }
+  .card .l { margin-top: 3px; font-size: 11px; color: var(--muted-2); text-transform: uppercase; letter-spacing: .08em; font-weight: 600; }
+
+  .quick { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; margin-bottom: 24px; }
+  .quick a {
+    display: flex; align-items: center; gap: 10px;
+    padding: 13px 15px;
+    border: 1px solid var(--line); border-radius: 10px;
+    background: var(--panel); color: var(--text);
+    font-size: 13.5px; font-weight: 500; cursor: pointer; transition: .15s;
+  }
+  .quick a:hover { border-color: var(--accent); background: var(--panel-2); }
+  .quick a svg { width: 17px; height: 17px; color: var(--accent); }
+
+  .panel-box { border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); overflow: hidden; margin-bottom: 16px; }
+  .panel-box:last-child { margin-bottom: 0; }
+  .panel-head {
+    display: flex; align-items: center; gap: 10px;
+    padding: 14px 18px; border-bottom: 1px solid var(--line-soft);
+  }
+  .panel-head h2 { font-size: 13.5px; font-weight: 650; }
+  .panel-head .hint { font-size: 12px; color: var(--muted-2); }
+  .panel-head .right { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+  .panel-body { padding: 16px 18px; }
+  .panel-body.flush { padding: 0; }
+
+  .msg {
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 16px 18px; border-bottom: 1px solid var(--line-soft);
+  }
+  .msg:last-child { border-bottom: 0; }
+  .msg.unread { background: rgba(79, 124, 255, .04); }
+  .msg .ava {
+    width: 34px; height: 34px; flex: 0 0 34px; border-radius: 9px;
+    background: var(--panel-2); border: 1px solid var(--line);
+    display: grid; place-items: center; font-size: 12.5px; font-weight: 700; color: #9dbaff;
+  }
+  .msg .body { flex: 1; min-width: 0; }
+  .msg .top { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+  .msg .top strong { font-size: 13.5px; }
+  .msg .meta { font-size: 12px; color: var(--muted-2); margin-top: 3px; }
+  .msg .txt { font-size: 13.5px; line-height: 1.55; margin-top: 9px; color: #cdd5e4; white-space: pre-wrap; word-break: break-word; }
+  .msg .acts { display: flex; flex-direction: column; gap: 7px; flex: 0 0 auto; }
+  .tag {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 2.5px 9px; border-radius: 20px;
+    font-size: 10.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+    background: var(--green-soft); color: var(--green);
+  }
+  .tag.read { background: var(--panel-2); color: var(--muted-2); }
+  .tag.accent { background: var(--accent-soft); color: #9dbaff; }
+
+  .list-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 13px 18px; border-bottom: 1px solid var(--line-soft);
+  }
+  .list-item:last-child { border-bottom: 0; }
+  .list-item .idx {
+    width: 28px; height: 28px; flex: 0 0 28px; border-radius: 8px;
+    background: var(--panel-2); border: 1px solid var(--line);
+    display: grid; place-items: center; font-size: 11.5px; font-weight: 700; color: var(--muted);
+  }
+  .list-item .idx.year { width: 46px; flex-basis: 46px; font-size: 11px; }
+  .list-item .txt { flex: 1; min-width: 0; }
+  .list-item .txt strong { display: block; font-size: 13.5px; }
+  .list-item .txt span { display: block; font-size: 12px; color: var(--muted-2); margin-top: 2px; }
+  .bar { width: 74px; height: 5px; flex: 0 0 74px; border-radius: 4px; background: var(--panel-2); overflow: hidden; }
+  .bar i { display: block; height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--accent), #7b5cff); }
+  .bar-l { font-size: 11.5px; color: var(--muted); width: 34px; text-align: right; flex: 0 0 34px; }
+  .row-acts { display: flex; gap: 7px; flex: 0 0 auto; }
+  .thumb-40 { width: 42px; height: 42px; flex: 0 0 42px; border-radius: 9px; overflow: hidden; background: var(--panel-2); border: 1px solid var(--line); }
+  .thumb-40 img { width: 100%; height: 100%; object-fit: cover; }
+
+  .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 11px; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field.wide { grid-column: 1 / -1; }
+  .field label { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted-2); }
+  input, textarea, select {
+    width: 100%; padding: 10px 12px;
+    border: 1px solid var(--line); border-radius: 9px;
+    background: #0b111d; color: var(--text);
+    font-size: 13.5px; font-family: inherit;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  input:focus, textarea:focus, select:focus { outline: 0; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  input[type="file"] { padding: 8px 10px; font-size: 12.5px; color: var(--muted); }
+  input[type="file"]::file-selector-button {
+    margin-right: 10px; padding: 6px 12px;
+    border: 1px solid var(--line); border-radius: 7px;
+    background: var(--panel-2); color: var(--text);
+    font-size: 12.5px; font-family: inherit; cursor: pointer;
+  }
+  textarea { min-height: 84px; resize: vertical; line-height: 1.55; }
+  textarea.tall { min-height: 118px; }
+  .form-foot { grid-column: 1 / -1; display: flex; gap: 9px; margin-top: 4px; }
+
+  .empty { padding: 40px 20px; text-align: center; color: var(--muted-2); }
+  .empty svg { width: 30px; height: 30px; opacity: .45; margin-bottom: 10px; }
+  .empty p { font-size: 13px; }
+
+  .kv { display: grid; grid-template-columns: 200px 1fr; gap: 10px 18px; font-size: 13.5px; }
+  .kv dt { color: var(--muted-2); }
+  .kv dd { word-break: break-all; }
+  .code {
+    margin-top: 12px; padding: 13px; border-radius: 9px;
+    background: #0b111d; border: 1px solid var(--line);
+    font-family: "Cascadia Code", Consolas, monospace; font-size: 12px; line-height: 1.6;
+    white-space: pre-wrap; word-break: break-all; color: #b8c4da;
+  }
+  .pill { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 20px; font-size: 11.5px; font-weight: 600; }
+  .pill.on { background: var(--green-soft); color: var(--green); }
+  .pill.off { background: var(--red-soft); color: var(--red); }
+  .pill i { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+  .scrim { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 35; }
+
+  .hero-edit { display: flex; gap: 22px; align-items: flex-start; flex-wrap: wrap; }
+  .hero-preview {
+    width: 172px; height: 172px; flex: 0 0 172px;
+    border-radius: 50%; overflow: hidden;
+    border: 2px solid var(--line); background: var(--panel-2);
+    display: grid; place-items: center;
+  }
+  .hero-preview img { width: 100%; height: 100%; object-fit: cover; }
+  .about-preview {
+    width: 100%; max-width: 210px; aspect-ratio: 4 / 5; border-radius: 14px; overflow: hidden;
+    border: 2px solid var(--line); background: var(--panel-2);
+  }
+  .about-preview img { width: 100%; height: 100%; object-fit: cover; }
+  .hero-actions-col { flex: 1; min-width: 260px; }
+  .btn-row { display: flex; gap: 9px; flex-wrap: wrap; margin-top: 12px; }
+
+  .mini-preview {
+    min-height: 46px; padding: 8px;
+    border: 1px dashed var(--line); border-radius: 9px;
+    background: #0b111d; display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+  }
+  .mini-preview img { max-height: 34px; max-width: 90px; border-radius: 5px; }
+  .mini-preview span { font-size: 12px; color: var(--muted-2); }
+
+  .hint { font-size: 12px; color: var(--muted-2); }
+  .empty-state { padding: 34px 18px; text-align: center; color: var(--muted-2); font-size: 13px; }
+
+  .toast {
+    position: fixed; right: 24px; bottom: 24px; z-index: 90;
+    max-width: 380px; padding: 12px 16px;
+    border-radius: 10px; border: 1px solid var(--line);
+    background: var(--panel-2); color: var(--text);
+    font-size: 13.5px; line-height: 1.5;
+    box-shadow: 0 16px 44px rgba(0,0,0,.5);
+    opacity: 0; transform: translateY(12px); pointer-events: none;
+    transition: opacity .2s, transform .2s;
+  }
+  .toast.show { opacity: 1; transform: none; }
+  .toast.ok { border-color: rgba(53,196,107,.5); color: #8fe0b0; }
+  .toast.err { border-color: rgba(255,107,107,.5); color: #ff9d9d; }
+
+  .stat-row { display: grid; grid-template-columns: 1fr 1.6fr; gap: 11px; align-items: center; }
+
+  @media (max-width: 900px) {
+    .hero-preview { width: 132px; height: 132px; flex-basis: 132px; }
+    .sidebar { transform: translateX(-100%); transition: transform .22s ease; }
+    body.nav-open .sidebar { transform: none; box-shadow: 0 0 50px rgba(0,0,0,.6); }
+    body.nav-open .scrim { display: block; }
+    .main { margin-left: 0; }
+    .burger { display: inline-grid; place-items: center; width: 36px; height: 36px; border-radius: 9px; border: 1px solid var(--line); background: var(--panel); color: var(--text); cursor: pointer; }
+    .burger svg { width: 18px; height: 18px; }
+    .topbar { padding: 14px 18px; }
+    .view { padding: 20px 18px 50px; }
+    .kv { grid-template-columns: 1fr; gap: 3px 0; }
+    .kv dd { margin-bottom: 10px; }
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-mark">R</div>
+      <div class="brand-txt">
+        <strong>Rashi Portfolio</strong>
+        <span>Admin Console</span>
+      </div>
+    </div>
+
+    <nav class="nav" id="nav">
+      <div class="nav-label">Main</div>
+      <button class="nav-item active" data-page="overview">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+        Dashboard
+      </button>
+      <button class="nav-item" data-page="messages">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v14H4z"/><path d="m4 6 8 6 8-6"/></svg>
+        Messages
+        <span class="nav-count zero" id="badge-msg">0</span>
+      </button>
+
+      <div class="nav-label">Website</div>
+      <button class="nav-item" data-page="hero">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><circle cx="8.5" cy="9.5" r="1.6"/><path d="m4 16 5-4 4 3 3-2 4 3"/></svg>
+        Hero &amp; About
+      </button>
+      <button class="nav-item" data-page="journey">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5"/><path d="M4 12h6"/><path d="M4 19h16"/><circle cx="10" cy="12" r="1.6"/></svg>
+        My Journey
+        <span class="nav-count zero" id="badge-jn">0</span>
+      </button>
+      <button class="nav-item" data-page="projects">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h6l2 2h10v10H3z"/><path d="M3 7V5h6l2 2"/></svg>
+        Projects
+        <span class="nav-count zero" id="badge-proj">0</span>
+      </button>
+      <button class="nav-item" data-page="skills">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L3.3 9.4l6.1-.8z"/></svg>
+        Capabilities
+        <span class="nav-count zero" id="badge-skill">0</span>
+      </button>
+      <button class="nav-item" data-page="content">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+        Site Content
+      </button>
+
+      <div class="nav-label">System</div>
+      <button class="nav-item" data-page="settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1A1.7 1.7 0 0 0 9 19.4a1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+        Settings
+      </button>
+    </nav>
+
+    <div class="sb-foot">
+      <div class="sb-user">
+        <div class="avatar">RA</div>
+        <div class="who">
+          <strong id="sbUser">Admin</strong>
+          <span>Owner account</span>
+        </div>
+      </div>
+      <button class="logout" id="logout">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg>
+        Log out
+      </button>
+    </div>
+  </aside>
+
+  <div class="scrim" id="scrim"></div>
+
+  <div class="main">
+    <header class="topbar">
+      <button class="burger" id="burger" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <div>
+        <h1 id="pageTitle">Dashboard</h1>
+        <p id="pageSub">Portfolio status at a glance</p>
+      </div>
+      <div class="top-actions">
+        <button class="btn" id="refresh">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg>
+          Refresh
+        </button>
+        <a class="btn btn-primary" href="/" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6"/><path d="M20 4 10 14"/><path d="M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg>
+          View Site
+        </a>
+      </div>
+    </header>
+
+    <div class="view">
+
+      <!-- ══════════ DASHBOARD ══════════ -->
+      <section class="page active" id="page-overview">
+        <div class="cards" id="cards"></div>
+        <div class="quick" id="quick"></div>
+        <div class="panel-box">
+          <div class="panel-head">
+            <h2>Recent messages</h2>
+            <div class="right"><button class="btn btn-sm" data-goto="messages">View all</button></div>
+          </div>
+          <div class="panel-body flush" id="recent"></div>
+        </div>
+      </section>
+
+      <!-- ══════════ MESSAGES ══════════ -->
+      <section class="page" id="page-messages">
+        <div class="panel-box">
+          <div class="panel-head">
+            <h2>Inbox</h2>
+            <span class="hint" id="msgHint"></span>
+            <div class="right">
+              <button class="btn btn-sm btn-danger-ghost" id="clearMsgs">Clear all</button>
+            </div>
+          </div>
+          <div class="panel-body flush" id="messages"></div>
+        </div>
+      </section>
+
+      <!-- ══════════ HERO & ABOUT ══════════ -->
+      <section class="page" id="page-hero">
+        <div class="panel-box">
+          <div class="panel-head">
+            <h2>Hero photo</h2>
+            <span class="hint">Landing page ke circle me dikhti hai</span>
+          </div>
+          <div class="panel-body">
+            <div class="hero-edit">
+              <div class="hero-preview">
+                <img id="heroPreview" src="/images/portfolio.webp" alt="Current hero photo" />
+              </div>
+              <div class="hero-actions-col">
+                <div class="field">
+                  <label for="heroFile">Nayi photo choose karo</label>
+                  <input type="file" id="heroFile" accept="image/png,image/jpeg,image/webp,image/gif,image/avif" />
+                  <p class="hint" style="margin-top:6px">PNG, JPG, WebP, GIF ya AVIF · max 8 MB. Nayi photo purani ki jagah aa jayegi.</p>
+                </div>
+                <div class="btn-row">
+                  <button class="btn btn-primary" id="heroUpload">Upload &amp; Use</button>
+                  <button class="btn btn-danger-ghost" id="heroDelete">Photo remove karo</button>
+                </div>
+                <p class="hint" id="heroPath"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-box">
+          <div class="panel-head"><h2>Hero text</h2><span class="hint">Greeting, tagline aur contact button ka label</span></div>
+          <div class="panel-body">
+            <form class="form-grid" id="heroForm">
+              <div class="field wide">
+                <label for="hgGreeting">Greeting</label>
+                <input id="hgGreeting" placeholder="Hello, welcome to my world" />
+              </div>
+              <div class="field wide">
+                <label for="hgTagline">Tagline</label>
+                <input id="hgTagline" placeholder="The creative mind behind…" />
+              </div>
+              <div class="field wide">
+                <label for="hgCta">Contact button label</label>
+                <input id="hgCta" placeholder="Get In Touch" />
+              </div>
+              <div class="form-foot">
+                <button class="btn btn-primary" type="submit">Save hero text</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="panel-box">
+          <div class="panel-head">
+            <h2>About Me</h2>
+            <span class="hint">Portfolio ka About section — text aur photo dono</span>
+          </div>
+          <div class="panel-body">
+            <form class="form-grid" id="aboutForm">
+              <div class="field">
+                <label>Current photo</label>
+                <div class="about-preview"><img id="abImgPreview" src="/images/rashi-about.svg" alt="About photo" /></div>
+              </div>
+              <div class="field">
+                <label for="abImgFile">Nayi about photo</label>
+                <input type="file" id="abImgFile" accept="image/png,image/jpeg,image/webp,image/gif,image/avif" />
+                <p class="hint" style="margin-top:6px">Save dabate hi upload ho jayegi.</p>
+              </div>
+              <div class="field wide">
+                <label for="abSubhead">Subheading</label>
+                <input id="abSubhead" placeholder="Digital Marketer &amp; AI Enthusiast" />
+              </div>
+              <div class="field wide">
+                <label for="abPara1">Paragraph 1</label>
+                <textarea id="abPara1" class="tall"></textarea>
+              </div>
+              <div class="field wide">
+                <label for="abPara2">Paragraph 2</label>
+                <textarea id="abPara2" class="tall"></textarea>
+              </div>
+              <div class="field wide">
+                <label for="abPara3">Paragraph 3</label>
+                <textarea id="abPara3" class="tall"></textarea>
+              </div>
+              <div class="field wide">
+                <label for="abHighlight">Highlight line</label>
+                <input id="abHighlight" placeholder="Technology is my canvas…" />
+              </div>
+              <div class="form-foot">
+                <button class="btn btn-primary" type="submit">Save About section</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════ MY JOURNEY ══════════ -->
+      <section class="page" id="page-journey">
+        <div class="panel-box">
+          <div class="panel-head"><h2>Heading &amp; intro</h2><span class="hint">Journey card ka upar wala text</span></div>
+          <div class="panel-body">
+            <form class="form-grid" id="journeyForm">
+              <div class="field wide">
+                <label for="jTitle">Heading</label>
+                <input id="jTitle" placeholder="My Journey" />
+              </div>
+              <div class="field wide">
+                <label for="jIntro">Intro paragraph</label>
+                <textarea id="jIntro" class="tall"></textarea>
+              </div>
+              <div class="form-foot">
+                <button class="btn btn-primary" type="submit">Save journey text</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="panel-box">
+          <div class="panel-head">
+            <h2 id="jnFormTitle">Add milestone</h2>
+            <span class="hint">Timeline me ek entry</span>
+            <div class="right"><button class="btn btn-sm" id="jnCancel" hidden>Cancel edit</button></div>
+          </div>
+          <div class="panel-body">
+            <form class="form-grid" id="journeyItemForm">
+              <input type="hidden" name="id" id="jnId" />
+              <div class="field">
+                <label for="jnYear">Year / label</label>
+                <input id="jnYear" name="year" placeholder="2025" />
+              </div>
+              <div class="field wide">
+                <label for="jnText">Us saal kya hua</label>
+                <textarea id="jnText" name="text" placeholder="Example: Completed my NIELIT O Level…" required></textarea>
+              </div>
+              <div class="form-foot">
+                <button class="btn btn-primary" type="submit" id="jnSubmit">Add milestone</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="panel-box">
+          <div class="panel-head">
+            <h2>Timeline</h2>
+            <span class="hint" id="jnHint"></span>
+          </div>
+          <div class="panel-body flush" id="journeyList"></div>
+        </div>
+      </section>
+
+      <!-- ══════════ PROJECTS ══════════ -->
+      <section class="page" id="page-projects">
+        <div class="panel-box">
+          <div class="panel-head">
+            <h2>Portfolio par kitne projects dikhein</h2>
+            <span class="hint">Baaki "View All" button ke peeche chhup jayenge</span>
+          </div>
+          <div class="panel-body">
+            <form class="form-grid" id="projViewForm">
+              <div class="field">
+                <label for="pjVisible">Pehle kitne dikhein</label>
+                <input id="pjVisible" name="projectsVisible" type="number" min="0" max="50" />
+                <p class="hint" style="margin-top:5px">0 = sab projects ek saath dikhein, button nahi dikhega.</p>
+              </div>
+              <div class="field">
+                <label for="pjCtaText">Button ka text</label>
+                <input id="pjCtaText" name="projectsCtaText" placeholder="View All Projects" />
+              </div>
+              <div class="form-foot">
+                <button class="btn btn-primary" type="submit">Save display settings</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="panel-box">
+          <div class="panel-head">
+            <h2 id="projFormTitle">Add project</h2>
+            <span class="hint" id="projFormHint">Naya project portfolio me add hoga</span>
+            <div class="right"><button class="btn btn-sm" id="projCancel" hidden>Cancel edit</button></div>
+          </div>
+          <div class="panel-body">
+            <form class="form-grid" id="projectForm">
+              <input type="hidden" name="id" id="pjId" />
+              <div class="field">
+                <label for="pjTitle">Title</label>
+                <input id="pjTitle" name="title" placeholder="Project name" required />
+              </div>
+              <div class="field">
+                <label for="pjTag">Tag / Category</label>
+                <input id="pjTag" name="tag" placeholder="Web Development" />
+              </div>
+              <div class="field">
+                <label for="pjUrl">Live URL</label>
+                <input id="pjUrl" name="url" placeholder="https://…" />
+              </div>
+              <div class="field">
+                <label for="pjCta">Button label</label>
+                <input id="pjCta" name="cta" placeholder="View Website" />
+              </div>
+              <div class="field wide">
+                <label for="pjChips">Tech chips (comma separated)</label>
+                <input id="pjChips" name="chips" placeholder="HTML, CSS, JavaScript" />
+              </div>
+              <div class="field">
+                <label>Current image</label>
+                <div class="mini-preview" id="pjImagePreview"></div>
+              </div>
+              <div class="field">
+                <label for="pjImageFile">Naya image</label>
+                <input type="file" id="pjImageFile" accept="image/png,image/jpeg,image/webp,image/gif,image/avif" />
+              </div>
+              <div class="field wide">
+                <label for="pjDesc">Description</label>
+                <textarea id="pjDesc" name="desc" placeholder="Project ke baare me kya hai?"></textarea>
+              </div>
+              <div class="form-foot">
+                <button class="btn btn-primary" type="submit" id="projSubmit">Add project</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="panel-box">
+          <div class="panel-head">
+            <h2>All projects</h2>
+            <span class="hint" id="pjHint"></span>
+          </div>
+          <div class="panel-body flush" id="projects"></div>
+        </div>
+      </section>
+
+      <!-- ══════════ CAPABILITIES ══════════ -->
+      <section class="page" id="page-skills">
+        <div class="panel-box">
+          <div class="panel-head">
+            <h2 id="capFormTitle">Add capability</h2>
+            <span class="hint" id="capFormHint">Nayi skill portfolio me add hogi</span>
+            <div class="right"><button class="btn btn-sm" id="capCancel" hidden>Cancel edit</button></div>
+          </div>
+          <div class="panel-body">
+            <form class="form-grid" id="skillForm">
+              <input type="hidden" name="id" id="capId" />
+              <div class="field">
+                <label for="skName">Name</label>
+                <input id="skName" name="name" placeholder="e.g. React" required />
+              </div>
+              <div class="field">
+                <label for="skLevel">Proficiency (%)</label>
+                <input id="skLevel" name="level" type="number" min="0" max="100" placeholder="80" />
+              </div>
+              <div class="field">
+                <label>Current icon</label>
+                <div class="mini-preview" id="capIconPreview"></div>
+              </div>
+              <div class="field">
+                <label for="capIconFile">Naya icon</label>
+                <input type="file" id="capIconFile" accept="image/png,image/jpeg,image/webp,image/gif,image/avif,image/svg+xml" />
+              </div>
+              <div class="field wide">
+                <label for="skDesc">Description</label>
+                <textarea id="skDesc" name="desc" placeholder="Is skill se kya kar sakte ho?"></textarea>
+              </div>
+              <div class="form-foot">
+                <button class="btn btn-primary" type="submit" id="capSubmit">Add capability</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="panel-box">
+          <div class="panel-head">
+            <h2>Your capabilities</h2>
+            <span class="hint" id="skHint"></span>
+          </div>
+          <div class="panel-body flush" id="skills"></div>
+        </div>
+      </section>
+
+      <!-- ══════════ SITE CONTENT ══════════ -->
+      <section class="page" id="page-content">
+        <div class="panel-box">
+          <div class="panel-head">
+            <h2>Contact, socials &amp; footer</h2>
+            <span class="hint">Changes turant portfolio par dikhte hain</span>
+          </div>
+          <div class="panel-body">
+            <form class="form-grid" id="siteForm">
+              <div class="field">
+                <label for="stEmail">Contact email</label>
+                <input id="stEmail" name="contactEmail" type="email" placeholder="you@example.com" />
+              </div>
+              <div class="field">
+                <label for="stLocation">Location</label>
+                <input id="stLocation" name="contactLocation" placeholder="Pundri, Haryana, India" />
+              </div>
+              <div class="field">
+                <label for="stLinkedin">LinkedIn URL</label>
+                <input id="stLinkedin" name="socialLinkedin" placeholder="https://linkedin.com/in/…" />
+              </div>
+              <div class="field">
+                <label for="stInstagram">Instagram URL</label>
+                <input id="stInstagram" name="socialInstagram" placeholder="https://instagram.com/…" />
+              </div>
+              <div class="field">
+                <label for="stGithub">GitHub URL</label>
+                <input id="stGithub" name="socialGithub" placeholder="https://github.com/…" />
+              </div>
+              <div class="field">
+                <label for="stFooter">Footer tagline</label>
+                <input id="stFooter" name="footerTagline" placeholder="The Future of Digital Innovation" />
+              </div>
+              <div class="field wide">
+                <label for="stVision">Vision lines (ek line = ek slide)</label>
+                <textarea id="stVision" class="tall"></textarea>
+              </div>
+              <div class="field wide">
+                <label>Stats numbers</label>
+                <div class="stat-row">
+                  <input id="stNum1" type="number" min="0" max="999999" />
+                  <input id="stLab1" placeholder="Languages Learned" />
+                </div>
+              </div>
+              <div class="field wide">
+                <label>&nbsp;</label>
+                <div class="stat-row">
+                  <input id="stNum2" type="number" min="0" max="999999" />
+                  <input id="stLab2" placeholder="Projects Built" />
+                </div>
+              </div>
+              <div class="field wide">
+                <label>&nbsp;</label>
+                <div class="stat-row">
+                  <input id="stNum3" type="number" min="0" max="999999" />
+                  <input id="stLab3" placeholder="Percent Dedication" />
+                </div>
+              </div>
+              <div class="form-foot">
+                <button class="btn btn-primary" type="submit">Save all changes</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="panel-box">
+          <div class="panel-head"><h2>Raw data</h2><span class="hint">data.json ka content</span></div>
+          <div class="panel-body">
+            <div class="code" id="content">Loading…</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════ SETTINGS ══════════ -->
+      <section class="page" id="page-settings">
+        <div class="panel-box">
+          <div class="panel-head">
+            <h2>Login change karo</h2>
+            <span class="hint">Username aur password dono update ho sakte hain</span>
+          </div>
+          <div class="panel-body">
+            <form class="form-grid" id="credForm">
+              <div class="field wide">
+                <label for="crCurrent">Current password (zaroori hai)</label>
+                <input id="crCurrent" type="password" autocomplete="current-password" required />
+              </div>
+              <div class="field">
+                <label for="crUser">New username</label>
+                <input id="crUser" autocomplete="username" placeholder="admin" />
+                <p class="hint" style="margin-top:5px">Khali chhodne par username nahi badlega.</p>
+              </div>
+              <div class="field">
+                <label for="crPass">New password</label>
+                <input id="crPass" type="password" autocomplete="new-password" />
+                <p class="hint" style="margin-top:5px">Kam se kam 6 characters. Khali chhodne par password nahi badlega.</p>
+              </div>
+              <div class="field">
+                <label for="crPass2">New password dobara likho</label>
+                <input id="crPass2" type="password" autocomplete="new-password" />
+              </div>
+              <div class="form-foot">
+                <button class="btn btn-primary" type="submit">Update login</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="panel-box">
+          <div class="panel-head"><h2>Password bhul gaya?</h2><span class="hint">Email par 6-digit code</span></div>
+          <div class="panel-body">
+            <p class="hint">
+              Login page par &ldquo;Forgot password?&rdquo; link dabayein &mdash; code
+              <strong id="setRecInline">&mdash;</strong> par bheja jayega. Uske baad naya password set kar sakte hain.
+            </p>
+          </div>
+        </div>
+
+        <div class="panel-box">
+          <div class="panel-head"><h2>Integrations</h2><span class="hint">Server-side configuration</span></div>
+          <div class="panel-body">
+            <dl class="kv">
+              <dt>Supabase sync</dt>
+              <dd><span class="pill off" id="supaPill"><i></i> Checking…</span></dd>
+              <dt>Email service (Resend)</dt>
+              <dd><span class="pill off" id="resendPill"><i></i> Checking…</span></dd>
+              <dt>Admin username</dt>
+              <dd id="setUser">—</dd>
+              <dt>Recovery email</dt>
+              <dd id="setRec">—</dd>
+              <dt>Session</dt>
+              <dd>HttpOnly cookie · 12 hour expiry</dd>
+            </dl>
+            <div class="code" id="setJson"></div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s == null ? "" : s)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+
+  const icon = {
+    inbox: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h5l2 3h4l2-3h5"/><path d="M4 5h16v14H4z"/></svg>',
+    star: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L3.3 9.4l6.1-.8z"/></svg>',
+    box: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h6l2 2h10v10H3z"/><path d="M3 7V5h6l2 2"/></svg>',
+    mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v14H4z"/><path d="m4 6 8 6 8-6"/></svg>',
+    bell: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 8-3 8h18s-3-1-3-8"/><path d="M13.7 20a2 2 0 0 1-3.4 0"/></svg>',
+    trash: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M9 7V5h6v2"/><path d="M6 7l1 13h10l1-13"/></svg>',
+    pencil: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>',
+    image: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.6"/><path d="m4 16 5-4 4 3 3-2 4 3"/></svg>',
+    route: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5"/><path d="M4 12h6"/><path d="M4 19h16"/><circle cx="10" cy="12" r="1.6"/></svg>',
+    text: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>'
+  };
+  const emptyBox = (msg) => '<div class="empty">' + icon.inbox + '<p>' + esc(msg) + '</p></div>';
+
+  const META = {
+    overview: ["Dashboard", "Portfolio status at a glance"],
+    messages: ["Messages", "Contact form submissions"],
+    hero: ["Hero & About", "Hero photo, hero text and About section"],
+    journey: ["My Journey", "Journey text aur timeline milestones"],
+    projects: ["Projects", "Add, edit ya remove portfolio projects"],
+    skills: ["Capabilities", "Apni skills list manage karo"],
+    content: ["Site Content", "Contact, socials, vision aur footer"],
+    settings: ["Settings", "Login change karo aur integrations dekho"]
+  };
+
+  /* ── Toast ── */
+  let toastTimer = null;
+  function toast(msg, kind) {
+    let el = $("toast");
+    if (!el) {
+      el = document.createElement("div");
+      el.id = "toast";
+      document.body.appendChild(el);
+    }
+    el.textContent = msg;
+    el.className = "toast show " + (kind || "ok");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { el.className = "toast"; }, 3600);
+  }
+
+  /* ── API helpers ── */
+  async function api(path, opts) {
+    let res;
+    try {
+      res = await fetch(path, opts);
+    } catch (e) {
+      return { ok: false, error: "Server se contact nahi ho paya." };
+    }
+    if (res.status === 401) {
+      window.location.href = "/admin";
+      return null;
+    }
+    return res.json().catch(function () {
+      return { ok: false, error: "Server ka jawab samajh nahi aaya." };
+    });
+  }
+  const jsonPost = (body) => ({ method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+  const jsonPut = (body) => ({ method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+  const jsonDel = { method: "DELETE" };
+
+  function readAsDataUrl(file) {
+    return new Promise(function (resolve, reject) {
+      const r = new FileReader();
+      r.onload = function () { resolve(r.result); };
+      r.onerror = function () { reject(new Error("File read nahi hui.")); };
+      r.readAsDataURL(file);
+    });
+  }
+  async function uploadImage(file) {
+    const dataUrl = await readAsDataUrl(file);
+    const d = await api("/api/admin/upload", jsonPost({ filename: file.name, dataUrl: dataUrl }));
+    if (!d || !d.ok) throw new Error((d && d.error) || "Upload fail ho gaya.");
+    return d.data.path;
+  }
+  function withBusy(btn, label, fn) {
+    return async function () {
+      const old = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = label;
+      try { await fn(); }
+      catch (e) { toast(e && e.message ? e.message : "Kuch galat ho gaya.", "err"); }
+      btn.disabled = false;
+      btn.textContent = old;
+    };
+  }
+
+  /* ── Navigation ── */
+  function show(page) {
+    if (!META[page]) page = "overview";
+    document.querySelectorAll(".nav-item").forEach(function (b) { b.classList.toggle("active", b.dataset.page === page); });
+    document.querySelectorAll("section.page").forEach(function (s) { s.classList.toggle("active", s.id === "page-" + page); });
+    $("pageTitle").textContent = META[page][0];
+    $("pageSub").textContent = META[page][1];
+    document.body.classList.remove("nav-open");
+    if (location.hash !== "#" + page) history.replaceState(null, "", "#" + page);
+    window.scrollTo(0, 0);
+  }
+  $("nav").addEventListener("click", function (e) {
+    const b = e.target.closest(".nav-item");
+    if (b) show(b.dataset.page);
+  });
+  document.addEventListener("click", function (e) {
+    const g = e.target.closest("[data-goto]");
+    if (g) show(g.dataset.goto);
+  });
+  $("burger").addEventListener("click", function () { document.body.classList.toggle("nav-open"); });
+  $("scrim").addEventListener("click", function () { document.body.classList.remove("nav-open"); });
+  $("logout").addEventListener("click", async function () {
+    await fetch("/api/admin/logout", { method: "POST" });
+    window.location.href = "/admin";
+  });
+  $("refresh").addEventListener("click", function () { loadAll(); toast("Refresh ho gaya.", "ok"); });
+
+  function fmtDate(t) {
+    const d = new Date(t);
+    return isNaN(d) ? "" : d.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
+  }
+  function initials(name) {
+    return String(name || "?").trim().split(/\s+/).slice(0, 2).map(function (w) { return w[0]; }).join("").toUpperCase();
+  }
+
+  /* ── Dashboard ── */
+  function msgRow(m, compact) {
+    const unread = m.status !== "read";
+    return '<div class="msg ' + (unread ? "unread" : "") + '">' +
+      '<div class="ava">' + esc(initials(m.name)) + '</div>' +
+      '<div class="body">' +
+        '<div class="top"><strong>' + esc(m.name) + '</strong>' +
+        '<span class="tag ' + (unread ? "" : "read") + '">' + (unread ? "New" : "Read") + '</span></div>' +
+        '<div class="meta">' + esc(m.email) + ' · ' + esc(fmtDate(m.time)) + '</div>' +
+        (compact ? "" : '<div class="txt">' + esc(m.message) + '</div>') +
+      '</div>' +
+      '<div class="acts"><button class="btn btn-sm btn-danger-ghost" data-delmsg="' + m.id + '" title="Delete">' + icon.trash + '</button></div>' +
+    '</div>';
+  }
+
+  const QUICK = [
+    ["hero", icon.image, "Hero photo &amp; About text"],
+    ["journey", icon.route, "Journey timeline update"],
+    ["projects", icon.box, "Projects add / edit / remove"],
+    ["skills", icon.star, "Capabilities update / remove"],
+    ["content", icon.text, "Contact, socials, vision"],
+    ["settings", icon.mail, "Username / password change"]
+  ];
+
+  async function loadOverview() {
+    const d = await api("/api/admin/overview");
+    if (!d) return;
+    const o = d.data;
+    $("cards").innerHTML = [
+      ["c1", icon.mail, o.messages, "Total messages"],
+      ["c2", icon.bell, o.unread, "Unread"],
+      ["c3", icon.star, o.skills, "Capabilities"],
+      ["c4", icon.box, o.projects, "Projects"]
+    ].map(function (c) {
+      return '<div class="card ' + c[0] + '"><div class="ico">' + c[1] + '</div><div class="n">' + c[2] + '</div><div class="l">' + c[3] + '</div></div>';
+    }).join("");
+
+    const badge = $("badge-msg");
+    badge.textContent = o.unread;
+    badge.classList.toggle("zero", !o.unread);
+
+    const jb = $("badge-jn");
+    jb.textContent = o.milestones || 0;
+    jb.classList.toggle("zero", !o.milestones);
+
+    $("quick").innerHTML = QUICK.map(function (q) {
+      return '<a data-goto="' + q[0] + '">' + q[1] + " " + q[2] + "</a>";
+    }).join("");
+
+    const msgs = await api("/api/admin/messages");
+    if (!msgs) return;
+    const list = msgs.data || [];
+    $("recent").innerHTML = list.length ? list.slice(0, 5).map(function (m) { return msgRow(m, true); }).join("") : emptyBox("Abhi koi message nahi aaya.");
+  }
+
+  async function loadMessages() {
+    const d = await api("/api/admin/messages");
+    if (!d) return;
+    const list = d.data || [];
+    $("messages").innerHTML = list.length ? list.map(function (m) { return msgRow(m, false); }).join("") : emptyBox("Inbox khaali hai — form se aaye messages yahan dikhenge.");
+    $("msgHint").textContent = list.length ? list.length + " total" : "";
+  }
+
+  $("clearMsgs").addEventListener("click", async function () {
+    if (!confirm("SAARE messages delete kar dein? Ye wapas nahi aayenge.")) return;
+    await api("/api/admin/messages", jsonDel);
+    loadOverview(); loadMessages();
+    toast("Saare messages delete ho gaye.", "ok");
+  });
+
+  document.addEventListener("click", async function (e) {
+    const t = e.target.closest("button");
+    if (!t) return;
+    if (t.dataset.delmsg) {
+      if (!confirm("Ye message delete karein?")) return;
+      await api("/api/admin/messages/" + t.dataset.delmsg, jsonDel);
+      loadOverview(); loadMessages();
+      return;
+    }
+  });
+
+  /* ── Hero & About ── */
+  async function loadHero() {
+    const d = await api("/api/admin/site");
+    if (!d || !d.ok) return;
+    const s = d.data;
+    $("heroPreview").src = "/" + s.heroImage;
+    $("heroPath").textContent = "Abhi ye image use ho rahi hai: " + s.heroImage;
+    $("hgGreeting").value = s.heroGreeting || "";
+    $("hgTagline").value = s.heroTagline || "";
+    $("hgCta").value = s.heroCtaText || "";
+    $("abSubhead").value = s.aboutSubhead || "";
+    const paras = Array.isArray(s.aboutParas) ? s.aboutParas : [];
+    $("abPara1").value = paras[0] || "";
+    $("abPara2").value = paras[1] || "";
+    $("abPara3").value = paras[2] || "";
+    $("abHighlight").value = s.aboutHighlight || "";
+    $("abImgPreview").src = "/" + s.aboutImage;
+  }
+
+  $("heroUpload").addEventListener("click", withBusy($("heroUpload"), "Uploading…", async function () {
+    const file = $("heroFile").files[0];
+    if (!file) { toast("Pehle ek photo choose karein.", "err"); return; }
+    const path = await uploadImage(file);
+    const d = await api("/api/admin/hero", jsonPut({ image: path }));
+    if (!d || !d.ok) throw new Error((d && d.error) || "Photo set nahi hui.");
+    $("heroFile").value = "";
+    await loadHero();
+    toast("Hero photo update ho gayi.", "ok");
+  }));
+
+  $("heroDelete").addEventListener("click", async function () {
+    if (!confirm("Current hero photo hata den? Ye wapas nahi aayegi.")) return;
+    const d = await api("/api/admin/hero/image", jsonDel);
+    if (!d || !d.ok) { toast((d && d.error) || "Photo remove nahi hui.", "err"); return; }
+    await loadHero();
+    toast("Photo hata di gayi, default wapas aa gaya.", "ok");
+  });
+
+  $("heroForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const d = await api("/api/admin/hero", jsonPut({
+      greeting: $("hgGreeting").value,
+      tagline: $("hgTagline").value,
+      ctaText: $("hgCta").value
+    }));
+    if (d && d.ok) toast("Hero text save ho gaya.", "ok");
+    else toast((d && d.error) || "Save nahi hua.", "err");
+  });
+
+  $("aboutForm").addEventListener("submit", withBusy($("aboutForm").querySelector('[type=submit]'), "Saving…", async function () {
+    const payload = {
+      aboutSubhead: $("abSubhead").value,
+      aboutParas: [$("abPara1").value, $("abPara2").value, $("abPara3").value],
+      aboutHighlight: $("abHighlight").value
+    };
+    const file = $("abImgFile").files[0];
+    if (file) payload.aboutImage = await uploadImage(file);
+    const d = await api("/api/admin/site", jsonPut(payload));
+    if (!d || !d.ok) throw new Error((d && d.error) || "About section save nahi hua.");
+    $("abImgFile").value = "";
+    await loadHero();
+    toast("About section save ho gaya.", "ok");
+  }));
+
+  /* ── My Journey ── */
+  let JOURNEY = { title: "", intro: "", items: [] };
+
+  async function loadJourney() {
+    const d = await api("/api/admin/journey");
+    if (!d || !d.ok) return;
+    JOURNEY = d.data;
+    $("jTitle").value = JOURNEY.title || "";
+    $("jIntro").value = JOURNEY.intro || "";
+    const items = Array.isArray(JOURNEY.items) ? JOURNEY.items : [];
+    $("journeyList").innerHTML = items.length
+      ? items.map(function (it, i) {
+          return '<div class="list-item">' +
+            '<div class="idx year">' + esc(it.year || "—") + "</div>" +
+            '<div class="txt"><span>' + esc(it.text) + "</span></div>" +
+            '<div class="row-acts">' +
+              '<button class="btn btn-sm" data-editjn="' + it.id + '" title="Edit">' + icon.pencil + "</button>" +
+              '<button class="btn btn-sm btn-danger-ghost" data-deljn="' + it.id + '" title="Delete">' + icon.trash + "</button>" +
+            "</div>" +
+          "</div>";
+        }).join("")
+      : emptyBox("Abhi koi milestone nahi hai.");
+    $("jnHint").textContent = items.length ? items.length + " milestones" : "";
+  }
+
+  $("journeyForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const d = await api("/api/admin/journey", jsonPut({ title: $("jTitle").value, intro: $("jIntro").value }));
+    if (d && d.ok) { toast("Journey text save ho gaya.", "ok"); loadJourney(); loadOverview(); }
+    else toast((d && d.error) || "Save nahi hua.", "err");
+  });
+
+  function resetJourneyForm() {
+    $("jnId").value = "";
+    $("jnYear").value = "";
+    $("jnText").value = "";
+    $("jnFormTitle").textContent = "Add milestone";
+    $("jnFormHint").textContent = "Timeline me ek entry";
+    $("jnSubmit").textContent = "Add milestone";
+    $("jnCancel").hidden = true;
+  }
+  $("jnCancel").addEventListener("click", resetJourneyForm);
+
+  $("journeyItemForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const id = $("jnId").value;
+    const body = { year: $("jnYear").value, text: $("jnText").value };
+    const d = await api(id ? "/api/admin/journey/items/" + id : "/api/admin/journey/items", id ? jsonPut(body) : jsonPost(body));
+    if (d && d.ok) {
+      toast(id ? "Milestone update ho gaya." : "Milestone add ho gaya.", "ok");
+      resetJourneyForm();
+      loadJourney(); loadOverview();
+    } else {
+      toast((d && d.error) || "Save nahi hua.", "err");
+    }
+  });
+
+  document.addEventListener("click", async function (e) {
+    const t = e.target.closest("button");
+    if (!t) return;
+    const editId = t.dataset.editjn;
+    if (editId) {
+      const it = (JOURNEY.items || []).find(function (x) { return String(x.id) === String(editId); });
+      if (!it) return;
+      $("jnId").value = it.id;
+      $("jnYear").value = it.year || "";
+      $("jnText").value = it.text || "";
+      $("jnFormTitle").textContent = "Edit milestone";
+      $("jnFormHint").textContent = "Changes save karke portal par dikhenge";
+      $("jnSubmit").textContent = "Save changes";
+      $("jnCancel").hidden = false;
+      $("journeyItemForm").scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+    const delId = t.dataset.deljn;
+    if (delId) {
+      if (!confirm("Ye milestone delete karein?")) return;
+      const d = await api("/api/admin/journey/items/" + delId, jsonDel);
+      if (d && d.ok) { toast("Milestone delete ho gaya.", "ok"); loadJourney(); loadOverview(); }
+      else toast((d && d.error) || "Delete nahi hua.", "err");
+    }
+  });
+
+  /* ── Projects ── */
+  let PROJECTS = [];
+
+  async function loadProjects() {
+    const d = await api("/api/admin/projects");
+    if (!d || !d.ok) return;
+    PROJECTS = d.data || [];
+    $("projects").innerHTML = PROJECTS.length
+      ? PROJECTS.map(function (p, i) {
+          const thumb = p.image
+            ? '<div class="thumb-40"><img src="' + esc(p.image) + '" alt="" /></div>'
+            : '<div class="idx">' + (i + 1) + "</div>";
+          return '<div class="list-item">' + thumb +
+            '<div class="txt"><strong>' + esc(p.title) + '</strong><span>' +
+              esc([p.tag, p.url].filter(Boolean).join(" · ") || "No details") + "</span></div>" +
+            '<div class="row-acts">' +
+              '<button class="btn btn-sm" data-editproj="' + p.id + '" title="Edit">' + icon.pencil + "</button>" +
+              '<button class="btn btn-sm btn-danger-ghost" data-delproj="' + p.id + '" title="Delete">' + icon.trash + "</button>" +
+            "</div>" +
+          "</div>";
+        }).join("")
+      : emptyBox("Abhi koi project nahi hai.");
+    $("pjHint").textContent = PROJECTS.length ? PROJECTS.length + " total" : "";
+
+    const site = await api("/api/admin/site");
+    if (site && site.ok) {
+      $("pjVisible").value = site.data.projectsVisible == null ? 2 : site.data.projectsVisible;
+      $("pjCtaText").value = site.data.projectsCtaText || "View All Projects";
+    }
+  }
+
+  $("projViewForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const d = await api("/api/admin/site", jsonPut({
+      projectsVisible: $("pjVisible").value,
+      projectsCtaText: $("pjCtaText").value
+    }));
+    if (d && d.ok) toast("Display settings save ho gayi.", "ok");
+    else toast((d && d.error) || "Save nahi hua.", "err");
+  });
+
+  function fillMiniPreview(el, src, fallback) {
+    el.innerHTML = src
+      ? '<img src="' + esc(src) + '" alt="" />'
+      : "<span>" + esc(fallback) + "</span>";
+  }
+
+  function resetProjectForm() {
+    $("projectForm").reset();
+    $("pjId").value = "";
+    fillMiniPreview($("pjImagePreview"), "", "Koi image nahi hai");
+    $("projFormTitle").textContent = "Add project";
+    $("projFormHint").textContent = "Naya project portfolio me add hoga";
+    $("projSubmit").textContent = "Add project";
+    $("projCancel").hidden = true;
+  }
+  $("projCancel").addEventListener("click", resetProjectForm);
+
+  $("projectForm").addEventListener("submit", withBusy($("projSubmit"), "Saving…", async function () {
+    const id = $("pjId").value;
+    const body = {
+      title: $("pjTitle").value,
+      tag: $("pjTag").value,
+      url: $("pjUrl").value,
+      cta: $("pjCta").value,
+      desc: $("pjDesc").value,
+      chips: $("pjChips").value.split(",").map(function (c) { return c.trim(); }).filter(Boolean)
+    };
+    const file = $("pjImageFile").files[0];
+    if (file) body.image = await uploadImage(file);
+    const d = await api(id ? "/api/admin/projects/" + id : "/api/admin/projects", id ? jsonPut(body) : jsonPost(body));
+    if (!d || !d.ok) throw new Error((d && d.error) || "Project save nahi hua.");
+    resetProjectForm();
+    await loadProjects();
+    loadOverview();
+    toast(id ? "Project update ho gaya." : "Project add ho gaya.", "ok");
+  }));
+
+  document.addEventListener("click", async function (e) {
+    const t = e.target.closest("button");
+    if (!t) return;
+    const editId = t.dataset.editproj;
+    if (editId) {
+      const p = PROJECTS.find(function (x) { return String(x.id) === String(editId); });
+      if (!p) return;
+      $("pjId").value = p.id;
+      $("pjTitle").value = p.title || "";
+      $("pjTag").value = p.tag || "";
+      $("pjUrl").value = p.url || "";
+      $("pjCta").value = p.cta || "";
+      $("pjDesc").value = p.desc || "";
+      $("pjChips").value = (p.chips || []).join(", ");
+      fillMiniPreview($("pjImagePreview"), p.image, "Koi image nahi hai");
+      $("projFormTitle").textContent = "Edit project";
+      $("projFormHint").textContent = p.title;
+      $("projSubmit").textContent = "Save changes";
+      $("projCancel").hidden = false;
+      $("projectForm").scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+    const delId = t.dataset.delproj;
+    if (delId) {
+      if (!confirm("Ye project delete karein? Ye wapas nahi aayega.")) return;
+      const d = await api("/api/admin/projects/" + delId, jsonDel);
+      if (d && d.ok) { toast("Project delete ho gaya.", "ok"); loadProjects(); loadOverview(); }
+      else toast((d && d.error) || "Delete nahi hua.", "err");
+    }
+  });
+
+  /* ── Capabilities ── */
+  let SKILLS = [];
+
+  async function loadSkills() {
+    const d = await api("/api/admin/skills");
+    if (!d || !d.ok) return;
+    SKILLS = d.data || [];
+    $("skills").innerHTML = SKILLS.length
+      ? SKILLS.map(function (s, i) {
+          const iconBox = s.icon
+            ? '<div class="thumb-40"><img src="' + esc(s.icon) + '" alt="" /></div>'
+            : '<div class="idx">' + (i + 1) + "</div>";
+          return '<div class="list-item">' + iconBox +
+            '<div class="txt"><strong>' + esc(s.name) + '</strong><span>' + esc(s.desc || "") + "</span></div>" +
+            '<div class="bar"><i style="width:' + (Number(s.level) || 0) + '%"></i></div>' +
+            '<div class="bar-l">' + (Number(s.level) || 0) + "%</div>" +
+            '<div class="row-acts">' +
+              '<button class="btn btn-sm" data-editskill="' + s.id + '" title="Edit">' + icon.pencil + "</button>" +
+              '<button class="btn btn-sm btn-danger-ghost" data-delskill="' + s.id + '" title="Remove">' + icon.trash + "</button>" +
+            "</div>" +
+          "</div>";
+        }).join("")
+      : emptyBox("Abhi koi capability nahi hai.");
+    $("skHint").textContent = SKILLS.length ? SKILLS.length + " total" : "";
+  }
+
+  function resetSkillForm() {
+    $("skillForm").reset();
+    $("capId").value = "";
+    fillMiniPreview($("capIconPreview"), "", "Koi icon nahi hai");
+    $("capFormTitle").textContent = "Add capability";
+    $("capFormHint").textContent = "Nayi skill portfolio me add hogi";
+    $("capSubmit").textContent = "Add capability";
+    $("capCancel").hidden = true;
+  }
+  $("capCancel").addEventListener("click", resetSkillForm);
+
+  $("skillForm").addEventListener("submit", withBusy($("capSubmit"), "Saving…", async function () {
+    const id = $("capId").value;
+    const body = {
+      name: $("skName").value,
+      desc: $("skDesc").value,
+      level: $("skLevel").value || 0
+    };
+    const file = $("capIconFile").files[0];
+    if (file) body.icon = await uploadImage(file);
+    const d = await api(id ? "/api/admin/skills/" + id : "/api/admin/skills", id ? jsonPut(body) : jsonPost(body));
+    if (!d || !d.ok) throw new Error((d && d.error) || "Capability save nahi hui.");
+    resetSkillForm();
+    await loadSkills();
+    loadOverview();
+    toast(id ? "Capability update ho gayi." : "Capability add ho gayi.", "ok");
+  }));
+
+  document.addEventListener("click", async function (e) {
+    const t = e.target.closest("button");
+    if (!t) return;
+    const editId = t.dataset.editskill;
+    if (editId) {
+      const s = SKILLS.find(function (x) { return String(x.id) === String(editId); });
+      if (!s) return;
+      $("capId").value = s.id;
+      $("skName").value = s.name || "";
+      $("skDesc").value = s.desc || "";
+      $("skLevel").value = Number(s.level) || 0;
+      fillMiniPreview($("capIconPreview"), s.icon, "Koi icon nahi hai");
+      $("capFormTitle").textContent = "Edit capability";
+      $("capFormHint").textContent = s.name;
+      $("capSubmit").textContent = "Save changes";
+      $("capCancel").hidden = false;
+      $("skillForm").scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+    const delId = t.dataset.delskill;
+    if (delId) {
+      if (!confirm("Ye capability portfolio se hata den? Ye wapas nahi aayegi.")) return;
+      const d = await api("/api/admin/skills/" + delId, jsonDel);
+      if (d && d.ok) { toast("Capability hata di gayi.", "ok"); loadSkills(); loadOverview(); }
+      else toast((d && d.error) || "Delete nahi hua.", "err");
+    }
+  });
+
+  /* ── Site content ── */
+  async function loadContent() {
+    const d = await api("/api/admin/site");
+    if (!d || !d.ok) return;
+    const s = d.data;
+    $("stEmail").value = s.contactEmail || "";
+    $("stLocation").value = s.contactLocation || "";
+    $("stLinkedin").value = s.socialLinkedin || "";
+    $("stInstagram").value = s.socialInstagram || "";
+    $("stGithub").value = s.socialGithub || "";
+    $("stFooter").value = s.footerTagline || "";
+    $("stVision").value = (s.visionSlides || []).join("\n");
+    const stats = Array.isArray(s.stats) ? s.stats : [];
+    for (let i = 1; i <= 3; i++) {
+      $("stNum" + i).value = stats[i - 1] ? stats[i - 1].number : 0;
+      $("stLab" + i).value = stats[i - 1] ? stats[i - 1].label : "";
+    }
+
+    const raw = await api("/api/admin/content");
+    if (raw) $("content").textContent = JSON.stringify(raw.data, null, 2);
+  }
+
+  $("siteForm").addEventListener("submit", withBusy($("siteForm").querySelector('[type=submit]'), "Saving…", async function () {
+    const d = await api("/api/admin/site", jsonPut({
+      contactEmail: $("stEmail").value,
+      contactLocation: $("stLocation").value,
+      socialLinkedin: $("stLinkedin").value,
+      socialInstagram: $("stInstagram").value,
+      socialGithub: $("stGithub").value,
+      footerTagline: $("stFooter").value,
+      visionSlides: $("stVision").value.split("\n").map(function (l) { return l.trim(); }).filter(Boolean),
+      stats: [
+        { number: $("stNum1").value, label: $("stLab1").value },
+        { number: $("stNum2").value, label: $("stLab2").value },
+        { number: $("stNum3").value, label: $("stLab3").value }
+      ]
+    }));
+    if (!d || !d.ok) throw new Error((d && d.error) || "Save nahi hua.");
+    await loadContent();
+    toast("Site content save ho gaya.", "ok");
+  }));
+
+  /* ── Settings ── */
+  async function loadSettings() {
+    const d = await api("/api/admin/settings");
+    if (!d || !d.ok) return;
+    const s = d.data;
+    const setPill = (id, on, onText, offText) => {
+      const el = $(id);
+      el.className = "pill " + (on ? "on" : "off");
+      el.innerHTML = "<i></i> " + (on ? onText : offText);
+    };
+    setPill("supaPill", s.supabase, "Connected", "Not configured");
+    setPill("resendPill", s.emailService, "Ready", "RESEND_KEY missing");
+    $("setUser").textContent = s.username || "—";
+    $("setRec").textContent = s.recoveryEmail || "—";
+    $("setRecInline").textContent = s.recoveryEmail || "—";
+    $("crUser").placeholder = s.username || "admin";
+    $("sbUser").textContent = s.username || "Admin";
+    $("setJson").textContent = JSON.stringify(s, null, 2);
+  }
+
+  $("credForm").addEventListener("submit", withBusy($("credForm").querySelector('[type=submit]'), "Updating…", async function () {
+    const newPass = $("crPass").value;
+    if (newPass && newPass !== $("crPass2").value) {
+      throw new Error("Naya password dono jagah same nahi hai.");
+    }
+    const d = await api("/api/admin/credentials", jsonPut({
+      currentPassword: $("crCurrent").value,
+      username: $("crUser").value,
+      newPassword: newPass
+    }));
+    if (!d || !d.ok) throw new Error((d && d.error) || "Update nahi hua.");
+    $("credForm").reset();
+    await loadSettings();
+    toast("Login update ho gaya!", "ok");
+  }));
+
+  /* ── Boot ── */
+  async function loadAll() {
+    await Promise.all([
+      loadOverview(), loadMessages(), loadHero(), loadJourney(),
+      loadProjects(), loadSkills(), loadContent(), loadSettings()
+    ]);
+  }
+
+  const start = (location.hash || "#overview").slice(1);
+  show(META[start] ? start : "overview");
+  loadAll();
+</script>
+</body>
+</html>

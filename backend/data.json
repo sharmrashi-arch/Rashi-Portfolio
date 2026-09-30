@@ -1,0 +1,221 @@
+{
+  "messages": [],
+  "skills": [
+    {
+      "id": 1,
+      "name": "HTML & CSS",
+      "desc": "Building clean, responsive and accessible web pages.",
+      "icon": "images/icons/html5.svg",
+      "level": 0
+    },
+    {
+      "id": 2,
+      "name": "JavaScript",
+      "desc": "Adding interactivity and logic to modern websites.",
+      "icon": "images/icons/javascript.svg",
+      "level": 0
+    },
+    {
+      "id": 3,
+      "name": "Python",
+      "desc": "Programming, automation and data-driven thinking.",
+      "icon": "images/icons/python.svg",
+      "level": 0
+    },
+    {
+      "id": 4,
+      "name": "C++",
+      "desc": "Strong fundamentals in logic building and programming.",
+      "icon": "images/icons/cpp.svg",
+      "level": 0
+    },
+    {
+      "id": 5,
+      "name": "IoT",
+      "desc": "Connecting smart devices with real-world applications.",
+      "icon": "images/icons/iot.svg",
+      "level": 0
+    },
+    {
+      "id": 6,
+      "name": "MS Office",
+      "desc": "Word, PowerPoint and everyday productivity tools.",
+      "icon": "images/icons/msoffice.svg",
+      "level": 0
+    },
+    {
+      "id": 7,
+      "name": "Excel",
+      "desc": "Spreadsheets, formulas, charts and data analysis.",
+      "icon": "images/icons/excel.svg",
+      "level": 0
+    },
+    {
+      "id": 8,
+      "name": "LibreOffice",
+      "desc": "Open-source office suite for efficient document work.",
+      "icon": "images/icons/libre.svg",
+      "level": 0
+    },
+    {
+      "id": 9,
+      "name": "Website Development",
+      "desc": "Designing and developing complete, functional websites.",
+      "icon": "images/icons/webdev.svg",
+      "level": 0
+    },
+    {
+      "id": 10,
+      "name": "Game Development",
+      "desc": "Creating interactive games that are fun to play.",
+      "icon": "images/icons/game.svg",
+      "level": 0
+    },
+    {
+      "id": 11,
+      "name": "Digital Marketing",
+      "desc": "Growing brands with modern marketing strategies.",
+      "icon": "images/icons/marketing.svg",
+      "level": 0
+    },
+    {
+      "id": 12,
+      "name": "AI Tools & Automation",
+      "desc": "Using artificial intelligence to work smarter and faster.",
+      "icon": "images/icons/ai.svg",
+      "level": 0
+    },
+    {
+      "id": 13,
+      "name": "SEO & Content",
+      "desc": "Optimising content so the right people find it.",
+      "icon": "images/icons/seo.svg",
+      "level": 0
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "title": "Anjali Kids School Website",
+      "tag": "Web Development",
+      "desc": "A modern, responsive website for kids school - designed and developed from scratch using HTML, CSS and JavaScript. Clean layouts, smooth interactions and a user-first experience.",
+      "url": "https://zip-repl-anjali-kids-school.vercel.app/",
+      "chips": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "cta": "View Website",
+      "image": "images/anjali-hero.webp"
+    },
+    {
+      "id": 2,
+      "title": "Block Blast Game",
+      "tag": "Game Development",
+      "desc": "An interactive block puzzle game built with JavaScript - featuring fun mechanics, score tracking and smooth gameplay. Proof that I can turn ideas into playable experiences.",
+      "url": "https://block-blast-7161.ai.studio",
+      "chips": [
+        "JavaScript",
+        "HTML",
+        "CSS"
+      ],
+      "cta": "View Game",
+      "image": "images/real-game.webp"
+    },
+    {
+      "id": 3,
+      "title": "AI Marketing Campaign",
+      "tag": "Digital Marketing",
+      "desc": "A digital marketing strategy powered by AI tools - content planning, audience targeting and automation to grow visibility and engagement.",
+      "url": "",
+      "chips": [
+        "AI Tools",
+        "SEO",
+        "Content"
+      ],
+      "cta": "View Website",
+      "image": "images/project-marketing.svg"
+    },
+    {
+      "id": 4,
+      "title": "Next Project Coming Soon",
+      "tag": "More Coming Soon",
+      "desc": "I'm always building. New projects are in progress - more websites, more games and more intelligent solutions to share with the world.",
+      "url": "",
+      "chips": [
+        "HTML",
+        "JavaScript",
+        "Python"
+      ],
+      "cta": "Let's Talk",
+      "image": "images/project-soon.svg"
+    }
+  ],
+  "blog": [],
+  "content": {},
+  "site": {
+    "projectsVisible": 2,
+    "projectsCtaText": "View All Projects",
+    "heroImage": "images/portfolio.webp",
+    "heroGreeting": "Hello, welcome to my world",
+    "heroTagline": "The creative mind behind intelligent digital experiences",
+    "heroCtaText": "Get In Touch",
+    "aboutSubhead": "Digital Marketer & AI Enthusiast",
+    "aboutImage": "images/rashi-about.svg",
+    "aboutParas": [
+      "I am Rashi Sharma, a digital marketing specialist from Pundri, learning to harness the power of Artificial Intelligence. I believe technology and marketing, when combined with creativity, can build experiences people remember.",
+      "I completed my schooling in Pundri - finishing 10th in 2023 and 12th in 2024. Then I successfully completed my NIELIT O Level course, where I mastered essential programming languages including HTML, CSS, JavaScript, Python, IoT and C++. I am currently pursuing a Digital Marketing with AI course to bring intelligent, data-driven strategies to brands.",
+      "Beyond studies, I love building things. I have designed websites and developed games that turn ideas into working, interactive products - every project is a chance to learn, create and grow."
+    ],
+    "aboutHighlight": "Technology is my canvas, and marketing is my voice - I create work that people remember.",
+    "contactEmail": "rashi.sharma@email.com",
+    "contactLocation": "Pundri, Haryana, India",
+    "socialLinkedin": "",
+    "socialInstagram": "",
+    "socialGithub": "",
+    "footerTagline": "The Future of Digital Innovation",
+    "visionSlides": [
+      "I don't chase trends. I create value.",
+      "I don't build projects. I build experiences.",
+      "I don't just market. I make brands unforgettable."
+    ],
+    "stats": [
+      {
+        "id": 7,
+        "number": 6,
+        "label": "Languages Learned"
+      },
+      {
+        "id": 8,
+        "number": 4,
+        "label": "Projects Built"
+      },
+      {
+        "id": 9,
+        "number": 100,
+        "label": "Percent Dedication"
+      }
+    ]
+  },
+  "journey": {
+    "title": "My Journey",
+    "intro": "I didn't stop at just learning - I applied everything. From writing my first lines of code in O Level to building complete websites and games, my journey has been powered by curiosity and a habit of turning knowledge into creation.",
+    "items": [
+      {
+        "id": 1,
+        "year": "2023",
+        "text": "Completed my Class 10th - this is where I discovered my love for technology."
+      },
+      {
+        "id": 2,
+        "year": "2024",
+        "text": "Completed my Class 12th and began exploring computers and programming seriously."
+      },
+      {
+        "id": 3,
+        "year": "2025",
+        "text": "Completed my NIELIT O Level - mastering HTML, CSS, JavaScript, Python, IoT and C++."
+      }
+    ]
+  }
+}
