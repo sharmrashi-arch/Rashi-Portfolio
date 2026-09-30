@@ -561,4 +561,13 @@
     submitBtn.disabled = false;
     submitBtn.textContent = "Send Message";
   });
+
+  /* ============ Keep Render backend awake (free plan) ============
+     Render ka free server 15 min idle baad so jata hai. Har page
+     visit par ping bhejne se server jaag rehta hai.                */
+  if (window.PORTFOLIO_API_BASE) {
+    fetch(API("/api/health"), { method: "GET", mode: "cors", cache: "no-store" }).catch(
+      function () {}
+    );
+  }
 })();
