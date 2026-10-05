@@ -331,15 +331,15 @@
     return '<article class="project-card reveal visible">' +
       '<div class="project-thumb">' + img + tag + "</div>" +
       '<div class="project-body">' +
-        "<h3>" + esc(p.title) + "</h3>" +
-        "<p>" + esc(p.desc) + "</p>" +
+        "<h3>" + escHtml(p.title) + "</h3>" +
+        "<p>" + escHtml(p.desc) + "</p>" +
         chips + cta +
       "</div>" +
     "</article>";
   }
 
   function skillCardHtml(s) {
-    var icon = s.icon ? '<img src="' + escHtml(s.icon) + '" alt="' + escHtml(s.name) + '" loading="lazy" decoding="async" />' : "";
+    var icon = s.icon ? '<img src="' + escHtml(s.icon) + '" alt="' + escHtml(s.name) + '" width="24" height="24" loading="lazy" decoding="async" />' : "";
     return '<div class="skill-card reveal visible">' +
       '<div class="skill-badge">' + icon + "</div>" +
       "<h3>" + escHtml(s.name) + "</h3>" +

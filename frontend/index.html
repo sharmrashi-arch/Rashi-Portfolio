@@ -1,43 +1,100 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rashi Sharma | Web Developer & Digital Marketing Specialist</title>
+    <title>Rashi Sharma | Web Developer &amp; Digital Marketing Specialist</title>
     <meta
       name="description"
       content="Rashi Sharma is a web developer and digital marketing specialist from Pundri, Haryana, building modern websites and AI-powered solutions. See my skills."
     />
-    <meta property="og:title" content="Rashi Sharma | Web Developer & Digital Marketing Specialist" />
-    <meta property="og:description" content="Digital Marketing with AI. Web & Game Development. Technology is my canvas, marketing is my voice." />
+    <meta name="author" content="Rashi Sharma" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="theme-color" content="#0b1224" />
+    <link rel="canonical" href="https://rashisharma-portfolio.vercel.app/" />
+    <link rel="icon" href="/images/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/images/favicon.svg" />
+
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Rashi Sharma � Portfolio" />
+    <meta property="og:locale" content="en_IN" />
+    <meta property="og:title" content="Rashi Sharma | Web Developer &amp; Digital Marketing Specialist" />
+    <meta property="og:description" content="Digital Marketing with AI. Web &amp; Game Development. Technology is my canvas, marketing is my voice." />
+    <meta property="og:url" content="https://rashisharma-portfolio.vercel.app/" />
+    <meta property="og:image" content="https://rashisharma-portfolio.vercel.app/images/og-cover-rashi-sharma.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Rashi Sharma, web developer and digital marketing specialist from Pundri, Haryana" />
+
+    <!-- Twitter / X card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Rashi Sharma | Web Developer &amp; Digital Marketing Specialist" />
+    <meta name="twitter:description" content="Digital Marketing with AI. Web &amp; Game Development. Technology is my canvas, marketing is my voice." />
+    <meta name="twitter:image" content="https://rashisharma-portfolio.vercel.app/images/og-cover-rashi-sharma.jpg" />
+    <meta name="twitter:image:alt" content="Rashi Sharma, web developer and digital marketing specialist from Pundri, Haryana" />
+
+    <!-- Preload the LCP hero image -->
+    <link rel="preload" as="image" href="images/portfolio.webp" type="image/webp" fetchpriority="high" />
 
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Rashi Sharma",
-        "jobTitle": "Web Developer & Digital Marketing Specialist",
-        "description": "Web developer and digital marketing specialist from Pundri, Haryana, building modern websites, games and AI-powered solutions.",
-        "knowsAbout": [
-          "HTML5",
-          "CSS",
-          "JavaScript",
-          "Python",
-          "C++",
-          "Internet of Things",
-          "Website Development",
-          "Game Development",
-          "Digital Marketing",
-          "Search Engine Optimization"
-        ],
-        "sameAs": ["https://github.com/sharmrashi-arch"],
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Pundri",
-          "addressRegion": "Haryana",
-          "addressCountry": "IN"
-        }
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://rashisharma-portfolio.vercel.app/#person",
+            "name": "Rashi Sharma",
+            "url": "https://rashisharma-portfolio.vercel.app/",
+            "image": "https://rashisharma-portfolio.vercel.app/images/portfolio.webp",
+            "jobTitle": "Web Developer & Digital Marketing Specialist",
+            "description": "Web developer and digital marketing specialist from Pundri, Haryana, building modern websites, games and AI-powered solutions.",
+            "knowsAbout": [
+              "HTML5",
+              "CSS",
+              "JavaScript",
+              "Python",
+              "C++",
+              "Internet of Things",
+              "Website Development",
+              "Game Development",
+              "Digital Marketing",
+              "Search Engine Optimization"
+            ],
+            "sameAs": ["https://github.com/sharmrashi-arch"],
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Pundri",
+              "addressRegion": "Haryana",
+              "addressCountry": "IN"
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://rashisharma-portfolio.vercel.app/#website",
+            "url": "https://rashisharma-portfolio.vercel.app/",
+            "name": "Rashi Sharma � Portfolio",
+            "description": "Portfolio of Rashi Sharma, web developer and digital marketing specialist from Pundri, Kaithal, Haryana.",
+            "inLanguage": "en-IN",
+            "publisher": { "@id": "https://rashisharma-portfolio.vercel.app/#person" }
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://rashisharma-portfolio.vercel.app/#webpage",
+            "url": "https://rashisharma-portfolio.vercel.app/",
+            "name": "Rashi Sharma | Web Developer & Digital Marketing Specialist",
+            "inLanguage": "en-IN",
+            "isPartOf": { "@id": "https://rashisharma-portfolio.vercel.app/#website" },
+            "about": { "@id": "https://rashisharma-portfolio.vercel.app/#person" },
+            "primaryImageOfPage": {
+              "@type": "ImageObject",
+              "url": "https://rashisharma-portfolio.vercel.app/images/og-cover-rashi-sharma.jpg",
+              "width": 1200,
+              "height": 630
+            }
+          }
+        ]
       }
     </script>
 
@@ -65,10 +122,11 @@
         <div class="container nav-inner">
         <a href="#hero" class="logo"><span class="logo-accent">RASHI</span><span class="logo-light">.SHARMA</span></a>
         <ul class="nav-links">
+          <li><a href="#hero">Home</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#skills">Skills</a></li>
           <li><a href="#projects">Projects</a></li>
-          <li><a href="blog.html">Blog</a></li>
+          <li><a href="/blog">Blog</a></li>
           <li><a href="#vision">Vision</a></li>
           <li><a href="#contact" class="nav-cta">Contact</a></li>
         </ul>
@@ -77,21 +135,23 @@
         </button>
       </div>
       <div id="mobile-menu">
+        <a href="#hero">Home</a>
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
         <a href="#projects">Projects</a>
-        <a href="blog.html">Blog</a>
+        <a href="/blog">Blog</a>
         <a href="#vision">Vision</a>
         <a href="#contact" class="nav-cta">Contact</a>
       </div>
     </nav>
     </header>
 
+    <main>
     <section id="hero" class="section">
       <div class="container hero-inner">
         <div class="hero-text">
           <p class="hero-greeting" id="heroGreeting">Hello, welcome to my world</p>
-          <h1 class="font-exo">I am <span class="typewriter" id="typewriter"></span><span class="type-caret"></span></h1>
+          <h1 class="font-exo">I am <span class="typewriter" id="typewriter">Rashi Sharma, Web Developer &amp; Digital Marketer in Pundri, Haryana</span><span class="type-caret"></span></h1>
           <p class="hero-tagline" id="heroTagline">The creative mind behind intelligent digital experiences</p>
           <div class="hero-actions">
             <a href="#about" class="btn btn-outline">Explore My Journey</a>
@@ -103,7 +163,7 @@
           <div class="profile-ring">
             <span class="ping-ring"></span>
             <span class="ping-ring delay"></span>
-            <img id="heroImg" src="images/portfolio.webp" alt="Rashi Sharma - Digital Marketer & AI Enthusiast" />
+            <img id="heroImg" src="images/portfolio.webp" alt="Rashi Sharma - Digital Marketer & AI Enthusiast" width="496" height="515" decoding="async" fetchpriority="high" />
           </div>
         </div>
       </div>
@@ -120,7 +180,7 @@
         <div class="about-grid">
           <div class="about-image reveal">
             <div class="about-photo">
-              <img id="aboutImg" src="images/rashi-about.svg" alt="Rashi Sharma, Web Developer &amp; Digital Marketer from Pundri, Haryana" loading="lazy" decoding="async" />
+              <img id="aboutImg" src="images/rashi-about.svg" alt="Rashi Sharma, Web Developer &amp; Digital Marketer from Pundri, Haryana" width="512" height="512" loading="lazy" decoding="async" />
             </div>
           </div>
 
@@ -195,67 +255,67 @@
 
         <div class="skills-grid" id="skillsGrid">
           <div class="skill-card reveal">
-            <div class="skill-badge"><img src="images/icons/html5.svg" alt="HTML5 icon representing frontend web development skill" loading="lazy" decoding="async" /></div>
+            <div class="skill-badge"><img src="images/icons/html5.svg" alt="HTML5 icon representing frontend web development skill" width="24" height="24" loading="lazy" decoding="async" /></div>
             <h3>HTML &amp; CSS</h3>
             <p>Building clean, responsive and accessible web pages.</p>
           </div>
           <div class="skill-card reveal">
-            <div class="skill-badge"><img src="images/icons/javascript.svg" alt="JavaScript icon representing interactive web development skill" loading="lazy" decoding="async" /></div>
+            <div class="skill-badge"><img src="images/icons/javascript.svg" alt="JavaScript icon representing interactive web development skill" width="24" height="24" loading="lazy" decoding="async" /></div>
             <h3>JavaScript</h3>
             <p>Adding interactivity and logic to modern websites.</p>
           </div>
           <div class="skill-card reveal">
-            <div class="skill-badge"><img src="images/icons/python.svg" alt="Python icon representing programming and automation skill" loading="lazy" decoding="async" /></div>
+            <div class="skill-badge"><img src="images/icons/python.svg" alt="Python icon representing programming and automation skill" width="24" height="24" loading="lazy" decoding="async" /></div>
             <h3>Python</h3>
             <p>Programming, automation and data-driven thinking.</p>
           </div>
           <div class="skill-card reveal">
-            <div class="skill-badge"><img src="images/icons/cpp.svg" alt="C++ icon representing programming capability" loading="lazy" decoding="async" /></div>
+            <div class="skill-badge"><img src="images/icons/cpp.svg" alt="C++ icon representing programming capability" width="24" height="24" loading="lazy" decoding="async" /></div>
             <h3>C++</h3>
             <p>Strong fundamentals in logic building and programming.</p>
           </div>
           <div class="skill-card reveal">
-            <div class="skill-badge"><img src="images/icons/iot.svg" alt="IoT icon representing connected-devices skill" loading="lazy" decoding="async" /></div>
+            <div class="skill-badge"><img src="images/icons/iot.svg" alt="IoT icon representing connected-devices skill" width="24" height="24" loading="lazy" decoding="async" /></div>
             <h3>IoT</h3>
             <p>Connecting smart devices with real-world applications.</p>
           </div>
           <div class="skill-card reveal">
-            <div class="skill-badge"><img src="images/icons/msoffice.svg" alt="MS Office icon representing office productivity skill" loading="lazy" decoding="async" /></div>
+            <div class="skill-badge"><img src="images/icons/msoffice.svg" alt="MS Office icon representing office productivity skill" width="24" height="24" loading="lazy" decoding="async" /></div>
             <h3>MS Office</h3>
             <p>Word, PowerPoint and everyday productivity tools.</p>
           </div>
           <div class="skill-card reveal">
-            <div class="skill-badge"><img src="images/icons/excel.svg" alt="Excel icon representing data analysis skill" loading="lazy" decoding="async" /></div>
+            <div class="skill-badge"><img src="images/icons/excel.svg" alt="Excel icon representing data analysis skill" width="24" height="24" loading="lazy" decoding="async" /></div>
             <h3>Excel</h3>
             <p>Spreadsheets, formulas, charts and data analysis.</p>
           </div>
           <div class="skill-card reveal">
-            <div class="skill-badge"><img src="images/icons/libre.svg" alt="LibreOffice icon representing document productivity skill" loading="lazy" decoding="async" /></div>
+            <div class="skill-badge"><img src="images/icons/libre.svg" alt="LibreOffice icon representing document productivity skill" width="24" height="24" loading="lazy" decoding="async" /></div>
             <h3>LibreOffice</h3>
             <p>Open-source office suite for efficient document work.</p>
           </div>
           <div class="skill-card reveal">
-            <div class="skill-badge"><img src="images/icons/webdev.svg" alt="Web development icon" loading="lazy" decoding="async" /></div>
+            <div class="skill-badge"><img src="images/icons/webdev.svg" alt="Web development icon" width="24" height="24" loading="lazy" decoding="async" /></div>
             <h3>Website Development</h3>
             <p>Designing and developing complete, functional websites.</p>
           </div>
           <div class="skill-card reveal">
-            <div class="skill-badge"><img src="images/icons/game.svg" alt="Game development icon" loading="lazy" decoding="async" /></div>
+            <div class="skill-badge"><img src="images/icons/game.svg" alt="Game development icon" width="24" height="24" loading="lazy" decoding="async" /></div>
             <h3>Game Development</h3>
             <p>Creating interactive games that are fun to play.</p>
           </div>
           <div class="skill-card reveal">
-            <div class="skill-badge"><img src="images/icons/marketing.svg" alt="Digital marketing icon" loading="lazy" decoding="async" /></div>
+            <div class="skill-badge"><img src="images/icons/marketing.svg" alt="Digital marketing icon" width="24" height="24" loading="lazy" decoding="async" /></div>
             <h3>Digital Marketing</h3>
             <p>Growing brands with modern marketing strategies.</p>
           </div>
           <div class="skill-card reveal">
-            <div class="skill-badge"><img src="images/icons/ai.svg" alt="AI tools icon representing automation and efficiency skill" loading="lazy" decoding="async" /></div>
+            <div class="skill-badge"><img src="images/icons/ai.svg" alt="AI tools icon representing automation and efficiency skill" width="24" height="24" loading="lazy" decoding="async" /></div>
             <h3>AI Tools &amp; Automation</h3>
             <p>Using artificial intelligence to work smarter and faster.</p>
           </div>
           <div class="skill-card reveal">
-            <div class="skill-badge"><img src="images/icons/seo.svg" alt="SEO icon representing search rank improvement and content optimization skill" loading="lazy" decoding="async" /></div>
+            <div class="skill-badge"><img src="images/icons/seo.svg" alt="SEO icon representing search rank improvement and content optimization skill" width="24" height="24" loading="lazy" decoding="async" /></div>
             <h3>SEO &amp; Content</h3>
             <p>Optimising content so the right people find it.</p>
           </div>
@@ -288,7 +348,7 @@
         <div class="projects-grid" id="projectsGrid">
           <article class="project-card reveal">
             <div class="project-thumb thumb-website">
-              <img src="images/anjali-hero.webp" alt="Anjali Kids School website preview" loading="lazy" decoding="async" />
+              <img src="images/anjali-hero.webp" alt="Anjali Kids School website preview" width="1024" height="1024" loading="lazy" decoding="async" />
               <span class="project-tag tag-web">Web Development</span>
             </div>
             <div class="project-body">
@@ -307,7 +367,7 @@
 
           <article class="project-card reveal">
             <div class="project-thumb thumb-game">
-              <img src="images/real-game.webp" alt="Block Blast game preview" loading="lazy" decoding="async" />
+              <img src="images/real-game.webp" alt="Block Blast game preview" width="1280" height="800" loading="lazy" decoding="async" />
               <span class="project-tag tag-game">Game Development</span>
             </div>
             <div class="project-body">
@@ -326,7 +386,7 @@
 
           <article class="project-card reveal">
             <div class="project-thumb thumb-marketing">
-              <img src="images/project-marketing.svg" alt="AI marketing campaign preview" loading="lazy" decoding="async" />
+              <img src="images/project-marketing.svg" alt="AI marketing campaign preview" width="512" height="288" loading="lazy" decoding="async" />
               <span class="project-tag tag-mkt">Digital Marketing</span>
             </div>
             <div class="project-body">
@@ -344,7 +404,7 @@
 
           <article class="project-card reveal">
             <div class="project-thumb thumb-app">
-              <img src="images/project-soon.svg" alt="Next project preview" loading="lazy" decoding="async" />
+              <img src="images/project-soon.svg" alt="Next project preview" width="512" height="288" loading="lazy" decoding="async" />
               <span class="project-tag tag-app">More Coming Soon</span>
             </div>
             <div class="project-body">
@@ -416,6 +476,7 @@
         </div>
       </div>
     </section>
+    </main>
 
     <footer>
       <div class="container footer-inner">
@@ -424,7 +485,7 @@
           <a href="#about">About</a>
           <a href="#skills">Skills</a>
           <a href="#projects">Projects</a>
-          <a href="blog.html">Blog</a>
+          <a href="/blog">Read My Full Story</a>
           <a href="#vision">Vision</a>
           <a href="#contact">Contact</a>
         </nav>

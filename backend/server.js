@@ -515,9 +515,33 @@ async function supabaseUpsert(table, rows) {
 }
 
 /* ── Static serving ── */
+/* SEO: clean, lowercase, extension-less URLs.
+   /blog.html -> /blog  (301, permanent — keeps any old inbound links alive)
+   /index.html -> /     (301)
+   /blog and / resolve to the .html file on disk, but the canonical URL that
+   gets indexed is the clean one, declared in each page's <link rel="canonical">. */
+const CLEAN_URLS = {
+  "/blog.html": "/blog",
+  "/index.html": "/"
+};
+
 function serveStatic(req, res) {
   let urlPath = decodeURIComponent((req.url || "").split("?")[0]);
+
+  /* permanent redirect old .html URLs to their clean slug */
+  const clean = CLEAN_URLS[urlPath.toLowerCase()];
+  if (clean) {
+    res.writeHead(301, {
+      Location: clean,
+      "Cache-Control": "public, max-age=31536000, immutable"
+    });
+    res.end();
+    return;
+  }
+
   if (urlPath === "/") urlPath = "/index.html";
+  else if (urlPath === "/blog") urlPath = "/blog.html";
+
   const filePath = path.resolve(BASE, "." + urlPath);
   if (filePath !== BASE && !filePath.startsWith(BASE + path.sep)) {
     res.writeHead(403);
@@ -531,7 +555,10 @@ function serveStatic(req, res) {
       return;
     }
     const ext = path.extname(filePath).toLowerCase();
-    res.writeHead(200, { "Content-Type": MIME[ext] || "application/octet-stream" });
+    const headers = { "Content-Type": MIME[ext] || "application/octet-stream" };
+    /* HTML must never be cached hard, or a deploy won't reach visitors */
+    if (ext === ".html") headers["Cache-Control"] = "no-cache, must-revalidate";
+    res.writeHead(200, headers);
     res.end(data);
   });
 }
@@ -547,10 +574,21 @@ function serveFile(res, file, contentType) {
   });
 }
 
+/* ── Canonical site origin (SEO) ──
+   The frontend is deployed on Vercel; this Render service also serves a copy of
+   the same static files for the API. robots.txt and sitemap.xml must ALWAYS
+   advertise the canonical Vercel origin — never the request host — otherwise the
+   two hosts emit conflicting signals and search engines split ranking between them.
+   Override with the SITE_ORIGIN env var if the domain ever changes. */
+const SITE_ORIGIN = String(process.env.SITE_ORIGIN || "https://rashisharma-portfolio.vercel.app")
+  .replace(/\/+$/, "");
+
 function siteOrigin(req) {
+  /* localhost dev keeps working on a dynamic host */
   const host = String(req.headers.host || "localhost:" + PORT);
   const isLocal = /^localhost$|^127\.0\.0\.1$|^\[::1\]$/i.test(host.split(":")[0]);
-  return (isLocal ? "http://" : "https://") + host;
+  if (isLocal) return "http://" + host;
+  return SITE_ORIGIN;
 }
 
 /* ── CORS: Vercel frontend → Render backend ── */
@@ -908,22 +946,39 @@ const server = http.createServer(function (req, res) {
       "Content-Type": "text/plain; charset=utf-8",
       "Cache-Control": "public, max-age=3600"
     });
-    res.end("User-agent: *\nAllow: /\n\nSitemap: " + origin + "/sitemap.xml\n");
+    res.end(
+      "User-agent: *\n" +
+      "Allow: /\n" +
+      "Disallow: /admin\n" +
+      "Disallow: /api/\n" +
+      "\n" +
+      "Sitemap: " + origin + "/sitemap.xml\n"
+    );
     return;
   }
 
   if (pathname === "/sitemap.xml" && method === "GET") {
     const origin = siteOrigin(req);
     const today = new Date().toISOString().slice(0, 10);
+    const urls = [
+      { loc: origin + "/", changefreq: "weekly", priority: "1.0" },
+      { loc: origin + "/blog", changefreq: "monthly", priority: "0.8" }
+    ];
     const xml =
       '<?xml version="1.0" encoding="UTF-8"?>\n' +
       '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
-      "  <url>\n" +
-      "    <loc>" + origin + "/</loc>\n" +
-      "    <lastmod>" + today + "</lastmod>\n" +
-      "    <changefreq>monthly</changefreq>\n" +
-      "    <priority>1.0</priority>\n" +
-      "  </url>\n" +
+      urls
+        .map(function (u) {
+          return (
+            "  <url>\n" +
+            "    <loc>" + u.loc + "</loc>\n" +
+            "    <lastmod>" + today + "</lastmod>\n" +
+            "    <changefreq>" + u.changefreq + "</changefreq>\n" +
+            "    <priority>" + u.priority + "</priority>\n" +
+            "  </url>\n"
+          );
+        })
+        .join("") +
       "</urlset>\n";
     res.writeHead(200, {
       "Content-Type": "application/xml; charset=utf-8",

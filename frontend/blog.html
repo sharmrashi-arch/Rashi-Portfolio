@@ -4,44 +4,183 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- ═══ SEO: title (under 60 chars) + meta description (150–160 chars) ═══ -->
-    <title>Rashi Sharma | AI Developer, Web Developer, Kaithal</title>
+    <!-- ═══════════════════════════════════════════════════════════════
+         SEO — blog.html
+         Origin is the single source of truth for every absolute URL
+         below (canonical, og:url, og:image, JSON-LD @id). If the domain
+         ever changes, update SITE_ORIGIN in this file, vercel.json and
+         backend/server.js (SITE_ORIGIN const) together.
+         ═══════════════════════════════════════════════════════════════ -->
+
+    <!-- Title tag: 53 chars, unique vs index.html, primary keyword first -->
+    <title>Rashi Sharma | AI &amp; Web Developer in Kaithal, Haryana</title>
+
+    <!-- Meta description: 153 chars (150–160 sweet spot) -->
     <meta
       name="description"
-      content="I'm Rashi Sharma, an AI developer, web developer, video editor and graphic designer from Kaithal, Haryana. Discover my journey, projects, tools and skills."
+      content="I'm Rashi Sharma, an AI &amp; web developer from Pundri, Kaithal, Haryana. Read my full story: NIELIT O Level, AI chatbot, web projects, video editing &amp; SEO."
     />
     <meta name="author" content="Rashi Sharma" />
-    <link rel="canonical" href="/blog.html" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="theme-color" content="#0b1224" />
+    <meta name="format-detection" content="telephone=no" />
 
-    <!-- Open Graph (social sharing) -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Rashi Sharma | AI Developer, Web Developer, Kaithal" />
+    <link rel="icon" href="/images/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/images/favicon.svg" />
+
+    <!-- Canonical — absolute URL, points at the clean /blog slug -->
+    <link rel="canonical" href="https://rashisharma-portfolio.vercel.app/blog" />
+
+    <!-- Open Graph — social preview on WhatsApp, Facebook, LinkedIn -->
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Rashi Sharma — Portfolio" />
+    <meta property="og:locale" content="en_IN" />
+    <meta property="og:title" content="Rashi Sharma | AI &amp; Web Developer in Kaithal, Haryana" />
     <meta
       property="og:description"
-      content="AI developer, web developer, video editor & graphic designer from Kaithal, Haryana. My journey, tools and projects."
+      content="I'm Rashi Sharma, an AI &amp; web developer from Pundri, Kaithal, Haryana. Read my full story: NIELIT O Level, AI chatbot, web projects, video editing &amp; SEO."
     />
-    <meta property="og:url" content="/blog.html" />
+    <meta property="og:url" content="https://rashisharma-portfolio.vercel.app/blog" />
+    <meta property="og:image" content="https://rashisharma-portfolio.vercel.app/images/og-cover-rashi-sharma.jpg" />
+    <meta property="og:image:secure_url" content="https://rashisharma-portfolio.vercel.app/images/og-cover-rashi-sharma.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Rashi Sharma — AI Developer and Web Developer in Kaithal, Haryana. Websites, AI chatbots, video editing and SEO." />
+    <meta property="article:published_time" content="2026-09-30T09:00:00+05:30" />
+    <meta property="article:modified_time" content="2026-10-03T12:00:00+05:30" />
+    <meta property="article:author" content="Rashi Sharma" />
+    <meta property="article:section" content="Personal Story" />
+    <meta property="article:tag" content="AI Development" />
+    <meta property="article:tag" content="Web Development" />
+    <meta property="article:tag" content="SEO" />
 
-    <!-- ═══ JSON-LD: Person schema (structured data for SEO) ═══ -->
+    <!-- Twitter / X card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Rashi Sharma | AI &amp; Web Developer in Kaithal, Haryana" />
+    <meta
+      name="twitter:description"
+      content="I'm Rashi Sharma, an AI &amp; web developer from Pundri, Kaithal, Haryana. Read my full story: NIELIT O Level, AI chatbot, web projects, video editing &amp; SEO."
+    />
+    <meta name="twitter:image" content="https://rashisharma-portfolio.vercel.app/images/og-cover-rashi-sharma.jpg" />
+    <meta name="twitter:image:alt" content="Rashi Sharma — AI Developer and Web Developer in Kaithal, Haryana" />
+
+    <!-- Preload the LCP image + declare its size to avoid layout shift -->
+    <link rel="preload" as="image" href="images/rashi-about.svg" type="image/svg+xml" fetchpriority="high" />
+
+    <!-- ═══ JSON-LD: linked graph (Person → WebSite → WebPage → BlogPosting) ═══ -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Rashi Sharma",
-        "jobTitle": "AI Developer, Web Developer, Video Editor & Graphic Designer",
-        "description": "AI developer and web developer from Pundri, Kaithal, Haryana — building websites, chatbots and creative content with AI.",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Pundri",
-          "addressRegion": "Haryana",
-          "addressCountry": "IN"
-        },
-        "knowsAbout": [
-          "HTML", "CSS", "JavaScript", "React", "Vite", "Node.js", "Express",
-          "Python", "C++", "IoT", "ChatGPT", "Google Gemini", "Claude AI",
-          "Canva AI", "Gamma AI", "CapCut", "SEO", "Digital Marketing"
-        ],
-        "sameAs": ["https://github.com/sharmrashi-arch"]
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://rashisharma-portfolio.vercel.app/#person",
+            "name": "Rashi Sharma",
+            "url": "https://rashisharma-portfolio.vercel.app/",
+            "image": "https://rashisharma-portfolio.vercel.app/images/portfolio.webp",
+            "jobTitle": "AI Developer, Web Developer, Video Editor & Graphic Designer",
+            "description": "AI developer and web developer from Pundri, Kaithal, Haryana — building websites, chatbots and creative content with AI.",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Pundri",
+              "addressRegion": "Haryana",
+              "addressCountry": "IN"
+            },
+            "knowsAbout": [
+              "HTML", "CSS", "JavaScript", "React", "Vite", "Node.js", "Express",
+              "Python", "C++", "IoT", "ChatGPT", "Google Gemini", "Claude AI",
+              "Canva AI", "Gamma AI", "CapCut", "SEO", "Digital Marketing"
+            ],
+            "knowsLanguage": ["en", "hi"],
+            "sameAs": ["https://github.com/sharmrashi-arch"]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://rashisharma-portfolio.vercel.app/#website",
+            "url": "https://rashisharma-portfolio.vercel.app/",
+            "name": "Rashi Sharma — Portfolio",
+            "description": "Portfolio of Rashi Sharma, AI and web developer from Pundri, Kaithal, Haryana.",
+            "inLanguage": "en-IN",
+            "publisher": { "@id": "https://rashisharma-portfolio.vercel.app/#person" }
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://rashisharma-portfolio.vercel.app/blog#webpage",
+            "url": "https://rashisharma-portfolio.vercel.app/blog",
+            "name": "Rashi Sharma | AI & Web Developer in Kaithal, Haryana",
+            "description": "I'm Rashi Sharma, an AI & web developer from Pundri, Kaithal, Haryana. Read my full story: NIELIT O Level, AI chatbot, web projects, video editing & SEO.",
+            "inLanguage": "en-IN",
+            "isPartOf": { "@id": "https://rashisharma-portfolio.vercel.app/#website" },
+            "about": { "@id": "https://rashisharma-portfolio.vercel.app/#person" },
+            "breadcrumb": { "@id": "https://rashisharma-portfolio.vercel.app/blog#breadcrumb" },
+            "primaryImageOfPage": {
+              "@type": "ImageObject",
+              "url": "https://rashisharma-portfolio.vercel.app/images/og-cover-rashi-sharma.jpg",
+              "width": 1200,
+              "height": 630,
+              "caption": "Rashi Sharma — AI Developer and Web Developer in Kaithal, Haryana"
+            }
+          },
+          {
+            "@type": "BlogPosting",
+            "@id": "https://rashisharma-portfolio.vercel.app/blog#blogposting",
+            "mainEntityOfPage": { "@id": "https://rashisharma-portfolio.vercel.app/blog#webpage" },
+            "url": "https://rashisharma-portfolio.vercel.app/blog",
+            "headline": "Rashi Sharma | AI & Web Developer in Kaithal, Haryana",
+            "alternativeHeadline": "About Rashi Sharma — AI Developer, Web Developer, Video Editor & Graphic Designer from Kaithal, Haryana",
+            "description": "I'm Rashi Sharma, an AI & web developer from Pundri, Kaithal, Haryana. Read my full story: NIELIT O Level, AI chatbot, web projects, video editing & SEO.",
+            "image": {
+              "@type": "ImageObject",
+              "url": "https://rashisharma-portfolio.vercel.app/images/og-cover-rashi-sharma.jpg",
+              "width": 1200,
+              "height": 630,
+              "caption": "Rashi Sharma — AI Developer and Web Developer in Kaithal, Haryana"
+            },
+            "datePublished": "2026-09-30T09:00:00+05:30",
+            "dateModified": "2026-10-03T12:00:00+05:30",
+            "inLanguage": "en-IN",
+            "isAccessibleForFree": true,
+            "articleSection": [
+              "Personal Story",
+              "AI Development",
+              "Web Development",
+              "Video Editing",
+              "Graphic Designing",
+              "SEO",
+              "Digital Marketing"
+            ],
+            "keywords": "Rashi Sharma, AI developer, web developer, Kaithal, Haryana, Pundri, SEO, digital marketing, video editor, graphic designer, NIELIT O Level, chatbot",
+            "wordCount": 1931,
+            "author": {
+              "@type": "Person",
+              "@id": "https://rashisharma-portfolio.vercel.app/#person"
+            },
+            "publisher": {
+              "@type": "Person",
+              "@id": "https://rashisharma-portfolio.vercel.app/#person"
+            }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://rashisharma-portfolio.vercel.app/blog#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://rashisharma-portfolio.vercel.app/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "About Rashi",
+                "item": "https://rashisharma-portfolio.vercel.app/blog"
+              }
+            ]
+          }
+        ]
       }
     </script>
 
@@ -185,7 +324,7 @@
 
       /* ── Hero ── */
       .page-hero {
-        padding: 170px 0 70px;
+        padding: 46px 0 70px;
         text-align: center;
         position: relative;
       }
@@ -232,6 +371,13 @@
         letter-spacing: 2px;
         text-transform: uppercase;
       }
+      .page-hero p.byline {
+        color: var(--muted);
+        font-size: 0.85rem;
+        margin-top: 14px;
+      }
+      .page-hero p.byline strong { color: var(--ink); }
+      .page-hero p.byline time { color: var(--accent-light); }
 
       /* ── Article content ── */
       main { position: relative; z-index: 2; }
@@ -250,6 +396,111 @@
         padding: 56px 0;
       }
       .section-anchor { scroll-margin-top: 90px; }
+
+      /* ── Breadcrumb (matches BreadcrumbList JSON-LD) ── */
+      .breadcrumb-nav { padding: 128px 0 0; }
+      .breadcrumb {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        font-size: 0.82rem;
+        color: var(--muted);
+      }
+      .breadcrumb li { margin: 0; display: flex; align-items: center; gap: 8px; }
+      .breadcrumb li + li::before {
+        content: "/";
+        color: var(--accent);
+        opacity: 0.6;
+      }
+      .breadcrumb a { color: var(--accent-light); transition: color 0.2s ease; }
+      .breadcrumb a:hover { color: var(--accent); text-decoration: underline; }
+      .breadcrumb [aria-current="page"] { color: var(--ink); font-weight: 600; }
+
+      /* ── Table of contents: internal anchor links ── */
+      .toc { margin-top: 26px; }
+      .toc-title {
+        font-family: "Exo", sans-serif;
+        font-size: 0.95rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2.5px;
+        color: var(--accent);
+        margin-bottom: 16px;
+      }
+      .toc-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 10px 20px;
+        counter-reset: toc;
+      }
+      .toc-list li { margin: 0; counter-increment: toc; }
+      .toc-list a {
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+        color: var(--muted);
+        font-size: 0.92rem;
+        font-weight: 500;
+        transition: color 0.2s ease, transform 0.2s ease;
+      }
+      .toc-list a::before {
+        content: counter(toc, decimal-leading-zero);
+        font-family: "Exo", sans-serif;
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: var(--accent);
+        opacity: 0.75;
+      }
+      .toc-list a:hover { color: var(--ink); transform: translateX(4px); }
+
+      /* ── Read-more links inside article body ── */
+      .panel a.inline-link {
+        color: var(--accent-light);
+        font-weight: 600;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        text-decoration-color: rgba(122, 176, 255, 0.4);
+        transition: color 0.2s ease, text-decoration-color 0.2s ease;
+      }
+      .panel a.inline-link:hover {
+        color: var(--ink);
+        text-decoration-color: var(--accent);
+      }
+
+      /* ── Key-facts card (entity signals for local SEO) ── */
+      .factgrid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 12px;
+        margin: 6px 0 20px;
+      }
+      .factgrid > div {
+        background: rgba(59, 130, 246, 0.05);
+        border: 1px solid var(--border);
+        border-left: 3px solid var(--accent);
+        border-radius: 12px;
+        padding: 14px 16px;
+      }
+      .factgrid dt {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--accent);
+        margin-bottom: 4px;
+      }
+      .factgrid dd {
+        margin: 0;
+        color: var(--ink);
+        font-weight: 600;
+        font-size: 0.95rem;
+      }
 
       .panel {
         /* Halka transparent card — peeche portfolio ka blue glow dikhta rahe */
@@ -430,7 +681,7 @@
       @media (max-width: 860px) {
         .panel { padding: 30px 22px; }
         .two-col { grid-template-columns: 1fr; }
-        .page-hero { padding: 140px 0 50px; }
+        .page-hero { padding: 40px 0 50px; }
       }
       @media (max-width: 520px) {
         .back-link { font-size: 0.72rem; padding: 9px 15px; letter-spacing: 1px; }
@@ -445,39 +696,104 @@
 
     <!-- ═══ NAVBAR — minimal: sirf "Back to Portfolio" link (koi section link nahi) ═══ -->
     <header class="site-header">
-      <nav id="navbar" aria-label="Back to portfolio">
+      <nav id="navbar" aria-label="Main">
         <div class="container nav-inner">
-          <a href="index.html" class="logo" aria-label="Back to portfolio"><span class="logo-accent">RASHI</span><span class="logo-light">.SHARMA</span></a>
-          <a href="index.html" class="back-link">
+          <a href="/blog" class="logo" aria-label="Rashi Sharma portfolio — home"><span class="logo-accent">RASHI</span><span class="logo-light">.SHARMA</span></a>
+          <a href="/" class="back-link">
             <span class="back-arrow" aria-hidden="true">&#8592;</span> Back to Portfolio
           </a>
         </div>
       </nav>
     </header>
 
+    <!-- ═══ BREADCRUMB — mirrors the BreadcrumbList JSON-LD above ═══ -->
+    <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+      <div class="container">
+        <ol class="breadcrumb">
+          <li><a href="/">Home</a></li>
+          <li><a href="/#about">About</a></li>
+          <li><span aria-current="page">About Rashi</span></li>
+        </ol>
+      </div>
+    </nav>
+
     <!-- ═══ HERO — exactly one H1, intro line and location ═══ -->
-    <section class="page-hero">
+    <section class="page-hero" aria-labelledby="page-title">
       <div class="container">
         <div class="avatar">
-          <img src="images/rashi-about.svg" alt="Portrait of Rashi Sharma from Kaithal, Haryana" loading="lazy" />
+          <img
+            src="images/rashi-about.svg"
+            alt="Portrait of Rashi Sharma, AI and web developer from Pundri, Kaithal, Haryana"
+            width="120"
+            height="120"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
         </div>
         <p class="eyebrow">About Rashi — the full story</p>
-        <h1>I'm Rashi — <span class="text-gradient">AI Developer, Web Developer, Video Editor &amp; Graphic Designer</span></h1>
+        <h1 id="page-title">
+          I'm Rashi Sharma — <span class="text-gradient">AI Developer &amp; Web Developer in Kaithal, Haryana</span>
+        </h1>
         <p class="lead">
-          A curious mind turning technology, design and AI into things people remember — from
-          websites and chatbots to devotional reels and marketing campaigns.
+          I'm an AI developer and web developer from Pundri, Kaithal, turning technology, design and AI
+          into things people remember — from websites and chatbots to devotional reels and marketing
+          campaigns. I'm also a video editor and graphic designer.
         </p>
         <p class="location">Based in Pundri, Kaithal, Haryana, India</p>
+        <p class="byline">
+          By <strong>Rashi Sharma</strong> &middot; Published
+          <time datetime="2026-09-30">30 September 2026</time> &middot; Updated
+          <time datetime="2026-10-03">3 October 2026</time>
+        </p>
+
+        <!-- Key facts: quick, scannable answers that also act as entity signals -->
+        <dl class="factgrid">
+          <div>
+            <dt>Role</dt>
+            <dd>AI &amp; Web Developer</dd>
+          </div>
+          <div>
+            <dt>Based in</dt>
+            <dd>Pundri, Kaithal, Haryana</dd>
+          </div>
+          <div>
+            <dt>Qualification</dt>
+            <dd>NIELIT O Level</dd>
+          </div>
+          <div>
+            <dt>Core stack</dt>
+            <dd>HTML, CSS, JS, React, Node.js</dd>
+          </div>
+        </dl>
+
+        <!-- TABLE OF CONTENTS — internal anchor links to every H2 on this page -->
+        <nav class="toc" aria-labelledby="toc-heading">
+          <p class="toc-title" id="toc-heading">In this article</p>
+          <ol class="toc-list">
+            <li><a href="#journey">My Journey — NIELIT O Level to AI developer</a></li>
+            <li><a href="#ai">AI Tools &amp; How I Built My Chatbot</a></li>
+            <li><a href="#web">Web Development — Idea to Live Website</a></li>
+            <li><a href="#video">Video Editing — Techniques That Retain Attention</a></li>
+            <li><a href="#design">Graphic Designing — Design That Communicates</a></li>
+            <li><a href="#seo">SEO — Getting Found on Google</a></li>
+            <li><a href="#marketing">Digital Marketing with AI</a></li>
+            <li><a href="#contact-cta">Work Together — Contact Me</a></li>
+          </ol>
+        </nav>
       </div>
     </section>
 
     <main>
+      <!-- One article element wraps the whole post; each panel is a labelled section
+           inside it. This matches the BlogPosting JSON-LD declared in the head. -->
+      <article class="post-body">
       <!-- ═══════════════ a. MY JOURNEY ═══════════════ -->
-      <article class="section section-anchor" id="journey">
+      <section class="section section-anchor" id="journey" aria-labelledby="journey-heading">
         <div class="container">
           <div class="panel">
             <span class="sub">01 · My Journey</span>
-            <h2>From NIELIT O Level to becoming an AI developer</h2>
+            <h2 id="journey-heading">From NIELIT O Level to becoming an AI developer</h2>
             <p>
               My story started in <strong>Pundri, Kaithal</strong> — a small town where computers
               felt like magic. I finished my Class 10th in 2023 and Class 12th in 2024, and somewhere
@@ -498,6 +814,9 @@
             <p>
               Unlike quick YouTube tutorials, O Level pushed me through assignments, practicals and
               theory. That discipline is what I still rely on — I don't just watch code, I build.
+              You can see the result of that training in my
+              <a class="inline-link" href="/#projects">live web development projects</a> and the
+              <a class="inline-link" href="/#skills">full list of technical skills</a> I've built since.
             </p>
 
             <h3>The software developer upgrade</h3>
@@ -519,14 +838,14 @@
             </p>
           </div>
         </div>
-      </article>
+      </section>
 
       <!-- ═══════════════ b. AI TOOLS & CHATBOT ═══════════════ -->
-      <article class="section section-anchor" id="ai">
+      <section class="section section-anchor" id="ai" aria-labelledby="ai-heading">
         <div class="container">
           <div class="panel">
             <span class="sub">02 · AI Tools &amp; Chatbot Building</span>
-            <h2>How I use and build with AI</h2>
+            <h2 id="ai-heading">How I use and build with AI</h2>
 
             <h3>The AI tools in my daily workflow</h3>
             <p>
@@ -590,14 +909,14 @@
             </p>
           </div>
         </div>
-      </article>
+      </section>
 
       <!-- ═══════════════ c. WEB DEVELOPMENT ═══════════════ -->
-      <article class="section section-anchor" id="web">
+      <section class="section section-anchor" id="web" aria-labelledby="web-heading">
         <div class="container">
           <div class="panel">
             <span class="sub">03 · Web Development</span>
-            <h2>My full-stack process — from idea to live website</h2>
+            <h2 id="web-heading">My full-stack process — from idea to live website</h2>
 
             <h3>My tech stack</h3>
             <div class="chips">
@@ -626,18 +945,20 @@
             <p>
               This exact pipeline powers my portfolio, my school website projects and the full-stack
               admin systems I build for clients — one consistent, repeatable way to go from
-              <strong>idea → code → live URL</strong>.
+              <strong>idea → code → live URL</strong>. One of the first sites I shipped this way is
+              the <a class="inline-link" href="https://zip-repl-anjali-kids-school.vercel.app/" target="_blank" rel="noopener noreferrer">Anjali Kids School website</a>,
+              a responsive school site built with HTML, CSS and JavaScript.
             </p>
           </div>
         </div>
-      </article>
+      </section>
 
       <!-- ═══════════════ d. VIDEO EDITING ═══════════════ -->
-      <article class="section section-anchor" id="video">
+      <section class="section section-anchor" id="video" aria-labelledby="video-heading">
         <div class="container">
           <div class="panel">
             <span class="sub">04 · Video Editing</span>
-            <h2>Editing that keeps attention</h2>
+            <h2 id="video-heading">Editing that keeps attention</h2>
 
             <h3>My editing techniques</h3>
             <p>
@@ -667,14 +988,14 @@
             </p>
           </div>
         </div>
-      </article>
+      </section>
 
       <!-- ═══════════════ e. GRAPHIC DESIGNING ═══════════════ -->
-      <article class="section section-anchor" id="design">
+      <section class="section section-anchor" id="design" aria-labelledby="design-heading">
         <div class="container">
           <div class="panel">
             <span class="sub">05 · Graphic Designing</span>
-            <h2>Design that communicates instantly</h2>
+            <h2 id="design-heading">Design that communicates instantly</h2>
 
             <h3>What I design</h3>
             <p>
@@ -701,14 +1022,14 @@
             </p>
           </div>
         </div>
-      </article>
+      </section>
 
       <!-- ═══════════════ f. SEO ═══════════════ -->
-      <article class="section section-anchor" id="seo">
+      <section class="section section-anchor" id="seo" aria-labelledby="seo-heading">
         <div class="container">
           <div class="panel">
             <span class="sub">06 · SEO</span>
-            <h2>Getting found on Google</h2>
+            <h2 id="seo-heading">Getting found on Google</h2>
 
             <h3>On-page SEO fundamentals</h3>
             <p>
@@ -750,16 +1071,22 @@
               consistent across the web. For Pundri, Kaithal and all of Haryana, this is how a small
               business shows up when people nearby search for it.
             </p>
+            <p>
+              If you're searching for an <strong>AI developer or web developer in Kaithal, Haryana</strong>,
+              the fastest way to see whether I fit is to look at the
+              <a class="inline-link" href="/#projects">projects I've shipped</a> and then
+              <a class="inline-link" href="/#contact">send me a message</a> — I reply to every enquiry.
+            </p>
           </div>
         </div>
-      </article>
+      </section>
 
       <!-- ═══════════════ g. DIGITAL MARKETING WITH AI ═══════════════ -->
-      <article class="section section-anchor" id="marketing">
+      <section class="section section-anchor" id="marketing" aria-labelledby="marketing-heading">
         <div class="container">
           <div class="panel">
             <span class="sub">07 · Digital Marketing with AI</span>
-            <h2>Marketing that runs on intelligence</h2>
+            <h2 id="marketing-heading">Marketing that runs on intelligence</h2>
 
             <h3>What I'm currently learning</h3>
             <p>
@@ -785,34 +1112,49 @@
               <strong>create the videos</strong> (editing + AI animation) that promote it. Every
               skill feeds the next — which is exactly how a modern brand should work.
             </p>
+            <p>
+              Want the short version? Read the sections above in order, or jump straight to
+              <a class="inline-link" href="#ai">how I build with AI</a>,
+              <a class="inline-link" href="#web">how I build websites</a> and
+              <a class="inline-link" href="#seo">how I get sites ranked on Google</a>.
+            </p>
           </div>
         </div>
-      </article>
+      </section>
 
-      <!-- ═══════════════ CTA ═══════════════ -->
-      <section class="section">
+      <!-- ═══════════════ CTA ═══════════════════════════════ -->
+      <section class="section" id="contact-cta" aria-labelledby="cta-heading">
         <div class="container">
           <div class="panel cta-panel">
             <span class="sub">Let's talk</span>
-            <h2>Want to work together?</h2>
+            <h2 id="cta-heading">Want to work together?</h2>
             <p>
               Have a website in mind, a video to edit, or a brand that needs visibility? Let's
-              combine AI, design and development to build something memorable.
+              combine AI, design and development to build something memorable. I'm available for
+              freelance web development, AI chatbot work, SEO and video editing.
             </p>
             <div class="btn-row">
-              <a href="index.html#contact" class="btn btn-primary">Contact Me</a>
-              <a href="index.html" class="btn btn-outline">&#8592; Back to Portfolio</a>
+              <a href="/#contact" class="btn btn-primary">Contact Me</a>
+              <a href="/#projects" class="btn btn-outline">View My Projects</a>
+              <a href="/#skills" class="btn btn-outline">See My Skills</a>
+              <a href="/" class="btn btn-outline">&#8592; Back to Portfolio</a>
             </div>
           </div>
         </div>
       </section>
+      </article>
     </main>
 
-    <!-- ═══ FOOTER — sirf back to portfolio link ═══ -->
+    <!-- ═══ FOOTER — descriptive internal links for crawl flow ═══ -->
     <footer>
       <div class="container footer-inner">
-        <nav class="footer-links" aria-label="Back to portfolio">
-          <a href="index.html">&#8592; Back to Portfolio</a>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="/">Home</a>
+          <a href="/#about">About</a>
+          <a href="/#skills">Skills</a>
+          <a href="/#projects">Projects</a>
+          <a href="/#contact">Contact</a>
+          <a href="/blog">Read My Full Story</a>
         </nav>
         <p>&copy; 2026 Rashi Sharma. All rights reserved.</p>
         <p class="footer-tagline">The Future of Digital Innovation</p>

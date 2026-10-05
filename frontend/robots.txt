@@ -1,2 +1,10 @@
+# robots.txt — Rashi Sharma Portfolio
+# Note: backend/server.js also generates this file dynamically from the live
+# request host. Keep both in sync.
+
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /api/
+
+Sitemap: https://rashisharma-portfolio.vercel.app/sitemap.xml

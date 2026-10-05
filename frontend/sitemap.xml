@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Static sitemap for hosts that serve frontend/ directly (Vercel).
+  backend/server.js ALSO generates this dynamically from the live request host,
+  which takes priority on Render. Keep the two URL lists in sync.
+  lastmod is updated whenever the page content changes.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://rashisharma-portfolio.vercel.app/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://rashisharma-portfolio.vercel.app/blog</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>

@@ -293,6 +293,22 @@ img {
   margin-top: 8px;
 }
 
+/* 7 nav links (Home..Contact) get tight between 861px and 1000px, because the
+   desktop nav only collapses into the hamburger at 860px. Tighten the spacing so
+   the links never wrap or collide with the logo. */
+@media (max-width: 1000px) {
+  .nav-links {
+    gap: 18px;
+  }
+  .nav-links a {
+    font-size: 0.78rem;
+    letter-spacing: 1.2px;
+  }
+  .nav-links .nav-cta {
+    padding: 9px 16px;
+  }
+}
+
 @media (max-width: 860px) {
   .nav-links {
     display: none;
