@@ -56,11 +56,20 @@ const TO_EMAIL = process.env.TO_EMAIL || "sharmaaaarashi@gmail.com";
 const SESSION_SECRET = process.env.ADMIN_SESSION_SECRET || "dev-session-secret-change-me";
 const SESSION_TTL_MS = 12 * 60 * 60 * 1000;
 
-/* ── Allowed origins (Vercel frontend → Render backend) ── */
-const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || "")
-  .split(",")
-  .map(function (s) { return s.trim().replace(/\/+$/, ""); })
-  .filter(Boolean);
+/* ── Allowed origins (Vercel frontend → Render backend) ──
+   Defaults are ALWAYS allowed; ALLOWED_ORIGINS (comma separated) can only
+   ADD origins, never remove the defaults. A stray or typo'd Render env value
+   must not be able to break CORS for the real frontend. */
+const DEFAULT_ALLOWED_ORIGINS = [
+  "https://rashisharma-portfolio.vercel.app",
+  "http://localhost:3000",
+];
+const ALLOWED_ORIGINS = DEFAULT_ALLOWED_ORIGINS.concat(
+  (process.env.ALLOWED_ORIGINS || "")
+    .split(",")
+    .map(function (s) { return s.trim().replace(/\/+$/, ""); })
+    .filter(function (s) { return s && DEFAULT_ALLOWED_ORIGINS.indexOf(s) === -1; })
+);
 
 const RECOVERY_EMAIL = String(process.env.RECOVERY_EMAIL || TO_EMAIL).trim().toLowerCase();
 const RESET_CODE_TTL_MS = 10 * 60 * 1000;
@@ -591,28 +600,22 @@ function siteOrigin(req) {
   return SITE_ORIGIN;
 }
 
-/* ── CORS: Vercel frontend → Render backend ── */
+/* ── CORS: Vercel frontend → Render backend ──
+   Vary: Origin is set on every response that saw an Origin header, even when
+   the origin is rejected, so shared caches never serve one origin's response
+   (with its ACAO) to another origin. */
 function applyCors(req, res) {
   const origin = String(req.headers.origin || "").replace(/\/+$/, "");
   if (!origin) return;
 
-  const allowed =
-    ALLOWED_ORIGINS.length > 0
-      ? ALLOWED_ORIGINS.indexOf(origin) !== -1
-      : /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(origin) ||
-        /\.vercel\.app$/i.test(origin) ||
-        /\.onrender\.com$/i.test(origin);
+  res.setHeader("Vary", "Origin");
 
-  if (!allowed) return;
+  if (ALLOWED_ORIGINS.indexOf(origin) === -1) return;
 
   res.setHeader("Access-Control-Allow-Origin", origin);
-  res.setHeader("Vary", "Origin");
   res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE,OPTIONS");
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Content-Type, Authorization, X-Requested-With, Accept"
-  );
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   res.setHeader("Access-Control-Expose-Headers", "Content-Length, Content-Type");
   res.setHeader("Access-Control-Max-Age", "86400");
 }
