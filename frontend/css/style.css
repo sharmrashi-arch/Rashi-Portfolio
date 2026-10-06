@@ -42,6 +42,25 @@ a {
 img {
   max-width: 100%;
   display: block;
+  /* Slow network / failed fetch: the alt text is what the visitor sees, so it
+     needs to be readable on the dark theme and centred in the reserved box.
+     width/height attributes keep the box from collapsing (no layout shift). */
+  box-sizing: border-box;
+  color: #9fb3d9;
+  font: 500 0.78rem/1.5 "Exo", "Segoe UI", sans-serif;
+  text-align: center;
+  align-self: center;
+  padding: 6px;
+}
+
+/* Placeholder tint only for photos (webp/jpg/png). Skipped for inline SVG
+   icons, which are transparent and would show the tint through the artwork. */
+img[src$=".webp"],
+img[src$=".jpg"],
+img[src$=".jpeg"],
+img[src$=".png"] {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
 }
 
 .container {

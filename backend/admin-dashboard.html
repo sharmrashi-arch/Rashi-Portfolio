@@ -1241,7 +1241,7 @@
     $("projects").innerHTML = PROJECTS.length
       ? PROJECTS.map(function (p, i) {
           const thumb = p.image
-            ? '<div class="thumb-40"><img src="' + esc(p.image) + '" alt="" /></div>'
+            ? '<div class="thumb-40"><img src="' + esc(p.image) + '" alt="' + esc(p.title) + ' preview" /></div>'
             : '<div class="idx">' + (i + 1) + "</div>";
           return '<div class="list-item">' + thumb +
             '<div class="txt"><strong>' + esc(p.title) + '</strong><span>' +
@@ -1272,16 +1272,16 @@
     else toast((d && d.error) || "Save nahi hua.", "err");
   });
 
-  function fillMiniPreview(el, src, fallback) {
+  function fillMiniPreview(el, src, fallback, altText) {
     el.innerHTML = src
-      ? '<img src="' + esc(src) + '" alt="" />'
+      ? '<img src="' + esc(src) + '" alt="' + esc(altText || fallback) + '" />'
       : "<span>" + esc(fallback) + "</span>";
   }
 
   function resetProjectForm() {
     $("projectForm").reset();
     $("pjId").value = "";
-    fillMiniPreview($("pjImagePreview"), "", "Koi image nahi hai");
+    fillMiniPreview($("pjImagePreview"), "", "Koi image nahi hai", "Project image preview");
     $("projFormTitle").textContent = "Add project";
     $("projFormHint").textContent = "Naya project portfolio me add hoga";
     $("projSubmit").textContent = "Add project";
@@ -1323,7 +1323,7 @@
       $("pjCta").value = p.cta || "";
       $("pjDesc").value = p.desc || "";
       $("pjChips").value = (p.chips || []).join(", ");
-      fillMiniPreview($("pjImagePreview"), p.image, "Koi image nahi hai");
+      fillMiniPreview($("pjImagePreview"), p.image, "Koi image nahi hai", p.title + " preview");
       $("projFormTitle").textContent = "Edit project";
       $("projFormHint").textContent = p.title;
       $("projSubmit").textContent = "Save changes";
@@ -1350,7 +1350,7 @@
     $("skills").innerHTML = SKILLS.length
       ? SKILLS.map(function (s, i) {
           const iconBox = s.icon
-            ? '<div class="thumb-40"><img src="' + esc(s.icon) + '" alt="" /></div>'
+            ? '<div class="thumb-40"><img src="' + esc(s.icon) + '" alt="' + esc(s.name) + ' icon" /></div>'
             : '<div class="idx">' + (i + 1) + "</div>";
           return '<div class="list-item">' + iconBox +
             '<div class="txt"><strong>' + esc(s.name) + '</strong><span>' + esc(s.desc || "") + "</span></div>" +
@@ -1369,7 +1369,7 @@
   function resetSkillForm() {
     $("skillForm").reset();
     $("capId").value = "";
-    fillMiniPreview($("capIconPreview"), "", "Koi icon nahi hai");
+    fillMiniPreview($("capIconPreview"), "", "Koi icon nahi hai", "Skill icon preview");
     $("capFormTitle").textContent = "Add capability";
     $("capFormHint").textContent = "Nayi skill portfolio me add hogi";
     $("capSubmit").textContent = "Add capability";
@@ -1405,7 +1405,7 @@
       $("skName").value = s.name || "";
       $("skDesc").value = s.desc || "";
       $("skLevel").value = Number(s.level) || 0;
-      fillMiniPreview($("capIconPreview"), s.icon, "Koi icon nahi hai");
+      fillMiniPreview($("capIconPreview"), s.icon, "Koi icon nahi hai", s.name + " icon");
       $("capFormTitle").textContent = "Edit capability";
       $("capFormHint").textContent = s.name;
       $("capSubmit").textContent = "Save changes";
