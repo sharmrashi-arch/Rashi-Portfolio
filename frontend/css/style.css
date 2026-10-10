@@ -1063,6 +1063,29 @@ footer {
   color: var(--accent);
 }
 
+/* Social profile row: same typographic treatment as .footer-links so the
+   footer keeps its existing hierarchy. Wraps rather than overflowing. */
+.footer-socials {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 20px;
+  margin-bottom: 20px;
+}
+
+.footer-socials a {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  transition: color 0.2s ease;
+}
+
+.footer-socials a:hover,
+.footer-socials a:focus-visible {
+  color: var(--accent);
+}
+
 .footer-inner p {
   color: var(--muted);
   font-size: 0.9rem;
