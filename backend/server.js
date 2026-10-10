@@ -97,7 +97,9 @@ const MIME = {
   ".webp": "image/webp",
   ".gif": "image/gif",
   ".ico": "image/x-icon",
-  ".json": "application/json; charset=utf-8"
+  ".json": "application/json; charset=utf-8",
+  ".txt": "text/plain; charset=utf-8",
+  ".xml": "application/xml; charset=utf-8"
 };
 
 /* ── Admin credentials (auth.json — git-ignored) ── */
@@ -176,7 +178,7 @@ const DEFAULT_SITE = {
   aboutSubhead: "Digital Marketer & AI Enthusiast",
   aboutImage: "images/rashi-about.svg",
   aboutParas: [
-    "I am Rashi Sharma, a digital marketing specialist from Pundri, learning to harness the power of Artificial Intelligence. I believe technology and marketing, when combined with creativity, can build experiences people remember.",
+    "Rashi Sharma is a web developer and digital marketing specialist from Pundri, Haryana, India, who builds modern websites, browser games and AI-powered experiences. I believe technology and marketing, when combined with creativity, can build experiences people remember.",
     "I completed my schooling in Pundri - finishing 10th in 2023 and 12th in 2024. Then I successfully completed my NIELIT O Level course, where I mastered essential programming languages including HTML, CSS, JavaScript, Python, IoT and C++. I am currently pursuing a Digital Marketing with AI course to bring intelligent, data-driven strategies to brands.",
     "Beyond studies, I love building things. I have designed websites and developed games that turn ideas into working, interactive products - every project is a chance to learn, create and grow."
   ],
@@ -949,12 +951,24 @@ const server = http.createServer(function (req, res) {
       "Content-Type": "text/plain; charset=utf-8",
       "Cache-Control": "public, max-age=3600"
     });
+    /* Must match frontend/robots.txt. Named agent groups do not inherit the
+       `*` group, so each AI crawler repeats the admin/API block. */
+    var aiBots = [
+      "GPTBot", "OAI-SearchBot", "ChatGPT-User", "PerplexityBot", "Perplexity-User",
+      "ClaudeBot", "Claude-SearchBot", "Google-Extended", "Bingbot"
+    ];
     res.end(
       "User-agent: *\n" +
       "Allow: /\n" +
       "Disallow: /admin\n" +
       "Disallow: /api/\n" +
       "\n" +
+      "# AI / answer engines are explicitly welcome (GEO).\n" +
+      aiBots
+        .map(function (b) {
+          return "User-agent: " + b + "\nAllow: /\nDisallow: /admin\nDisallow: /api/\n";
+        })
+        .join("\n") +
       "Sitemap: " + origin + "/sitemap.xml\n"
     );
     return;

@@ -1,0 +1,38 @@
+# Rashi Sharma — AI & Web Developer Portfolio
+
+> Rashi Sharma is a web developer and digital marketing specialist from Pundri, Kaithal, Haryana, India. She builds responsive websites, browser games and AI-assisted marketing work. NIELIT O Level qualified (HTML, CSS, JavaScript, Python, IoT, C++), currently pursuing Digital Marketing with AI.
+
+Rashi Sharma combines web development with digital marketing and AI tooling. She is available for website development, SEO and digital marketing projects.
+
+## Portfolio
+
+- [Homepage](https://rashisharma-portfolio.vercel.app/): About, skills, projects, journey and contact form.
+- [Blog](https://rashisharma-portfolio.vercel.app/blog): Full story — NIELIT O Level, AI chatbot, web projects, video editing and SEO.
+- [Projects](https://rashisharma-portfolio.vercel.app/#projects): Anjali Kids School website, Block Blast game and more.
+- [Skills](https://rashisharma-portfolio.vercel.app/#skills): HTML & CSS, JavaScript, Python, C++, IoT, SEO, digital marketing, AI tools.
+- [Contact](https://rashisharma-portfolio.vercel.app/#contact): Enquiry form and profile links.
+
+## Facts
+
+- Name: Rashi Sharma
+- Role: Web Developer & Digital Marketing Specialist
+- Location: Pundri, Kaithal, Haryana, India
+- Education: NIELIT O Level; pursuing Digital Marketing with AI
+- Languages: English, Hindi
+- Email: rashi.sharma@email.com
+
+## Profiles
+
+- [GitHub](https://github.com/sharmrashi-arch)
+- [LinkedIn](https://www.linkedin.com/in/rashi-sharma56522)
+- [Hashnode](https://rashisharma-dev.hashnode.dev)
+- [DEV](https://dev.to/rashisharma)
+- [CodePen](https://codepen.io/sharmrashi-arch)
+- [Medium](https://medium.com/@sharmaaaarashi)
+- [Behance](https://www.behance.net/rashisharma74)
+- [Dribbble](https://dribbble.com/sharmaaaarashi)
+
+## Optional
+
+- [Sitemap](https://rashisharma-portfolio.vercel.app/sitemap.xml): All indexable pages.
+- [Robots](https://rashisharma-portfolio.vercel.app/robots.txt): Crawl directives.

@@ -1,8 +1,58 @@
-# robots.txt — Rashi Sharma Portfolio
+# robots.txt - Rashi Sharma Portfolio
 # Note: backend/server.js also generates this file dynamically from the live
 # request host. Keep both in sync.
 
 User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+# AI / answer engines are explicitly welcome - this is what makes the site
+# citable in ChatGPT, Perplexity, Gemini and Google AI Overviews.
+# Each group repeats the admin/API block because a named User-agent group
+# does not inherit the rules of the `*` group above.
+
+User-agent: GPTBot
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+User-agent: Perplexity-User
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+User-agent: Bingbot
 Allow: /
 Disallow: /admin
 Disallow: /api/
