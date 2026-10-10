@@ -193,6 +193,19 @@
     <link rel="dns-prefetch" href="//block-blast-7161.ai.studio" />
 
     <link rel="stylesheet" href="css/style.css" />
+    <!-- Without JS, scroll-reveal never fires and every section stays at
+         opacity:0. Force content visible so no-JS users and text-only
+         crawlers still see it. -->
+    <noscript>
+      <style>
+        .reveal,
+        .skill-card.reveal {
+          opacity: 1 !important;
+          transform: none !important;
+          animation: none !important;
+        }
+      </style>
+    </noscript>
   </head>
   <body>
     <div id="cursor"></div>
