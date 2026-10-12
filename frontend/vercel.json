@@ -12,6 +12,11 @@
       "source": "/index.html",
       "destination": "/",
       "permanent": true
+    },
+    {
+      "source": "/rashi-sharma.html",
+      "destination": "/rashi-sharma",
+      "permanent": true
     }
   ],
   "headers": [

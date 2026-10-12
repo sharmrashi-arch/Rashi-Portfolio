@@ -630,7 +630,8 @@ async function supabaseUpsert(table, rows) {
    gets indexed is the clean one, declared in each page's <link rel="canonical">. */
 const CLEAN_URLS = {
   "/blog.html": "/blog",
-  "/index.html": "/"
+  "/index.html": "/",
+  "/rashi-sharma.html": "/rashi-sharma"
 };
 
 function serveStatic(req, res) {
@@ -649,6 +650,7 @@ function serveStatic(req, res) {
 
   if (urlPath === "/") urlPath = "/index.html";
   else if (urlPath === "/blog") urlPath = "/blog.html";
+  else if (urlPath === "/rashi-sharma") urlPath = "/rashi-sharma.html";
 
   const filePath = path.resolve(BASE, "." + urlPath);
   if (filePath !== BASE && !filePath.startsWith(BASE + path.sep)) {
@@ -1118,8 +1120,9 @@ const server = http.createServer(function (req, res) {
     const origin = siteOrigin(req);
     const today = new Date().toISOString().slice(0, 10);
     const urls = [
-      { loc: origin + "/", changefreq: "weekly", priority: "1.0" },
-      { loc: origin + "/blog", changefreq: "monthly", priority: "0.8" }
+    { loc: origin + "/", changefreq: "weekly", priority: "1.0" },
+    { loc: origin + "/rashi-sharma", changefreq: "monthly", priority: "0.9" },
+    { loc: origin + "/blog", changefreq: "monthly", priority: "0.8" }
     ];
     const xml =
       '<?xml version="1.0" encoding="UTF-8"?>\n' +

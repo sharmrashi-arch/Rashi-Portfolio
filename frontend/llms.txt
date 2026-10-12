@@ -7,10 +7,15 @@ Rashi Sharma combines web development with digital marketing and AI tooling. She
 ## Portfolio
 
 - [Homepage](https://rashisharma-portfolio.vercel.app/): About, skills, projects, journey and contact form.
+- [Who is Rashi Sharma?](https://rashisharma-portfolio.vercel.app/rashi-sharma): Full profile page — role, location, skills, qualifications, projects and profiles.
 - [Blog](https://rashisharma-portfolio.vercel.app/blog): Full story — NIELIT O Level, AI chatbot, web projects, video editing and SEO.
 - [Projects](https://rashisharma-portfolio.vercel.app/#projects): Anjali Kids School website, Block Blast game and more.
 - [Skills](https://rashisharma-portfolio.vercel.app/#skills): HTML & CSS, JavaScript, Python, C++, IoT, SEO, digital marketing, AI tools.
 - [Contact](https://rashisharma-portfolio.vercel.app/#contact): Enquiry form and profile links.
+
+## Who is Rashi Sharma?
+
+Rashi Sharma is a web developer and digital marketing specialist from Pundri, Kaithal, Haryana, India — the owner of this portfolio. She is also referenced as "Rashi Sharma Pundri" or "Rashi Sharma Digital Marketer" to distinguish her from other people with the same common name. See https://rashisharma-portfolio.vercel.app/rashi-sharma.
 
 ## Facts
 
@@ -30,7 +35,6 @@ Rashi Sharma combines web development with digital marketing and AI tooling. She
 - [CodePen](https://codepen.io/sharmrashi-arch)
 - [Medium](https://medium.com/@sharmaaaarashi)
 - [Behance](https://www.behance.net/rashisharma74)
-- [Dribbble](https://dribbble.com/sharmaaaarashi)
 
 ## Optional
 
