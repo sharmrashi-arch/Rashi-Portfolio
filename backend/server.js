@@ -85,6 +85,9 @@ const SUPABASE_SECRET_KEY =
   process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || "";
 const supabaseOn = !!(SUPABASE_URL && SUPABASE_SECRET_KEY);
 const SB_BUCKET = String(process.env.SUPABASE_BUCKET || "portfolio-images").replace(/[^a-z0-9_-]/gi, "");
+/* Cached result of the startup bucket check. "null" = not checked yet
+   (Supabase off), "ready"/"unavailable" = storage works / falls back. */
+let SB_STORAGE_STATUS = null;
 
 const BASE = path.join(__dirname, "..", "frontend");
 const MIME = {
@@ -516,6 +519,14 @@ async function sbDeleteObject(publicUrl) {
     console.error("Supabase storage delete failed:", e && e.message);
     return false;
   }
+}
+
+/* Old uploaded image hatana jab nayi lagi hai: local file + Storage doono.
+   Repo images (portfolio.webp etc.) kabhi touch nahi hote. */
+async function removeImageAsset(raw) {
+  if (typeof raw !== "string" || !raw) return;
+  deleteUploadFile(raw);
+  await sbDeleteObject(raw);
 }
 
 async function handleUpload(req, res) {
@@ -1024,7 +1035,13 @@ const server = http.createServer(function (req, res) {
 
   /* health check for uptime monitors */
   if (pathname === "/api/health" && method === "GET") {
-    sendJson(res, 200, { ok: true, ready: ready, supabase: storeLib.SB_ON, uptime: process.uptime() });
+    sendJson(res, 200, {
+      ok: true,
+      ready: ready,
+      supabase: storeLib.SB_ON,
+      storageBucket: SB_STORAGE_STATUS,
+      uptime: process.uptime()
+    });
     return;
   }
 
@@ -1256,7 +1273,9 @@ async function handleAdminApi(req, res, pathname, method) {
   if (pathname === "/api/admin/hero" && method === "PUT") {
     const d = JSON.parse(await readBody(req));
     if (typeof d.image === "string" && d.image.trim()) {
+      const prev = store.site.heroImage;
       store.site.heroImage = d.image.trim();
+      if (prev && prev !== store.site.heroImage) await removeImageAsset(prev);
     }
     if (typeof d.greeting === "string") store.site.heroGreeting = d.greeting;
     if (typeof d.tagline === "string") store.site.heroTagline = d.tagline;
@@ -1288,6 +1307,7 @@ async function handleAdminApi(req, res, pathname, method) {
   }
   if (pathname === "/api/admin/site" && method === "PUT") {
     const d = JSON.parse(await readBody(req));
+    const prevImages = { heroImage: store.site.heroImage, aboutImage: store.site.aboutImage };
     const textFields = [
       "heroImage", "heroGreeting", "heroTagline", "heroCtaText",
       "aboutSubhead", "aboutImage", "aboutHighlight", "contactEmail", "contactLocation",
@@ -1300,6 +1320,13 @@ async function handleAdminApi(req, res, pathname, method) {
         replaced[key] = store.site[key];
       }
     });
+    /* Purani image hatana jab nayi aayi ho - dono ke liye alag se */
+    if (typeof d.heroImage === "string" && prevImages.heroImage && prevImages.heroImage !== d.heroImage) {
+      await removeImageAsset(prevImages.heroImage);
+    }
+    if (typeof d.aboutImage === "string" && prevImages.aboutImage && prevImages.aboutImage !== d.aboutImage) {
+      await removeImageAsset(prevImages.aboutImage);
+    }
     if (Array.isArray(d.aboutParas)) {
       store.site.aboutParas = d.aboutParas.map(function (p) { return String(p); });
     }
@@ -1473,7 +1500,11 @@ async function handleAdminApi(req, res, pathname, method) {
     const s = store.skills[idx];
     if (typeof d.name === "string" && d.name.trim()) s.name = d.name.trim();
     if (typeof d.desc === "string") s.desc = d.desc;
-    if (typeof d.icon === "string") s.icon = d.icon;
+    if (typeof d.icon === "string") {
+      const prevIcon = s.icon;
+      s.icon = d.icon;
+      if (prevIcon && prevIcon !== s.icon) await removeImageAsset(prevIcon);
+    }
     if (d.level != null) s.level = Number(d.level) || 0;
     saveData();
     supabaseUpsert("skills", [s]);
@@ -1529,7 +1560,11 @@ async function handleAdminApi(req, res, pathname, method) {
     if (typeof d.desc === "string") p.desc = d.desc;
     if (typeof d.url === "string") p.url = d.url;
     if (typeof d.cta === "string") p.cta = d.cta;
-    if (typeof d.image === "string") p.image = d.image;
+    if (typeof d.image === "string") {
+      const prevImg = p.image;
+      p.image = d.image;
+      if (prevImg && prevImg !== p.image) await removeImageAsset(prevImg);
+    }
     if (Array.isArray(d.chips)) p.chips = d.chips.map(function (c) { return String(c); });
     saveData();
     supabaseUpsert("projects", [p]);
@@ -1606,6 +1641,7 @@ server.listen(PORT, function () {
   /* Verify the upload bucket exists early so image issues show up in logs */
   if (supabaseOn && SB_BUCKET) {
     sbEnsureBucket().then(function (ok) {
+      SB_STORAGE_STATUS = ok ? "ready" : "unavailable";
       console.log("Supabase storage bucket '" + SB_BUCKET + "': " + (ok ? "ready" : "NOT available - uploads will fall back to local disk"));
     });
   }
