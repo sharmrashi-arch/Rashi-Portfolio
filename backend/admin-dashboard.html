@@ -961,7 +961,8 @@
     return p && /^(https?:|data:|blob:|\/\/)/.test(p) ? p : (p ? "/" + p : "");
   }
   function withBusy(btn, label, fn) {
-    return async function () {
+    return async function (ev) {
+      if (ev && typeof ev.preventDefault === "function") ev.preventDefault();
       const old = btn.textContent;
       btn.disabled = true;
       btn.textContent = label;
@@ -1151,6 +1152,18 @@
     await loadHero();
     toast("About section save ho gaya.", "ok");
   }));
+
+  /* File choose karte hi preview update karo - save ka wait mat karo */
+  function liveFilePreview(inputId, imgId) {
+    const input = $(inputId);
+    if (input._prevUrl) URL.revokeObjectURL(input._prevUrl);
+    const f = input.files && input.files[0];
+    if (!f) return;
+    input._prevUrl = URL.createObjectURL(f);
+    $(imgId).src = input._prevUrl;
+  }
+  $("heroFile").addEventListener("change", function () { liveFilePreview("heroFile", "heroPreview"); });
+  $("abImgFile").addEventListener("change", function () { liveFilePreview("abImgFile", "abImgPreview"); });
 
   /* ── My Journey ── */
   let JOURNEY = { title: "", intro: "", items: [] };
