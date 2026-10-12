@@ -311,6 +311,17 @@
     if (el && typeof value === "string" && value.trim()) el.textContent = value;
   }
 
+  /* Ya toh image dikhe, ya bundled default - kabhi blank nahi */
+  function fallbackImage(defaultSrc) {
+    return function () {
+      var img = this;
+      if (!img) return;
+      var cur = String(img.src || "");
+      /* absolute URL me "/images/portfolio.webp" jaisa hi milta hai */
+      if (cur.indexOf("/" + defaultSrc) === -1) img.src = defaultSrc;
+    };
+  }
+
   function escHtml(s) {
     return String(s == null ? "" : s)
       .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -472,11 +483,17 @@
 
       if (site.heroImage) {
         var heroImg = document.getElementById("heroImg");
-        if (heroImg) heroImg.src = site.heroImage;
+        if (heroImg) {
+          heroImg.src = site.heroImage;
+          heroImg.onerror = fallbackImage("images/portfolio.webp");
+        }
       }
       if (site.aboutImage) {
         var aboutImg = document.getElementById("aboutImg");
-        if (aboutImg) aboutImg.src = site.aboutImage;
+        if (aboutImg) {
+          aboutImg.src = site.aboutImage;
+          aboutImg.onerror = fallbackImage("images/rashi-about.svg");
+        }
       }
       setText("heroGreeting", site.heroGreeting);
       setText("heroTagline", site.heroTagline);

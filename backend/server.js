@@ -84,6 +84,7 @@ const SUPABASE_PUBLISHABLE_KEY = process.env.SUPABASE_PUBLISHABLE_KEY || "";
 const SUPABASE_SECRET_KEY =
   process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || "";
 const supabaseOn = !!(SUPABASE_URL && SUPABASE_SECRET_KEY);
+const SB_BUCKET = String(process.env.SUPABASE_BUCKET || "portfolio-images").replace(/[^a-z0-9_-]/gi, "");
 
 const BASE = path.join(__dirname, "..", "frontend");
 const MIME = {
@@ -438,6 +439,85 @@ function deleteUploadFile(pubPath) {
   }
 }
 
+/* ── Supabase Storage: permanent image hosting ──
+   Uploads go to a public bucket so they survive Render redeploys and load
+   from Vercel too. Falls back to the local disk when Supabase is off. */
+async function sbStorageFetch(url, options, timeoutMs) {
+  const ctrl = new AbortController();
+  const timer = setTimeout(function () { ctrl.abort(); }, timeoutMs || 8000);
+  try {
+    return await fetch(url, Object.assign({}, options, { signal: ctrl.signal }));
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+function sbStorageHeaders(extra) {
+  const headers = {
+    apikey: SUPABASE_SECRET_KEY,
+    Authorization: "Bearer " + SUPABASE_SECRET_KEY
+  };
+  Object.assign(headers, extra || {});
+  return headers;
+}
+
+async function sbEnsureBucket() {
+  try {
+    const res = await sbStorageFetch(SUPABASE_URL + "/storage/v1/bucket", {
+      method: "POST",
+      headers: sbStorageHeaders({ "Content-Type": "application/json" }),
+      body: JSON.stringify({ id: SB_BUCKET, name: SB_BUCKET, public: true })
+    });
+    /* 400 = "name already exists" -> fine, the bucket is there */
+    return res.ok || res.status === 400;
+  } catch (e) {
+    console.error("Supabase bucket ensure failed:", e && e.message);
+    return false;
+  }
+}
+
+async function sbUploadObject(buf, ext, originalFilename) {
+  if (!supabaseOn || !SB_BUCKET) return null;
+  const name = safeUploadName(originalFilename || "image." + ext);
+  const objectPath = SB_BUCKET + "/" + name;
+  const mime = ext === "svg" ? "image/svg+xml" : "image/" + ext;
+  try {
+    await sbEnsureBucket();
+    const res = await sbStorageFetch(
+      SUPABASE_URL + "/storage/v1/object/" + objectPath,
+      {
+        method: "POST",
+        headers: sbStorageHeaders({ "Content-Type": mime }),
+        body: buf
+      }
+    );
+    if (!res.ok) {
+      const t = await res.text().catch(function () { return ""; });
+      throw new Error("storage POST " + res.status + " " + t.slice(0, 200));
+    }
+    return SUPABASE_URL + "/storage/v1/object/public/" + objectPath;
+  } catch (e) {
+    console.error("Supabase storage upload failed:", e && e.message);
+    return null;
+  }
+}
+
+async function sbDeleteObject(publicUrl) {
+  if (!supabaseOn || typeof publicUrl !== "string") return true;
+  const m = publicUrl.match(/\/storage\/v1\/object\/public\/([^?#]+)/);
+  if (!m) return true;
+  try {
+    const res = await sbStorageFetch(SUPABASE_URL + "/storage/v1/object/" + m[1], {
+      method: "DELETE",
+      headers: sbStorageHeaders()
+    });
+    return res.ok;
+  } catch (e) {
+    console.error("Supabase storage delete failed:", e && e.message);
+    return false;
+  }
+}
+
 async function handleUpload(req, res) {
   let d;
   try {
@@ -475,6 +555,12 @@ async function handleUpload(req, res) {
     sendJson(res, 400, { ok: false, error: "Image is too large (max 8 MB)." });
     return;
   }
+  /* Permanent storage first (Supabase public bucket), then local disk */
+  const remote = await sbUploadObject(buf, ext, d.filename);
+  if (remote) {
+    sendJson(res, 200, { ok: true, data: { path: remote, bytes: buf.length, storage: "supabase" } });
+    return;
+  }
   try {
     fs.mkdirSync(UPLOAD_DIR, { recursive: true });
     fs.writeFileSync(path.join(UPLOAD_DIR, name), buf);
@@ -482,7 +568,7 @@ async function handleUpload(req, res) {
     sendJson(res, 500, { ok: false, error: "Could not save the image on disk." });
     return;
   }
-  sendJson(res, 200, { ok: true, data: { path: "images/uploads/" + name, bytes: buf.length } });
+  sendJson(res, 200, { ok: true, data: { path: "images/uploads/" + name, bytes: buf.length, storage: "local" } });
 }
 
 /* ── Supabase sync (optional) ── */
@@ -600,6 +686,29 @@ function siteOrigin(req) {
   const isLocal = /^localhost$|^127\.0\.0\.1$|^\[::1\]$/i.test(host.split(":")[0]);
   if (isLocal) return "http://" + host;
   return SITE_ORIGIN;
+}
+
+/* Base URL of THIS backend (where admin-uploaded images actually live).
+   Uploads are served from the API host, not from Vercel. */
+function assetBase(req) {
+  const host = String(req.headers.host || "localhost:" + PORT);
+  const proto = String(req.headers["x-forwarded-proto"] || "")
+    .split(",")[0]
+    .trim();
+  const scheme = (proto === "http" || proto === "https")
+    ? proto
+    : (req.socket && req.socket.encrypted ? "https" : "http");
+  return scheme + "://" + host;
+}
+
+/* Relative images/uploads/* paths only resolve on the API host - the API
+   host - so point them at it. Absolute (Supabase/CDN) and repo-relative
+   paths (portfolio.webp etc.) are left untouched. */
+function assetUrlPublic(raw, req) {
+  if (typeof raw !== "string" || !raw) return raw;
+  if (/^(https?:|data:|blob:|\/\/)/.test(raw)) return raw;
+  if (raw.indexOf("images/uploads/") === 0) return assetBase(req) + "/" + raw;
+  return raw;
 }
 
 /* ── CORS: Vercel frontend → Render backend ──
@@ -928,9 +1037,20 @@ const server = http.createServer(function (req, res) {
     sendJson(res, 200, {
       ok: true,
       data: {
-        site: store.site,
-        skills: store.skills,
-        projects: store.projects,
+        site: Object.assign({}, store.site, {
+          heroImage: assetUrlPublic(store.site.heroImage, req),
+          aboutImage: assetUrlPublic(store.site.aboutImage, req)
+        }),
+        skills: (store.skills || []).map(function (s) {
+          var c = Object.assign({}, s);
+          if (typeof c.icon === "string") c.icon = assetUrlPublic(c.icon, req);
+          return c;
+        }),
+        projects: (store.projects || []).map(function (p) {
+          var c = Object.assign({}, p);
+          if (typeof c.image === "string") c.image = assetUrlPublic(c.image, req);
+          return c;
+        }),
         journey: store.journey,
         blog: store.blog
       }
@@ -1147,12 +1267,16 @@ async function handleAdminApi(req, res, pathname, method) {
   }
   if (pathname === "/api/admin/hero/image" && method === "DELETE") {
     const current = store.site.heroImage;
-    const removed = deleteUploadFile(current);
+    const removedLocal = deleteUploadFile(current);
+    const removedRemote = await sbDeleteObject(current);
     store.site.heroImage = DEFAULT_SITE.heroImage;
     saveData();
     sendJson(res, 200, {
       ok: true,
-      data: { image: store.site.heroImage, fileDeleted: removed }
+      data: {
+        image: store.site.heroImage,
+        fileDeleted: !!(removedLocal || removedRemote)
+      }
     });
     return;
   }
@@ -1209,6 +1333,7 @@ async function handleAdminApi(req, res, pathname, method) {
   if (pathname === "/api/admin/site/about-image" && method === "DELETE") {
     const current = store.site.aboutImage;
     deleteUploadFile(current);
+    await sbDeleteObject(current);
     store.site.aboutImage = DEFAULT_SITE.aboutImage;
     saveData();
     sendJson(res, 200, { ok: true, data: { aboutImage: store.site.aboutImage } });
@@ -1416,6 +1541,7 @@ async function handleAdminApi(req, res, pathname, method) {
     const id = Number(projDel[1]);
     const target = store.projects.find(function (p) { return p.id === id; });
     if (target) deleteUploadFile(target.image);
+    await sbDeleteObject(target && target.image);
     store.projects = store.projects.filter(function (p) { return p.id !== id; });
     saveData();
     sendJson(res, 200, { ok: true });
@@ -1476,6 +1602,13 @@ server.listen(PORT, function () {
   console.log("Portfolio running at http://localhost:" + PORT);
   console.log("Admin at http://localhost:" + PORT + "/admin");
   console.log("Supabase: " + (storeLib.SB_ON ? "connected" : "not configured (using local file)"));
+
+  /* Verify the upload bucket exists early so image issues show up in logs */
+  if (supabaseOn && SB_BUCKET) {
+    sbEnsureBucket().then(function (ok) {
+      console.log("Supabase storage bucket '" + SB_BUCKET + "': " + (ok ? "ready" : "NOT available - uploads will fall back to local disk"));
+    });
+  }
 
   boot().catch(function (e) {
     console.error("Boot failed:", e && e.message);

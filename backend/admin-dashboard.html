@@ -956,6 +956,10 @@
     if (!d || !d.ok) throw new Error((d && d.error) || "Upload fail ho gaya.");
     return d.data.path;
   }
+  /* Relative path ho to / lagao, absolute (Supabase etc.) ho to waisa hi */
+  function imgSrc(p) {
+    return p && /^(https?:|data:|blob:|\/\/)/.test(p) ? p : (p ? "/" + p : "");
+  }
   function withBusy(btn, label, fn) {
     return async function () {
       const old = btn.textContent;
@@ -1089,7 +1093,7 @@
     const d = await api("/api/admin/site");
     if (!d || !d.ok) return;
     const s = d.data;
-    $("heroPreview").src = "/" + s.heroImage;
+    $("heroPreview").src = imgSrc(s.heroImage);
     $("heroPath").textContent = "Abhi ye image use ho rahi hai: " + s.heroImage;
     $("hgGreeting").value = s.heroGreeting || "";
     $("hgTagline").value = s.heroTagline || "";
@@ -1100,7 +1104,7 @@
     $("abPara2").value = paras[1] || "";
     $("abPara3").value = paras[2] || "";
     $("abHighlight").value = s.aboutHighlight || "";
-    $("abImgPreview").src = "/" + s.aboutImage;
+    $("abImgPreview").src = imgSrc(s.aboutImage);
   }
 
   $("heroUpload").addEventListener("click", withBusy($("heroUpload"), "Uploading…", async function () {
