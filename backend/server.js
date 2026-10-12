@@ -677,7 +677,10 @@ function serveFile(res, file, contentType) {
       res.end("Admin page missing: " + file);
       return;
     }
-    res.writeHead(200, { "Content-Type": contentType || "text/html; charset=utf-8" });
+    res.writeHead(200, {
+      "Content-Type": contentType || "text/html; charset=utf-8",
+      "Cache-Control": "no-store, must-revalidate"
+    });
     res.end(data);
   });
 }
