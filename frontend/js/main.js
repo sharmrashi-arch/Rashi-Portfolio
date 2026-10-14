@@ -317,7 +317,7 @@
       var img = this;
       if (!img) return;
       var cur = String(img.src || "");
-      /* absolute URL me "/images/portfolio.webp" jaisa hi milta hai */
+      /* absolute URL me "/images/rashi-sharma-web-developer-digital-marketer.webp" jaisa hi milta hai */
       if (cur.indexOf("/" + defaultSrc) === -1) img.src = defaultSrc;
     };
   }
@@ -485,7 +485,7 @@
         var heroImg = document.getElementById("heroImg");
         if (heroImg) {
           heroImg.src = site.heroImage;
-          heroImg.onerror = fallbackImage("images/portfolio.webp");
+          heroImg.onerror = fallbackImage("images/rashi-sharma-web-developer-digital-marketer.webp");
         }
       }
       if (site.aboutImage) {

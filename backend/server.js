@@ -175,7 +175,7 @@ const IMAGE_EXTS = [".jpg", ".jpeg", ".png", ".webp", ".gif", ".svg", ".avif"];
 const DEFAULT_SITE = {
   projectsVisible: 2,
   projectsCtaText: "View All Projects",
-  heroImage: "images/portfolio.webp",
+  heroImage: "images/rashi-sharma-web-developer-digital-marketer.webp",
   heroGreeting: "Hello, welcome to my world",
   heroTagline: "The creative mind behind intelligent digital experiences",
   heroCtaText: "Get In Touch",
@@ -522,7 +522,7 @@ async function sbDeleteObject(publicUrl) {
 }
 
 /* Old uploaded image hatana jab nayi lagi hai: local file + Storage doono.
-   Repo images (portfolio.webp etc.) kabhi touch nahi hote. */
+   Repo images (e.g. rashi-sharma-web-developer-digital-marketer.webp) kabhi touch nahi hote. */
 async function removeImageAsset(raw) {
   if (typeof raw !== "string" || !raw) return;
   deleteUploadFile(raw);
@@ -719,7 +719,7 @@ function assetBase(req) {
 
 /* Relative images/uploads/* paths only resolve on the API host - the API
    host - so point them at it. Absolute (Supabase/CDN) and repo-relative
-   paths (portfolio.webp etc.) are left untouched. */
+     paths (repo images like rashi-sharma-*.webp) are left untouched. */
 function assetUrlPublic(raw, req) {
   if (typeof raw !== "string" || !raw) return raw;
   if (/^(https?:|data:|blob:|\/\/)/.test(raw)) return raw;
@@ -1120,21 +1120,42 @@ const server = http.createServer(function (req, res) {
     const origin = siteOrigin(req);
     const today = new Date().toISOString().slice(0, 10);
     const urls = [
-    { loc: origin + "/", changefreq: "weekly", priority: "1.0" },
-    { loc: origin + "/rashi-sharma", changefreq: "monthly", priority: "0.9" },
+    {
+      loc: origin + "/", changefreq: "weekly", priority: "1.0",
+      images: [
+        { loc: origin + "/images/rashi-sharma-web-developer-digital-marketer.webp", title: "Rashi Sharma, web developer and digital marketing specialist", caption: "Portrait of Rashi Sharma, web developer and digital marketing specialist in Pundri, Kaithal, Haryana" },
+        { loc: origin + "/images/og-cover-rashi-sharma.jpg", title: "Rashi Sharma - web developer and digital marketer", caption: "Rashi Sharma, web developer and digital marketing specialist from Pundri, Haryana" }
+      ]
+    },
+    {
+      loc: origin + "/rashi-sharma", changefreq: "monthly", priority: "0.9",
+      images: [
+        { loc: origin + "/images/rashi-sharma-web-developer-digital-marketer.webp", title: "Rashi Sharma, web developer and digital marketing specialist", caption: "Portrait of Rashi Sharma, web developer and digital marketing specialist in Pundri, Kaithal, Haryana" }
+      ]
+    },
     { loc: origin + "/blog", changefreq: "monthly", priority: "0.8" }
     ];
     const xml =
       '<?xml version="1.0" encoding="UTF-8"?>\n' +
-      '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+      '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n' +
       urls
         .map(function (u) {
+          const imgXml = (u.images || []).map(function (im) {
+            return (
+              "    <image:image>\n" +
+              "      <image:loc>" + im.loc + "</image:loc>\n" +
+              "      <image:title>" + im.title + "</image:title>\n" +
+              "      <image:caption>" + im.caption + "</image:caption>\n" +
+              "    </image:image>\n"
+            );
+          }).join("");
           return (
             "  <url>\n" +
             "    <loc>" + u.loc + "</loc>\n" +
             "    <lastmod>" + today + "</lastmod>\n" +
             "    <changefreq>" + u.changefreq + "</changefreq>\n" +
             "    <priority>" + u.priority + "</priority>\n" +
+            imgXml +
             "  </url>\n"
           );
         })

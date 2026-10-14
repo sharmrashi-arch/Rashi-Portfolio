@@ -91,7 +91,15 @@
             "alternateName": ["Rashi Sharma Pundri", "Rashi Sharma Digital Marketer", "Rashi Sharma Web Developer"],
             "url": "https://rashisharma-portfolio.vercel.app/",
             "mainEntityOfPage": "https://rashisharma-portfolio.vercel.app/rashi-sharma",
-            "image": "https://rashisharma-portfolio.vercel.app/images/portfolio.webp",
+            "image": {
+              "@type": "ImageObject",
+              "url": "https://rashisharma-portfolio.vercel.app/images/rashi-sharma-web-developer-digital-marketer.webp",
+              "name": "Rashi Sharma, web developer and digital marketing specialist",
+              "caption": "Portrait of Rashi Sharma, web developer and digital marketing specialist in Pundri, Kaithal, Haryana",
+              "description": "Rashi Sharma is a web developer and digital marketing specialist from Pundri, Kaithal, Haryana, India.",
+              "width": 496,
+              "height": 515
+            },
             "jobTitle": "Web Developer & Digital Marketing Specialist",
             "description": "Rashi Sharma is a web developer and digital marketing specialist from Pundri, Kaithal, Haryana, India, building responsive websites, browser games and AI-assisted marketing work.",
             "email": "mailto:rashi.sharma@email.com",
@@ -255,6 +263,21 @@
         gap: 14px;
         margin-top: 26px;
       }
+      .entity-photo {
+        margin: 8px 0 26px;
+        max-width: 320px;
+      }
+      .entity-photo img {
+        width: 100%;
+        height: auto;
+        border-radius: 18px;
+        border: 1px solid var(--border);
+      }
+      .entity-photo figcaption {
+        margin-top: 10px;
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
     </style>
   </head>
   <body>
@@ -305,6 +328,19 @@
             <p class="section-label">Profile</p>
             <h1 class="entity-h1">Who is <span class="text-gradient">Rashi Sharma</span>?</h1>
           </div>
+
+          <figure class="entity-photo reveal">
+            <img
+              src="images/rashi-sharma-web-developer-digital-marketer.webp"
+              alt="Portrait of Rashi Sharma, web developer and digital marketing specialist in Pundri, Kaithal, Haryana"
+              width="496"
+              height="515"
+              loading="eager"
+              decoding="async"
+              fetchpriority="high"
+            />
+            <figcaption>Rashi Sharma — web developer &amp; digital marketing specialist, Pundri, Haryana</figcaption>
+          </figure>
 
           <p class="entity-lead">
             <strong>Rashi Sharma</strong> is a web developer and digital marketing specialist based in

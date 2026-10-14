@@ -2,25 +2,45 @@
 <!--
   Static sitemap for hosts that serve frontend/ directly (Vercel).
   backend/server.js ALSO generates this dynamically from the live request host,
-  which takes priority on Render. Keep the two URL lists in sync.
-  lastmod is updated whenever the page content changes.
+  which takes priority on Render. Keep the two URL lists (and their images)
+  in sync. lastmod is updated whenever the page content changes.
+
+  The <image:image> blocks are a Google image sitemap: they tell Google which
+  photos to associate with which page, including title + caption, so the
+  portrait can surface in Google Images for "Rashi Sharma web developer".
 -->
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://rashisharma-portfolio.vercel.app/</loc>
-    <lastmod>2026-10-12</lastmod>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://rashisharma-portfolio.vercel.app/images/rashi-sharma-web-developer-digital-marketer.webp</image:loc>
+      <image:title>Rashi Sharma, web developer and digital marketing specialist</image:title>
+      <image:caption>Portrait of Rashi Sharma, web developer and digital marketing specialist in Pundri, Kaithal, Haryana</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://rashisharma-portfolio.vercel.app/images/og-cover-rashi-sharma.jpg</image:loc>
+      <image:title>Rashi Sharma - web developer and digital marketer</image:title>
+      <image:caption>Rashi Sharma, web developer and digital marketing specialist from Pundri, Haryana</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://rashisharma-portfolio.vercel.app/rashi-sharma</loc>
-    <lastmod>2026-10-12</lastmod>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://rashisharma-portfolio.vercel.app/images/rashi-sharma-web-developer-digital-marketer.webp</image:loc>
+      <image:title>Rashi Sharma, web developer and digital marketing specialist</image:title>
+      <image:caption>Portrait of Rashi Sharma, web developer and digital marketing specialist in Pundri, Kaithal, Haryana</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://rashisharma-portfolio.vercel.app/blog</loc>
-    <lastmod>2026-10-12</lastmod>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
