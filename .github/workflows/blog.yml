@@ -1,0 +1,65 @@
+name: Blog Automation
+
+on:
+  schedule:
+    - cron: "30 4 * * 1,3,5"   # Mon/Wed/Fri 10:00 IST
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run (no Blogger call, no file changes)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  blog-agent:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: |
+          cd blog-agent
+          pip install -r requirements.txt
+
+      - name: Run blog agent
+        id: run
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GROQ_MODEL: ${{ secrets.GROQ_MODEL }}
+          SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
+          PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          BLOGGER_BLOG_ID: ${{ secrets.BLOGGER_BLOG_ID }}
+        run: |
+          cd blog-agent
+          if ${{ github.event.inputs.dry_run == 'true' }}; then
+            python post_to_blogger.py --dry-run
+          else
+            python post_to_blogger.py
+          fi
+
+      - name: Commit changes
+        if: github.event_name != 'pull_request'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # Only commit the files the agent touches
+          git add blog-agent/topics.json blog-agent/state/ frontend/images/blog/ 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: blog agent update [skip ci]"
+            git push

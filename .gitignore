@@ -1,6 +1,7 @@
 # Secrets — kabhi GitHub par nahi
 backend/.env
 backend/auth.json
+blog-agent/.env
 
 # Logs
 backend/*.log
@@ -8,6 +9,10 @@ backend/*.log
 
 # Node
 node_modules/
+
+# Python
+__pycache__/
+*.pyc
 
 # System
 .DS_Store
