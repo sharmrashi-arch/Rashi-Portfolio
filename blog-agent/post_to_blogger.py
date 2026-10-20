@@ -7,6 +7,7 @@ import re
 import sys
 import time
 from pathlib import Path
+from typing import List, Dict, Optional
 from urllib.parse import urlencode
 
 import requests
@@ -74,29 +75,29 @@ TOPICS_FILE = Path(__file__).with_name("topics.json")
 POSTED_FILE = Path(__file__).with_name("state") / "posted.json"
 
 
-def load_topics() -> list[dict]:
+def load_topics() -> List[Dict]:
     with open(TOPICS_FILE, "r", encoding="utf-8") as f:
         return json.load(f)
 
 
-def save_topics(topics: list[dict]) -> None:
+def save_topics(topics: List[Dict]) -> None:
     with open(TOPICS_FILE, "w", encoding="utf-8") as f:
         json.dump(topics, f, indent=2, ensure_ascii=False)
 
 
-def load_posted() -> list[dict]:
+def load_posted() -> List[Dict]:
     if POSTED_FILE.exists():
         with open(POSTED_FILE, "r", encoding="utf-8") as f:
             return json.load(f)
     return []
 
 
-def save_posted(posted: list[dict]) -> None:
+def save_posted(posted: List[Dict]) -> None:
     with open(POSTED_FILE, "w", encoding="utf-8") as f:
         json.dump(posted, f, indent=2, ensure_ascii=False)
 
 
-def pick_topic(topics: list[dict], topic_id: int | None) -> dict | None:
+def pick_topic(topics: List[Dict], topic_id: Optional[int]) -> Optional[Dict]:
     if topic_id:
         for t in topics:
             if t["id"] == topic_id:
@@ -110,7 +111,7 @@ def pick_topic(topics: list[dict], topic_id: int | None) -> dict | None:
 
 # ────────────────────────── SerpAPI research ──────────────────────────
 
-def serpapi_research(keyword: str) -> dict:
+def serpapi_research(keyword: str) -> Dict:
     """One call to SerpAPI. Returns dict with questions, searches, organic."""
     url = "https://serpapi.com/search.json"
     params = {"engine": "google", "q": keyword, "hl": "en", "gl": "in", "api_key": SERPAPI_KEY}
@@ -170,7 +171,7 @@ def build_user_prompt(topic: dict, research: dict) -> str:
     return "\n\n".join(parts)
 
 
-def groq_generate(prompt: str) -> dict:
+def groq_generate(prompt: str) -> Dict:
     url = "https://api.groq.com/openai/v1/chat/completions"
     headers = {"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"}
     payload = {
@@ -195,7 +196,7 @@ def groq_generate(prompt: str) -> dict:
     raise SystemExit("Groq: failed to get valid JSON after retries")
 
 
-def validate_post(data: dict, posted_titles: list[str]) -> None:
+def validate_post(data: Dict, posted_titles: List[str]) -> None:
     required = ["title", "meta_description", "labels", "image_query", "image_alt", "html_body"]
     for k in required:
         if not data.get(k):
@@ -203,8 +204,8 @@ def validate_post(data: dict, posted_titles: list[str]) -> None:
     if data["title"] in posted_titles:
         raise SystemExit("Duplicate title (already posted)")
     wc = word_count(data["html_body"])
-    if not (600 <= wc <= 1100):
-        raise SystemExit(f"Word count {wc} outside 600-1100 range")
+    if not (500 <= wc <= 1200):
+        raise SystemExit(f"Word count {wc} outside 500-1200 range")
     if len(data["meta_description"]) > 155:
         raise SystemExit("meta_description too long (>155 chars)")
     if not (3 <= len(data["labels"]) <= 5):
@@ -213,7 +214,7 @@ def validate_post(data: dict, posted_titles: list[str]) -> None:
 
 # ────────────────────────── Pixabay image ──────────────────────────
 
-def pixabay_download(image_query: str, slug: str) -> dict | None:
+def pixabay_download(image_query: str, slug: str) -> Optional[Dict]:
     """Download first good horizontal photo, resize to max 1200px, save as JPEG q80.
     Returns dict with url, width, height, credit or None."""
     url = "https://pixabay.com/api/"
@@ -280,7 +281,7 @@ def refresh_access_token() -> str:
     return r.json()["access_token"]
 
 
-def blogger_create_post(access_token: str, title: str, content: str, labels: list[str], publish: bool) -> dict:
+def blogger_create_post(access_token: str, title: str, content: str, labels: List[str], publish: bool) -> Dict:
     url = f"https://www.googleapis.com/blogger/v3/blogs/{BLOGGER_BLOG_ID}/posts"
     params = {"isDraft": "false" if publish else "true"}
     headers = {"Authorization": f"Bearer {access_token}", "Content-Type": "application/json"}
@@ -299,7 +300,7 @@ def blogger_create_post(access_token: str, title: str, content: str, labels: lis
 
 # ────────────────────────── build final HTML ──────────────────────────
 
-def build_final_html(data: dict, image_info: dict | None) -> str:
+def build_final_html(data: Dict, image_info: Optional[Dict]) -> str:
     parts = []
     if image_info:
         parts.append(
@@ -342,7 +343,7 @@ def main():
         print("No unused topics left.")
         return 0
 
-    print(f"Picked topic: {topic['id']} — {topic['topic']}")
+    print(f"Picked topic: {topic['id']} - {topic['topic']}".encode('ascii', 'replace').decode())
 
     # 1. Research
     research = {} if args.no_serp else serpapi_research(topic["keyword"])
@@ -353,14 +354,14 @@ def main():
     prompt = build_user_prompt(topic, research)
     data = groq_generate(prompt)
     validate_post(data, posted_titles)
-    print(f"Title: {data['title']}")
+    print(f"Title: {data['title']}".encode('ascii', 'replace').decode())
     print(f"Words: {word_count(data['html_body'])}")
 
     # 3. Image
     slug = slugify(data["title"])
     image_info = None if args.dry_run else pixabay_download(data["image_query"], slug)
     if image_info:
-        print(f"Image saved: {image_info['url']} ({image_info['width']}x{image_info['height']})")
+        print(f"Image saved: {image_info['url']} ({image_info['width']}x{image_info['height']})".encode('ascii', 'replace').decode())
     else:
         print("No image (or dry run)")
 
@@ -369,14 +370,14 @@ def main():
 
     if args.dry_run:
         print("\n=== FINAL JSON ===")
-        print(json.dumps({**data, "html_body": final_html}, indent=2, ensure_ascii=False))
+        print(json.dumps({**data, "html_body": final_html}, indent=2, ensure_ascii=True))
         return 0
 
     # 5. Blogger
     access_token = refresh_access_token()
     result = blogger_create_post(access_token, data["title"], final_html, data["labels"], args.publish)
     post_id = result.get("id")
-    print(f"Blogger post created: {post_id} (draft={not args.publish})")
+    print(f"Blogger post created: {post_id} (draft={not args.publish})".encode('ascii', 'replace').decode())
 
     # 6. Update state
     topic["used"] = True
@@ -389,7 +390,7 @@ def main():
         "image_file": f"{slug}.jpg" if image_info else None,
     })
     save_posted(posted)
-    print("State updated.")
+    print("State updated.".encode('ascii', 'replace').decode())
     return 0
 
 

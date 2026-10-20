@@ -8,13 +8,14 @@ load_dotenv(Path(__file__).with_name(".env"))
 REQUIRED = [
     "GROQ_API_KEY",
     "GROQ_MODEL",
-    "SERPAPI_KEY",
-    "PIXABAY_API_KEY",
     "GOOGLE_CLIENT_ID",
     "GOOGLE_CLIENT_SECRET",
     "GOOGLE_REFRESH_TOKEN",
     "BLOGGER_BLOG_ID",
 ]
+
+# Optional (script works without them)
+OPTIONAL = ["SERPAPI_KEY", "PIXABAY_API_KEY"]
 
 DEFAULTS = {
     "SITE_URL": "https://rashisharma-portfolio.vercel.app",
