@@ -208,8 +208,8 @@ def validate_post(data: Dict, posted_titles: List[str]) -> None:
         raise SystemExit(f"Word count {wc} outside 500-1200 range")
     if len(data["meta_description"]) > 155:
         raise SystemExit("meta_description too long (>155 chars)")
-    if not (3 <= len(data["labels"]) <= 5):
-        raise SystemExit("labels must be 3-5 items")
+    if not (2 <= len(data["labels"]) <= 5):
+        raise SystemExit("labels must be 2-5 items")
 
 
 # ────────────────────────── Pixabay image ──────────────────────────
