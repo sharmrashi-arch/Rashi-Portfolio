@@ -45,7 +45,7 @@ jobs:
           BLOGGER_BLOG_ID: ${{ secrets.BLOGGER_BLOG_ID }}
         run: |
           cd blog-agent
-          if ${{ github.event.inputs.dry_run == 'true' }}; then
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
             python post_to_blogger.py --dry-run
           else
             python post_to_blogger.py
@@ -63,3 +63,4 @@ jobs:
           else
             git commit -m "chore: blog agent update [skip ci]"
             git push
+          fi
