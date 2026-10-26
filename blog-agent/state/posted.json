@@ -12,5 +12,12 @@
     "date": "2026-10-21",
     "blogger_post_id": "5179037148255108187",
     "image_file": "how-to-connect-a-custom-domain-to-vercel-a-beginners-guide.jpg"
+  },
+  {
+    "topic_id": 3,
+    "title": "How to Deploy a Node.js API to Render – A Beginner’s Guide",
+    "date": "2026-10-26",
+    "blogger_post_id": "1611670597544851869",
+    "image_file": "how-to-deploy-a-nodejs-api-to-render-a-beginners-guide.jpg"
   }
 ]
