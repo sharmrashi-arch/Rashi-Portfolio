@@ -128,21 +128,23 @@ def normalize_labels(labels: List[str], topic_keyword: str = "") -> List[str]:
     if len(cleaned) > 5:
         cleaned = cleaned[:5]
 
-    fillers: List[str] = []
-    if topic_keyword:
-        tk = topic_keyword.strip().lower()
-        if tk and tk not in seen:
-            fillers.append(tk)
-    for f in DEFAULT_LABELS:
-        if f not in seen:
-            fillers.append(f)
+    # Fill only if fewer than 3 labels
+    if len(cleaned) < 3:
+        fillers: List[str] = []
+        if topic_keyword:
+            tk = topic_keyword.strip().lower()
+            if tk and tk not in seen:
+                fillers.append(tk)
+        for f in DEFAULT_LABELS:
+            if f not in seen:
+                fillers.append(f)
 
-    for f in fillers:
-        if len(cleaned) >= 5:
-            break
-        if f not in seen:
-            cleaned.append(f)
-            seen.add(f)
+        for f in fillers:
+            if len(cleaned) >= 5:
+                break
+            if f not in seen:
+                cleaned.append(f)
+                seen.add(f)
 
     return cleaned[:5]
 

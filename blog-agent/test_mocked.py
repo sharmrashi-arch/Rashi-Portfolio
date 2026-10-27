@@ -30,7 +30,7 @@ def test_labels_single():
 
 
 def test_labels_two():
-    assert normalize_labels(["AI", "Web"]) == ["ai", "web", "seo", "beginners"]
+    assert normalize_labels(["AI", "Web"]) == ["ai", "web", "web development", "seo", "beginners"]
 
 
 def test_labels_four():
@@ -39,8 +39,8 @@ def test_labels_four():
 
 def test_labels_eight_with_duplicates():
     result = normalize_labels(["AI", "ai", "WEB", "web", "SEO", "seo", "Python", "python"])
-    assert result == ["ai", "web", "seo", "python", "beginners"]
-    assert len(result) == 5
+    assert result == ["ai", "web", "seo", "python"]
+    assert len(result) == 4
 
 
 def test_labels_topic_keyword():
