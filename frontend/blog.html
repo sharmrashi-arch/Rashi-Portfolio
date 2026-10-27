@@ -13,16 +13,8 @@
       gtag("config", "G-H6FGHGWK1Q");
     </script>
 
-    <!-- ════════════════════════════════════════════════════════════════════
-         SEO — blog.html
-       Origin is the single source of truth for every absolute URL
-       below (canonical, og:url, og:image, JSON-LD @id). If the domain
-       ever changes, update SITE_ORIGIN in this file, vercel.json and
-       backend/server.js (SITE_ORIGIN const) together.
-       ═══════════════════════════════════════════════════════════════════ -->
-
+    <!-- SEO -->
     <title>Rashi Sharma | Blog — AI, Web Dev & Digital Marketing</title>
-
     <meta
       name="description"
       content="Rashi Sharma's blog — articles on web development, digital marketing, AI, SEO, portfolio building and freelancing from Pundri, Kaithal, Haryana."
@@ -32,47 +24,36 @@
       name="google-site-verification"
       content="Pjs2_n_bErnH0rFPSZ66FMFOsOeSZkK_onEVJyZfOj8"
     />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
     <meta name="theme-color" content="#0b1224" />
-    <meta name="format-detection" content="telephone=no" />
 
     <link rel="icon" href="/images/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/images/favicon.svg" />
-
-    <!-- Canonical — absolute URL, points at the clean /blog slug -->
     <link rel="canonical" href="https://rashisharma-portfolio.vercel.app/blog" />
 
-    <!-- Open Graph — social preview on WhatsApp, Facebook, LinkedIn -->
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Rashi Sharma — Portfolio Blog" />
+    <meta property="og:site_name" content="Rashi Sharma — Blog" />
     <meta property="og:locale" content="en_IN" />
     <meta property="og:title" content="Rashi Sharma | Blog — AI, Web Dev & Digital Marketing" />
     <meta
       property="og:description"
-      content="Rashi Sharma's blog — articles on web development, digital marketing, AI, SEO, portfolio building and freelancing from Pundri, Kaithal, Haryana."
+      content="Rashi Sharma's blog — articles on web development, digital marketing, AI, SEO, portfolio building and freelancing."
     />
     <meta property="og:url" content="https://rashisharma-portfolio.vercel.app/blog" />
     <meta property="og:image" content="https://rashisharma-portfolio.vercel.app/images/og-cover-rashi-sharma.jpg" />
-    <meta property="og:image:secure_url" content="https://rashisharma-portfolio.vercel.app/images/og-cover-rashi-sharma.jpg" />
-    <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Rashi Sharma blog — AI developer and web developer blog posts" />
 
-    <!-- Twitter / X card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Rashi Sharma | Blog — AI, Web Dev & Digital Marketing" />
     <meta
       name="twitter:description"
-      content="Rashi Sharma's blog — articles on web development, digital marketing, AI, SEO, portfolio building and freelancing from Pundri, Kaithal, Haryana."
+      content="Rashi Sharma's blog — articles on web development, digital marketing, AI, SEO, portfolio building and freelancing."
     />
     <meta name="twitter:image" content="https://rashisharma-portfolio.vercel.app/images/og-cover-rashi-sharma.jpg" />
 
-    <!-- Preload -->
     <link rel="preload" as="image" href="images/rashi-about.svg" type="image/svg+xml" fetchpriority="high" />
 
-    <!-- JSON-LD: Blog WebPage + BlogPosting list -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -91,7 +72,7 @@
               "height": 515
             },
             "jobTitle": "AI Developer, Web Developer, Video Editor & Graphic Designer",
-            "description": "AI developer and web developer from Pundri, Kaithal, Haryana — building websites, chatbots and creative content with AI.",
+            "description": "AI developer and web developer from Pundri, Kaithal, Haryana",
             "address": {
               "@type": "PostalAddress",
               "addressLocality": "Pundri",
@@ -99,21 +80,28 @@
               "addressCountry": "IN"
             },
             "knowsAbout": [
-              "HTML", "CSS", "JavaScript", "React", "Vite", "Node.js", "Express",
-              "Python", "C++", "IoT", "ChatGPT", "Google Gemini", "Claude AI",
-              "Canva AI", "Gamma AI", "CapCut", "SEO", "Digital Marketing"
+              "HTML", "CSS", "JavaScript", "React", "Node.js", "Python", "SEO", "Digital Marketing"
             ],
             "knowsLanguage": ["en", "hi"],
             "sameAs": [
               "https://github.com/sharmrashi-arch",
               "https://www.linkedin.com/in/rashi-sharma56522",
               "https://rashisharma-dev.hashnode.dev",
-              "https://hashnode.com/@rashi56522",
               "https://dev.to/rashisharma",
               "https://codepen.io/sharmrashi-arch",
               "https://medium.com/@sharmaaaarashi",
               "https://www.behance.net/rashisharma74"
             ]
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://rashisharma-portfolio.vercel.app/blog#webpage",
+            "url": "https://rashisharma-portfolio.vercel.app/blog",
+            "name": "Rashi Sharma | Blog — AI, Web Dev & Digital Marketing",
+            "description": "Rashi Sharma's blog — articles on web development, digital marketing, AI, SEO, portfolio building and freelancing.",
+            "inLanguage": "en-IN",
+            "isPartOf": { "@id": "https://rashisharma-portfolio.vercel.app/#website" },
+            "about": { "@id": "https://rashisharma-portfolio.vercel.app/#person" }
           },
           {
             "@type": "WebSite",
@@ -123,29 +111,11 @@
             "description": "Portfolio of Rashi Sharma, AI and web developer from Pundri, Kaithal, Haryana.",
             "inLanguage": "en-IN",
             "publisher": { "@id": "https://rashisharma-portfolio.vercel.app/#person" }
-          },
-          {
-            "@type": "WebPage",
-            "@id": "https://rashisharma-portfolio.vercel.app/blog#webpage",
-            "url": "https://rashisharma-portfolio.vercel.app/blog",
-            "name": "Rashi Sharma | Blog — AI, Web Dev & Digital Marketing",
-            "description": "Rashi Sharma's blog — articles on web development, digital marketing, AI, SEO, portfolio building and freelancing from Pundri, Kaithal, Haryana.",
-            "inLanguage": "en-IN",
-            "isPartOf": { "@id": "https://rashisharma-portfolio.vercel.app/#website" },
-            "about": { "@id": "https://rashisharma-portfolio.vercel.app/#person" },
-            "primaryImageOfPage": {
-              "@type": "ImageObject",
-              "url": "https://rashisharma-portfolio.vercel.app/images/og-cover-rashi-sharma.jpg",
-              "width": 1200,
-              "height": 630,
-              "caption": "Rashi Sharma — AI Developer and Web Developer blog"
-            }
           }
         ]
       }
     </script>
 
-    <!-- Google Fonts: Sora (body) + Exo (headings) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -155,7 +125,7 @@
 
     <style>
       /* ═══════════════════════════════════════════════════════════════════════
-         BLOG PAGE STYLES — Card layout, dark palette matching the portfolio
+         BLOG PAGE — Clean Card Layout
        ══════════════════════════════════════════════════════════════════════ */
       :root {
         color-scheme: dark;
@@ -172,10 +142,8 @@
         --gold: #c9872d;
         --border: rgba(96, 165, 250, 0.18);
 
-        /* Navbar */
         --nav-bg: rgba(11, 18, 34, 0.85);
 
-        --dots: rgba(59, 130, 246, 0.5);
         --scroll-track: #0d1428;
         --scroll-thumb: rgba(59, 130, 246, 0.4);
       }
@@ -202,14 +170,10 @@
       ::-webkit-scrollbar { width: 9px; }
       ::-webkit-scrollbar-track { background: var(--scroll-track); }
       ::-webkit-scrollbar-thumb { background: var(--scroll-thumb); border-radius: 10px; }
-      ::-webkit-scrollbar-thumb:hover { background: rgba(59, 130, 246, 0.65); }
-      @media (prefers-reduced-motion: reduce) {
-        * { animation: none !important; transition: none !important; }
-      }
 
       .container {
         width: 100%;
-        max-width: 1200px;
+        max-width: 1100px;
         margin: 0 auto;
         padding: 0 24px;
         position: relative;
@@ -274,9 +238,8 @@
 
       /* ── Blog Hero ── */
       .blog-hero {
-        padding: 56px 0 60px;
+        padding: 56px 0 40px;
         text-align: center;
-        position: relative;
       }
       .blog-hero .avatar {
         width: 110px;
@@ -344,6 +307,7 @@
         margin-bottom: 60px;
       }
 
+      /* Single card — clean and simple */
       .blog-card {
         background: var(--surface);
         border: 1px solid var(--border);
@@ -373,20 +337,6 @@
       .blog-card:hover .blog-card-thumb img {
         transform: scale(1.08);
       }
-      .blog-card-tag {
-        position: absolute;
-        top: 14px;
-        left: 14px;
-        font-size: 0.7rem;
-        font-weight: 700;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        padding: 6px 12px;
-        border-radius: 20px;
-        background: rgba(13, 20, 40, 0.9);
-        border: 1px solid var(--accent);
-        color: var(--accent);
-      }
 
       .blog-card-body {
         padding: 24px;
@@ -394,7 +344,10 @@
         flex-direction: column;
         gap: 12px;
       }
-      .blog-card-date {
+      .blog-card-meta {
+        display: flex;
+        align-items: center;
+        gap: 10px;
         font-size: 0.75rem;
         color: var(--accent-light);
         font-weight: 600;
@@ -420,13 +373,14 @@
         -webkit-box-orient: vertical;
         overflow: hidden;
       }
+
       .blog-card-footer {
         margin-top: auto;
+        padding-top: 14px;
+        border-top: 1px solid rgba(96, 165, 250, 0.12);
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding-top: 14px;
-        border-top: 1px solid rgba(96, 165, 250, 0.12);
       }
       .read-more {
         color: var(--accent);
@@ -435,6 +389,22 @@
         transition: color 0.3s ease;
       }
       .read-more:hover { color: var(--accent-light); }
+
+      /* ── Tags chips ── */
+      .blog-card-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 8px;
+      }
+      .blog-card-tags span {
+        font-size: 0.7rem;
+        padding: 5px 12px;
+        border-radius: 20px;
+        background: rgba(59, 130, 246, 0.08);
+        border: 1px solid rgba(59, 130, 246, 0.4);
+        color: var(--accent-light);
+      }
 
       /* ── Empty state ── */
       .empty-blog {
@@ -583,10 +553,9 @@
     <!-- BLOG CARDS GRID -->
     <div class="container">
       <div class="blog-grid" id="blogGrid">
-        <!-- Blog cards injected here by JS -->
+        <!-- Cards injected by JS below -->
       </div>
 
-      <!-- Empty state (shown when no cards match filter) -->
       <div class="empty-blog" id="emptyState" style="display:none;">
         <p>No articles found in this category yet. Check back soon!</p>
       </div>
@@ -598,8 +567,7 @@
         <h2>Want to work together?</h2>
         <p>
           Have a website in mind, a video to edit, or a brand that needs visibility? Let's
-          combine AI, design and development to build something memorable. I'm available for
-          freelance web development, AI chatbot work, SEO and video editing.
+          combine AI, design and development to build something memorable.
         </p>
         <div class="btn-row">
           <a href="/#contact" class="btn btn-primary">Contact Me</a>
@@ -710,60 +678,60 @@
           title: "How to Deploy a Static Site to Vercel — Beginner Guide",
           category: "web-development",
           date: "14 Oct 2026",
+          readTime: "5 min read",
           excerpt: "Step-by-step guide to deploying your HTML/CSS/JS site on Vercel for free, connecting a custom domain, and setting up clean URLs.",
           image: "images/rashi-about.svg",
-          tags: ["Vercel", "Deployment", "Static Site"],
-          readTime: "5 min read"
+          tags: ["Vercel", "Deployment", "Static Site"]
         },
         {
           id: 2,
           title: "AI Tools I Use Daily as a Web Developer",
           category: "ai",
           date: "10 Oct 2026",
+          readTime: "6 min read",
           excerpt: "ChatGPT, Gemini, Claude, Canva AI & Gamma AI — how I use each one in my workflow and why I still refine everything manually.",
           image: "images/og-cover-rashi-sharma.jpg",
-          tags: ["AI", "Tools", "Workflow"],
-          readTime: "6 min read"
+          tags: ["AI", "Tools", "Workflow"]
         },
         {
           id: 3,
           title: "SEO Basics for Personal Portfolio Websites",
           category: "seo",
           date: "06 Oct 2026",
+          readTime: "7 min read",
           excerpt: "Title tags, meta descriptions, JSON-LD schema, image sitemaps & IndexNow — everything you need to rank your portfolio on Google.",
           image: "images/rashi-about.svg",
-          tags: ["SEO", "Google", "Portfolio"],
-          readTime: "7 min read"
+          tags: ["SEO", "Google", "Portfolio"]
         },
         {
           id: 4,
           title: "Building My First AI Chatbot from Scratch",
           category: "ai",
           date: "01 Oct 2026",
+          readTime: "8 min read",
           excerpt: "From picking the model to writing the system prompt and deploying on Render — the exact steps I followed to build my own chatbot.",
           image: "images/og-cover-rashi-sharma.jpg",
-          tags: ["AI Chatbot", "Node.js", "Deploy"],
-          readTime: "8 min read"
+          tags: ["AI Chatbot", "Node.js", "Deploy"]
         },
         {
           id: 5,
           title: "Digital Marketing for Freelancers — Getting Your First Client",
           category: "digital-marketing",
           date: "25 Sep 2026",
+          readTime: "6 min read",
           excerpt: "How to position yourself, build a portfolio that converts, and use SEO + social proof to attract clients from Kaithal and beyond.",
           image: "images/rashi-about.svg",
-          tags: ["Freelancing", "Marketing", "Client Acquisition"],
-          readTime: "6 min read"
+          tags: ["Freelancing", "Marketing", "Client Acquisition"]
         },
         {
           id: 6,
           title: "Why I Chose NIELIT O Level Before Learning React",
           category: "web-development",
           date: "18 Sep 2026",
+          readTime: "4 min read",
           excerpt: "Structured fundamentals matter. My journey from Class 10th/12th to NIELIT O Level and why it made learning React and Node.js easier.",
           image: "images/og-cover-rashi-sharma.jpg",
-          tags: ["NIELIT", "Learning Path", "Career"],
-          readTime: "4 min read"
+          tags: ["NIELIT", "Learning Path", "Career"]
         }
       ];
 
@@ -781,20 +749,21 @@
         empty.style.display = "none";
 
         grid.innerHTML = posts.map(function (p) {
+          var tagsHtml = p.tags.map(function (t) {
+            return '<span style="font-size:0.7rem;padding:5px 12px;border-radius:20px;border:1px solid rgba(59,130,246,0.4);background:rgba(59,130,246,0.08);color:#7ab0ff;display:inline-block;margin-right:6px;margin-bottom:6px;">' + t + '</span>';
+          }).join('');
+
           return '<article class="blog-card reveal visible">' +
             '<div class="blog-card-thumb">' +
               '<img src="' + p.image + '" alt="' + p.title + '" loading="lazy" decoding="async" />' +
-              '<span class="blog-card-tag">' + p.category + '</span>' +
             '</div>' +
             '<div class="blog-card-body">' +
-              '<span class="blog-card-date">' + p.date + ' &middot; ' + p.readTime + '</span>' +
+              '<div class="blog-card-meta">' + p.date + ' &middot; ' + p.readTime + '</div>' +
               '<h3>' + p.title + '</h3>' +
               '<p>' + p.excerpt + '</p>' +
+              '<div class="blog-card-tags">' + tagsHtml + '</div>' +
             '</div>' +
             '<div class="blog-card-footer">' +
-              '<div class="tags">' + p.tags.map(function (t) {
-                return '<span style="font-size:0.72rem;padding:4px 10px;border-radius:12px;border:1px solid rgba(59,130,246,0.4);background:rgba(59,130,246,0.08);color:var(--accent-light);margin-right:6px;margin-bottom:6px;display:inline-block;">' + t + '</span>';
-              }).join('') + '</div>' +
               '<a href="#" class="read-more">Read Article &rarr;</a>' +
             '</div>' +
           '</article>';
