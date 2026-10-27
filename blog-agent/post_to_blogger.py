@@ -28,10 +28,19 @@ from config import (
     MAX_RETRIES,
 )
 
+TOPICS_FILE = Path(__file__).with_name("topics.json")
+POSTED_FILE = Path(__file__).with_name("state") / "posted.json"
+
+MAX_GROQ_ATTEMPTS = 3
+MIN_WORDS = 550
+MAX_WORDS = 1200
+TARGET_WORDS = "800-950"
+MAX_TOKENS = 3000
+DEFAULT_LABELS = ["web development", "seo", "beginners"]
+
 # ────────────────────────── helpers ──────────────────────────
 
 def slugify(text: str) -> str:
-    """Make a URL-safe slug from title."""
     text = text.lower()
     text = re.sub(r"[^a-z0-9\s-]", "", text)
     text = re.sub(r"[\s-]+", "-", text).strip("-")
@@ -39,14 +48,12 @@ def slugify(text: str) -> str:
 
 
 def word_count(html: str) -> int:
-    """Count words in HTML (strip tags)."""
     text = re.sub(r"<[^>]+>", " ", html)
     text = re.sub(r"\s+", " ", text)
     return len(text.split())
 
 
 def retry_post(url: str, **kwargs) -> requests.Response:
-    """POST with retries for network errors."""
     last_err = None
     for _ in range(MAX_RETRIES + 1):
         try:
@@ -58,7 +65,6 @@ def retry_post(url: str, **kwargs) -> requests.Response:
 
 
 def retry_get(url: str, **kwargs) -> requests.Response:
-    """GET with retries for network errors."""
     last_err = None
     for _ in range(MAX_RETRIES + 1):
         try:
@@ -70,10 +76,6 @@ def retry_get(url: str, **kwargs) -> requests.Response:
 
 
 # ────────────────────────── topics ──────────────────────────
-
-TOPICS_FILE = Path(__file__).with_name("topics.json")
-POSTED_FILE = Path(__file__).with_name("state") / "posted.json"
-
 
 def load_topics() -> List[Dict]:
     with open(TOPICS_FILE, "r", encoding="utf-8") as f:
@@ -109,10 +111,45 @@ def pick_topic(topics: List[Dict], topic_id: Optional[int]) -> Optional[Dict]:
     return None
 
 
+# ────────────────────────── labels ──────────────────────────
+
+def normalize_labels(labels: List[str], topic_keyword: str = "") -> List[str]:
+    cleaned: List[str] = []
+    seen: set = set()
+    for raw in labels:
+        if not raw:
+            continue
+        s = str(raw).strip().lower()
+        if not s or s in seen:
+            continue
+        seen.add(s)
+        cleaned.append(s)
+
+    if len(cleaned) > 5:
+        cleaned = cleaned[:5]
+
+    fillers: List[str] = []
+    if topic_keyword:
+        tk = topic_keyword.strip().lower()
+        if tk and tk not in seen:
+            fillers.append(tk)
+    for f in DEFAULT_LABELS:
+        if f not in seen:
+            fillers.append(f)
+
+    for f in fillers:
+        if len(cleaned) >= 5:
+            break
+        if f not in seen:
+            cleaned.append(f)
+            seen.add(f)
+
+    return cleaned[:5]
+
+
 # ────────────────────────── SerpAPI research ──────────────────────────
 
 def serpapi_research(keyword: str) -> Dict:
-    """One call to SerpAPI. Returns dict with questions, searches, organic."""
     url = "https://serpapi.com/search.json"
     params = {"engine": "google", "q": keyword, "hl": "en", "gl": "in", "api_key": SERPAPI_KEY}
     try:
@@ -135,9 +172,9 @@ def serpapi_research(keyword: str) -> Dict:
 # ────────────────────────── Groq generation ──────────────────────────
 
 SYSTEM_PROMPT = """You are an SEO content writer for a beginner-friendly developer blog.
-Write in simple, clear English. Target 700-900 words.
+Write in simple, clear English. Target 800-900 words.
 Output ONLY valid JSON with these keys:
-title, meta_description (max 155 chars), labels (3-5 items), image_query (2-3 words), image_alt, html_body.
+title, meta_description (max 155 chars), labels (exactly 4 short strings), image_query (2-3 words), image_alt, html_body.
 
 Rules for html_body:
 - No <h1>. Use <h2> for sections, <h3> for subsections.
@@ -155,7 +192,7 @@ Rules for html_body:
 """
 
 
-def build_user_prompt(topic: dict, research: dict) -> str:
+def build_user_prompt(topic: dict, research: dict, extra: str = "") -> str:
     parts = [
         f"Topic: {topic['topic']}",
         f"Target keyword: {topic['keyword']}",
@@ -168,6 +205,8 @@ def build_user_prompt(topic: dict, research: dict) -> str:
         parts.append("Top results (for context only, do not copy):")
         for o in research["organic"]:
             parts.append(f"  - {o['title']}: {o['snippet'][:160]}")
+    if extra:
+        parts.append(extra)
     return "\n\n".join(parts)
 
 
@@ -177,6 +216,7 @@ def groq_generate(prompt: str) -> Dict:
     payload = {
         "model": GROQ_MODEL,
         "temperature": 0.7,
+        "max_tokens": MAX_TOKENS,
         "messages": [
             {"role": "system", "content": SYSTEM_PROMPT.replace("SITE_URL", SITE_URL)},
             {"role": "user", "content": prompt},
@@ -203,20 +243,13 @@ def validate_post(data: Dict, posted_titles: List[str]) -> None:
             raise SystemExit(f"Missing field in Groq output: {k}")
     if data["title"] in posted_titles:
         raise SystemExit("Duplicate title (already posted)")
-    wc = word_count(data["html_body"])
-    if not (500 <= wc <= 1200):
-        raise SystemExit(f"Word count {wc} outside 500-1200 range")
     if len(data["meta_description"]) > 155:
         raise SystemExit("meta_description too long (>155 chars)")
-    if not (2 <= len(data["labels"]) <= 5):
-        raise SystemExit("labels must be 2-5 items")
 
 
 # ────────────────────────── Pixabay image ──────────────────────────
 
 def pixabay_download(image_query: str, slug: str) -> Optional[Dict]:
-    """Download first good horizontal photo, resize to max 1200px, save as JPEG q80.
-    Returns dict with url, width, height, credit or None."""
     url = "https://pixabay.com/api/"
     params = {
         "key": PIXABAY_API_KEY,
@@ -242,7 +275,6 @@ def pixabay_download(image_query: str, slug: str) -> Optional[Dict]:
             img_path.parent.mkdir(parents=True, exist_ok=True)
             with open(img_path, "wb") as f:
                 f.write(img_r.content)
-            # resize
             with Image.open(img_path) as im:
                 if im.width > 1200:
                     ratio = 1200 / im.width
@@ -277,7 +309,7 @@ def refresh_access_token() -> str:
         if err == "invalid_grant":
             raise SystemExit("Refresh token expired or revoked. Regenerate it.")
     if r.status_code != 200:
-        raise SystemExit(f"Token refresh failed: {r.status_code} {r.text}")
+        raise SystemExit(f"Token refresh failed: {r.status_code}")
     return r.json()["access_token"]
 
 
@@ -294,7 +326,7 @@ def blogger_create_post(access_token: str, title: str, content: str, labels: Lis
     if r.status_code == 404:
         raise SystemExit("404 Not Found: check BLOGGER_BLOG_ID")
     if r.status_code >= 400:
-        raise SystemExit(f"Blogger API error: {r.status_code} {r.text}")
+        raise SystemExit(f"Blogger API error: {r.status_code}")
     return r.json()
 
 
@@ -309,7 +341,6 @@ def build_final_html(data: Dict, image_info: Optional[Dict]) -> str:
             f'<figcaption>Image: {image_info["credit"]} on Pixabay</figcaption></figure>'
         )
     parts.append(data["html_body"])
-    # author box
     parts.append(
         f'<div style="margin-top:2rem;padding:1rem;border-top:1px solid #ddd;font-size:0.9rem;">'
         f'<strong>Rashi Sharma</strong> — Web developer & digital marketing learner from Pundri, Haryana. '
@@ -343,25 +374,55 @@ def main():
         print("No unused topics left.")
         return 0
 
-    print(f"Picked topic: {topic['id']} - {topic['topic']}".encode('ascii', 'replace').decode())
+    print(f"Picked topic: {topic['id']} — {topic['topic']}")
 
-    # 1. Research
+    # 1. Research — ONE call only
     research = {} if args.no_serp else serpapi_research(topic["keyword"])
     if research:
         print(f"SerpAPI: {len(research.get('questions',[]))} questions, {len(research.get('organic',[]))} organic")
 
-    # 2. Generate
+    # 2. Generate + validate with retries (max 3)
     prompt = build_user_prompt(topic, research)
-    data = groq_generate(prompt)
-    validate_post(data, posted_titles)
-    print(f"Title: {data['title']}".encode('ascii', 'replace').decode())
-    print(f"Words: {word_count(data['html_body'])}")
+    data = None
+    last_error = ""
 
-    # 3. Image
+    for attempt in range(1, MAX_GROQ_ATTEMPTS + 1):
+        try:
+            data = groq_generate(prompt)
+            data["labels"] = normalize_labels(data.get("labels", []), topic.get("keyword", ""))
+            validate_post(data, posted_titles)
+            wc = word_count(data["html_body"])
+            if not (MIN_WORDS <= wc <= MAX_WORDS):
+                if attempt < MAX_GROQ_ATTEMPTS:
+                    prompt = build_user_prompt(
+                        topic,
+                        research,
+                        extra=f"Previous post was {wc} words. Please write {TARGET_WORDS} words, and complete all sections.",
+                    )
+                    continue
+                raise SystemExit(f"Word count {wc} outside {MIN_WORDS}-{MAX_WORDS} range after {MAX_GROQ_ATTEMPTS} attempts")
+            break
+        except SystemExit as e:
+            last_error = str(e)
+            msg = str(e)
+            if "Duplicate title" in msg:
+                raise
+            if attempt < MAX_GROQ_ATTEMPTS and ("Word count" in msg or "Missing field" in msg):
+                continue
+            raise
+
+    if data is None:
+        raise SystemExit(f"Groq failed after {MAX_GROQ_ATTEMPTS} attempts: {last_error}")
+
+    print(f"Title: {data['title']}")
+    print(f"Words: {word_count(data['html_body'])}")
+    print(f"Labels: {len(data['labels'])}")
+
+    # 3. Image — only after validation passes
     slug = slugify(data["title"])
     image_info = None if args.dry_run else pixabay_download(data["image_query"], slug)
     if image_info:
-        print(f"Image saved: {image_info['url']} ({image_info['width']}x{image_info['height']})".encode('ascii', 'replace').decode())
+        print(f"Image saved: {image_info['url']} ({image_info['width']}x{image_info['height']})")
     else:
         print("No image (or dry run)")
 
@@ -377,9 +438,9 @@ def main():
     access_token = refresh_access_token()
     result = blogger_create_post(access_token, data["title"], final_html, data["labels"], args.publish)
     post_id = result.get("id")
-    print(f"Blogger post created: {post_id} (draft={not args.publish})".encode('ascii', 'replace').decode())
+    print(f"Blogger post created: {post_id} (draft={not args.publish})")
 
-    # 6. Update state
+    # 6. State update — only after successful draft
     topic["used"] = True
     save_topics(topics)
     posted.append({
@@ -390,7 +451,7 @@ def main():
         "image_file": f"{slug}.jpg" if image_info else None,
     })
     save_posted(posted)
-    print("State updated.".encode('ascii', 'replace').decode())
+    print("State updated.")
     return 0
 
 
