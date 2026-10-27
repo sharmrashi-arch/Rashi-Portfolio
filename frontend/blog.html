@@ -2,32 +2,30 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-      <!-- Google Analytics 4 -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-H6FGHGWK1Q"></script>
-      <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag("js", new Date());
-        gtag("config", "G-H6FGHGWK1Q");
-      </script>
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H6FGHGWK1Q"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag("js", new Date());
+      gtag("config", "G-H6FGHGWK1Q");
+    </script>
 
-      <!-- ═══════════════════════════════════════════════════════════════
-           SEO — blog.html
-         Origin is the single source of truth for every absolute URL
-         below (canonical, og:url, og:image, JSON-LD @id). If the domain
-         ever changes, update SITE_ORIGIN in this file, vercel.json and
-         backend/server.js (SITE_ORIGIN const) together.
-         ═══════════════════════════════════════════════════════════════ -->
+    <!-- ════════════════════════════════════════════════════════════════════
+         SEO — blog.html
+       Origin is the single source of truth for every absolute URL
+       below (canonical, og:url, og:image, JSON-LD @id). If the domain
+       ever changes, update SITE_ORIGIN in this file, vercel.json and
+       backend/server.js (SITE_ORIGIN const) together.
+       ═══════════════════════════════════════════════════════════════════ -->
 
-    <!-- Title tag: 53 chars, unique vs index.html, primary keyword first -->
-    <title>Rashi Sharma | AI &amp; Web Developer in Kaithal, Haryana</title>
+    <title>Rashi Sharma | Blog — AI, Web Dev & Digital Marketing</title>
 
-    <!-- Meta description: 153 chars (150–160 sweet spot) -->
     <meta
       name="description"
-      content="I'm Rashi Sharma, an AI &amp; web developer from Pundri, Kaithal, Haryana. Read my full story: NIELIT O Level, AI chatbot, web projects, video editing &amp; SEO."
+      content="Rashi Sharma's blog — articles on web development, digital marketing, AI, SEO, portfolio building and freelancing from Pundri, Kaithal, Haryana."
     />
     <meta name="author" content="Rashi Sharma" />
     <meta
@@ -46,13 +44,13 @@
     <link rel="canonical" href="https://rashisharma-portfolio.vercel.app/blog" />
 
     <!-- Open Graph — social preview on WhatsApp, Facebook, LinkedIn -->
-    <meta property="og:type" content="article" />
-    <meta property="og:site_name" content="Rashi Sharma — Portfolio" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Rashi Sharma — Portfolio Blog" />
     <meta property="og:locale" content="en_IN" />
-    <meta property="og:title" content="Rashi Sharma | AI &amp; Web Developer in Kaithal, Haryana" />
+    <meta property="og:title" content="Rashi Sharma | Blog — AI, Web Dev & Digital Marketing" />
     <meta
       property="og:description"
-      content="I'm Rashi Sharma, an AI &amp; web developer from Pundri, Kaithal, Haryana. Read my full story: NIELIT O Level, AI chatbot, web projects, video editing &amp; SEO."
+      content="Rashi Sharma's blog — articles on web development, digital marketing, AI, SEO, portfolio building and freelancing from Pundri, Kaithal, Haryana."
     />
     <meta property="og:url" content="https://rashisharma-portfolio.vercel.app/blog" />
     <meta property="og:image" content="https://rashisharma-portfolio.vercel.app/images/og-cover-rashi-sharma.jpg" />
@@ -60,29 +58,21 @@
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Rashi Sharma — AI Developer and Web Developer in Kaithal, Haryana. Websites, AI chatbots, video editing and SEO." />
-    <meta property="article:published_time" content="2026-09-30T09:00:00+05:30" />
-    <meta property="article:modified_time" content="2026-10-03T12:00:00+05:30" />
-    <meta property="article:author" content="Rashi Sharma" />
-    <meta property="article:section" content="Personal Story" />
-    <meta property="article:tag" content="AI Development" />
-    <meta property="article:tag" content="Web Development" />
-    <meta property="article:tag" content="SEO" />
+    <meta property="og:image:alt" content="Rashi Sharma blog — AI developer and web developer blog posts" />
 
     <!-- Twitter / X card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Rashi Sharma | AI &amp; Web Developer in Kaithal, Haryana" />
+    <meta name="twitter:title" content="Rashi Sharma | Blog — AI, Web Dev & Digital Marketing" />
     <meta
       name="twitter:description"
-      content="I'm Rashi Sharma, an AI &amp; web developer from Pundri, Kaithal, Haryana. Read my full story: NIELIT O Level, AI chatbot, web projects, video editing &amp; SEO."
+      content="Rashi Sharma's blog — articles on web development, digital marketing, AI, SEO, portfolio building and freelancing from Pundri, Kaithal, Haryana."
     />
     <meta name="twitter:image" content="https://rashisharma-portfolio.vercel.app/images/og-cover-rashi-sharma.jpg" />
-    <meta name="twitter:image:alt" content="Rashi Sharma — AI Developer and Web Developer in Kaithal, Haryana" />
 
-    <!-- Preload the LCP image + declare its size to avoid layout shift -->
+    <!-- Preload -->
     <link rel="preload" as="image" href="images/rashi-about.svg" type="image/svg+xml" fetchpriority="high" />
 
-    <!-- ═══ JSON-LD: linked graph (Person → WebSite → WebPage → BlogPosting) ═══ -->
+    <!-- JSON-LD: Blog WebPage + BlogPosting list -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -93,13 +83,13 @@
             "name": "Rashi Sharma",
             "url": "https://rashisharma-portfolio.vercel.app/",
             "image": {
-            "@type": "ImageObject",
-            "url": "https://rashisharma-portfolio.vercel.app/images/rashi-sharma-web-developer-digital-marketer.webp",
-            "name": "Rashi Sharma, AI and web developer",
-            "caption": "Rashi Sharma, AI and web developer from Pundri, Kaithal, Haryana",
-            "width": 496,
-            "height": 515
-          },
+              "@type": "ImageObject",
+              "url": "https://rashisharma-portfolio.vercel.app/images/rashi-sharma-web-developer-digital-marketer.webp",
+              "name": "Rashi Sharma, AI and web developer",
+              "caption": "Rashi Sharma, AI and web developer from Pundri, Kaithal, Haryana",
+              "width": 496,
+              "height": 515
+            },
             "jobTitle": "AI Developer, Web Developer, Video Editor & Graphic Designer",
             "description": "AI developer and web developer from Pundri, Kaithal, Haryana — building websites, chatbots and creative content with AI.",
             "address": {
@@ -115,15 +105,15 @@
             ],
             "knowsLanguage": ["en", "hi"],
             "sameAs": [
-          "https://github.com/sharmrashi-arch",
-          "https://www.linkedin.com/in/rashi-sharma56522",
-          "https://rashisharma-dev.hashnode.dev",
-          "https://hashnode.com/@rashi56522",
-          "https://dev.to/rashisharma",
-          "https://codepen.io/sharmrashi-arch",
-          "https://medium.com/@sharmaaaarashi",
-          "https://www.behance.net/rashisharma74"
-        ]
+              "https://github.com/sharmrashi-arch",
+              "https://www.linkedin.com/in/rashi-sharma56522",
+              "https://rashisharma-dev.hashnode.dev",
+              "https://hashnode.com/@rashi56522",
+              "https://dev.to/rashisharma",
+              "https://codepen.io/sharmrashi-arch",
+              "https://medium.com/@sharmaaaarashi",
+              "https://www.behance.net/rashisharma74"
+            ]
           },
           {
             "@type": "WebSite",
@@ -138,82 +128,24 @@
             "@type": "WebPage",
             "@id": "https://rashisharma-portfolio.vercel.app/blog#webpage",
             "url": "https://rashisharma-portfolio.vercel.app/blog",
-            "name": "Rashi Sharma | AI & Web Developer in Kaithal, Haryana",
-            "description": "I'm Rashi Sharma, an AI & web developer from Pundri, Kaithal, Haryana. Read my full story: NIELIT O Level, AI chatbot, web projects, video editing & SEO.",
+            "name": "Rashi Sharma | Blog — AI, Web Dev & Digital Marketing",
+            "description": "Rashi Sharma's blog — articles on web development, digital marketing, AI, SEO, portfolio building and freelancing from Pundri, Kaithal, Haryana.",
             "inLanguage": "en-IN",
             "isPartOf": { "@id": "https://rashisharma-portfolio.vercel.app/#website" },
             "about": { "@id": "https://rashisharma-portfolio.vercel.app/#person" },
-            "breadcrumb": { "@id": "https://rashisharma-portfolio.vercel.app/blog#breadcrumb" },
             "primaryImageOfPage": {
               "@type": "ImageObject",
               "url": "https://rashisharma-portfolio.vercel.app/images/og-cover-rashi-sharma.jpg",
               "width": 1200,
               "height": 630,
-              "caption": "Rashi Sharma — AI Developer and Web Developer in Kaithal, Haryana"
+              "caption": "Rashi Sharma — AI Developer and Web Developer blog"
             }
-          },
-          {
-            "@type": "BlogPosting",
-            "@id": "https://rashisharma-portfolio.vercel.app/blog#blogposting",
-            "mainEntityOfPage": { "@id": "https://rashisharma-portfolio.vercel.app/blog#webpage" },
-            "url": "https://rashisharma-portfolio.vercel.app/blog",
-            "headline": "Rashi Sharma | AI & Web Developer in Kaithal, Haryana",
-            "alternativeHeadline": "About Rashi Sharma — AI Developer, Web Developer, Video Editor & Graphic Designer from Kaithal, Haryana",
-            "description": "I'm Rashi Sharma, an AI & web developer from Pundri, Kaithal, Haryana. Read my full story: NIELIT O Level, AI chatbot, web projects, video editing & SEO.",
-            "image": {
-              "@type": "ImageObject",
-              "url": "https://rashisharma-portfolio.vercel.app/images/og-cover-rashi-sharma.jpg",
-              "width": 1200,
-              "height": 630,
-              "caption": "Rashi Sharma — AI Developer and Web Developer in Kaithal, Haryana"
-            },
-            "datePublished": "2026-09-30T09:00:00+05:30",
-            "dateModified": "2026-10-03T12:00:00+05:30",
-            "inLanguage": "en-IN",
-            "isAccessibleForFree": true,
-            "articleSection": [
-              "Personal Story",
-              "AI Development",
-              "Web Development",
-              "Video Editing",
-              "Graphic Designing",
-              "SEO",
-              "Digital Marketing"
-            ],
-            "keywords": "Rashi Sharma, AI developer, web developer, Kaithal, Haryana, Pundri, SEO, digital marketing, video editor, graphic designer, NIELIT O Level, chatbot",
-            "wordCount": 1931,
-            "author": {
-              "@type": "Person",
-              "@id": "https://rashisharma-portfolio.vercel.app/#person"
-            },
-            "publisher": {
-              "@type": "Person",
-              "@id": "https://rashisharma-portfolio.vercel.app/#person"
-            }
-          },
-          {
-            "@type": "BreadcrumbList",
-            "@id": "https://rashisharma-portfolio.vercel.app/blog#breadcrumb",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": "https://rashisharma-portfolio.vercel.app/"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "About Rashi",
-                "item": "https://rashisharma-portfolio.vercel.app/blog"
-              }
-            ]
           }
         ]
       }
     </script>
 
-    <!-- Google Fonts: Sora (body) + Exo (headings) — same as the main portfolio -->
+    <!-- Google Fonts: Sora (body) + Exo (headings) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -222,20 +154,16 @@
     />
 
     <style>
-      /* ═══════════════════════════════════════════════
-         BLOG PAGE STYLES
-         Dark palette = exact copy of the portfolio's
-         :root variables, so the page looks identical
-         to the rest of the site. A second palette is
-         provided for OS light mode via prefers-color-scheme.
-         ═══════════════════════════════════════════════ */
+      /* ═══════════════════════════════════════════════════════════════════════
+         BLOG PAGE STYLES — Card layout, dark palette matching the portfolio
+       ══════════════════════════════════════════════════════════════════════ */
       :root {
         color-scheme: dark;
 
         /* Portfolio colours (dark = default, matches style.css) */
         --cream: #0b1224;
         --cream-soft: #101a32;
-        --cream-end: #070d1c;          /* body gradient end */
+        --cream-end: #070d1c;
         --surface: #151f3a;
         --ink: #e8eefb;
         --muted: #94a5c9;
@@ -247,15 +175,10 @@
         /* Navbar */
         --nav-bg: rgba(11, 18, 34, 0.85);
 
-        /* Surface glow dots (same pattern as portfolio) */
         --dots: rgba(59, 130, 246, 0.5);
         --scroll-track: #0d1428;
         --scroll-thumb: rgba(59, 130, 246, 0.4);
       }
-
-      /* NOTE: Light mode override hataya gaya hai taaki blog page ka background
-         hamesha portfolio jaisa dark blue rahe (index.html bhi hamesha dark hai).
-         Neeche :root values hi exact portfolio palette hain. */
 
       /* ── Reset & base ── */
       * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -286,14 +209,14 @@
 
       .container {
         width: 100%;
-        max-width: 900px;
+        max-width: 1200px;
         margin: 0 auto;
         padding: 0 24px;
         position: relative;
         z-index: 2;
       }
 
-      /* Portfolio jaisa hi floating particle background */
+      /* Particles background */
       #particles {
         position: fixed;
         inset: 0;
@@ -301,7 +224,7 @@
         pointer-events: none;
       }
 
-      /* ── Navbar (same look & behaviour as portfolio) ── */
+      /* ── Navbar ── */
       #navbar {
         position: fixed;
         top: 0; left: 0;
@@ -328,7 +251,6 @@
       }
       .logo-accent { color: var(--accent); text-shadow: 0 0 12px rgba(59, 130, 246, 0.25); }
       .logo-light { color: var(--ink); }
-      /* Sirf ek link — wapas portfolio pe jane ke liye */
       .back-link {
         display: inline-flex;
         align-items: center;
@@ -349,306 +271,195 @@
         box-shadow: 0 0 18px rgba(59, 130, 246, 0.35);
         color: #fff;
       }
-      .back-arrow { font-size: 1rem; line-height: 1; }
 
-      /* ── Hero ── */
-      .page-hero {
-        padding: 46px 0 70px;
+      /* ── Blog Hero ── */
+      .blog-hero {
+        padding: 56px 0 60px;
         text-align: center;
         position: relative;
       }
-      .page-hero .avatar {
-        width: 120px;
-        height: 120px;
-        margin: 0 auto 26px;
+      .blog-hero .avatar {
+        width: 110px;
+        height: 110px;
+        margin: 0 auto 20px;
         border-radius: 50%;
         border: 2px solid var(--border);
         background: var(--surface);
         overflow: hidden;
       }
-      .page-hero .avatar img { width: 100%; height: 100%; object-fit: cover; }
-      .eyebrow {
+      .blog-hero .avatar img { width: 100%; height: 100%; object-fit: cover; }
+      .blog-eyebrow {
         text-transform: uppercase;
         letter-spacing: 4px;
         font-size: 0.8rem;
         color: var(--accent);
         margin-bottom: 14px;
       }
-      .page-hero h1 {
+      .blog-hero h1 {
         font-family: "Exo", sans-serif;
-        font-size: clamp(1.9rem, 4.6vw, 3.2rem);
+        font-size: clamp(2rem, 5vw, 3.4rem);
         font-weight: 700;
         line-height: 1.2;
-        max-width: 820px;
-        margin: 0 auto 18px;
+        margin: 0 auto 16px;
+        max-width: 720px;
       }
-      .text-gradient {
-        background: linear-gradient(90deg, var(--accent), var(--accent-light));
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-      }
-      .page-hero p.lead {
+      .blog-hero p {
         color: var(--muted);
         font-size: 1.05rem;
-        max-width: 640px;
-        margin: 0 auto 14px;
+        max-width: 620px;
+        margin: 0 auto 0;
       }
-      .page-hero p.location {
-        color: var(--gold);
-        font-size: 0.9rem;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-      }
-      .page-hero p.byline {
-        color: var(--muted);
-        font-size: 0.85rem;
-        margin-top: 14px;
-      }
-      .page-hero p.byline strong { color: var(--ink); }
-      .page-hero p.byline time { color: var(--accent-light); }
 
-      /* ── Article content ── */
-      main { position: relative; z-index: 2; }
-      /* same dotted grid overlay as the portfolio sections */
-      section > .container::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background-image: radial-gradient(var(--dots) 1px, transparent 1px);
-        background-size: 30px 30px;
-        opacity: 0.07;
-        pointer-events: none;
-      }
-      .section {
-        display: block;
-        padding: 56px 0;
-      }
-      .section-anchor { scroll-margin-top: 90px; }
-
-      /* ── Breadcrumb (matches BreadcrumbList JSON-LD) ── */
-      .breadcrumb-nav { padding: 128px 0 0; }
-      .breadcrumb {
+      /* ── Filters ── */
+      .filters {
         display: flex;
         flex-wrap: wrap;
-        align-items: center;
-        gap: 8px;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        font-size: 0.82rem;
-        color: var(--muted);
-      }
-      .breadcrumb li { margin: 0; display: flex; align-items: center; gap: 8px; }
-      .breadcrumb li + li::before {
-        content: "/";
-        color: var(--accent);
-        opacity: 0.6;
-      }
-      .breadcrumb a { color: var(--accent-light); transition: color 0.2s ease; }
-      .breadcrumb a:hover { color: var(--accent); text-decoration: underline; }
-      .breadcrumb [aria-current="page"] { color: var(--ink); font-weight: 600; }
-
-      /* ── Table of contents: internal anchor links ── */
-      .toc { margin-top: 26px; }
-      .toc-title {
-        font-family: "Exo", sans-serif;
-        font-size: 0.95rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 2.5px;
-        color: var(--accent);
-        margin-bottom: 16px;
-      }
-      .toc-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-        gap: 10px 20px;
-        counter-reset: toc;
-      }
-      .toc-list li { margin: 0; counter-increment: toc; }
-      .toc-list a {
-        display: flex;
-        align-items: baseline;
         gap: 10px;
+        justify-content: center;
+        margin: 30px 0 40px;
+      }
+      .filter-btn {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        color: var(--ink);
+        padding: 8px 18px;
+        border-radius: 30px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .filter-btn:hover,
+      .filter-btn.active {
+        border-color: var(--accent);
+        color: var(--accent);
+        box-shadow: 0 0 14px rgba(59, 130, 246, 0.2);
+      }
+
+      /* ── Blog Cards Grid ── */
+      .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 28px;
+        margin-bottom: 60px;
+      }
+
+      .blog-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        display: flex;
+        flex-direction: column;
+      }
+      .blog-card:hover {
+        transform: translateY(-8px);
+        border-color: var(--accent);
+        box-shadow: 0 14px 34px rgba(59, 130, 246, 0.14);
+      }
+
+      .blog-card-thumb {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+      }
+      .blog-card-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+      }
+      .blog-card:hover .blog-card-thumb img {
+        transform: scale(1.08);
+      }
+      .blog-card-tag {
+        position: absolute;
+        top: 14px;
+        left: 14px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        padding: 6px 12px;
+        border-radius: 20px;
+        background: rgba(13, 20, 40, 0.9);
+        border: 1px solid var(--accent);
+        color: var(--accent);
+      }
+
+      .blog-card-body {
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .blog-card-date {
+        font-size: 0.75rem;
+        color: var(--accent-light);
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+      .blog-card h3 {
+        font-family: "Exo", sans-serif;
+        font-size: 1.2rem;
+        line-height: 1.35;
+        margin: 0;
+        color: var(--ink);
+        transition: color 0.3s ease;
+      }
+      .blog-card:hover h3 { color: var(--accent-light); }
+      .blog-card p {
         color: var(--muted);
         font-size: 0.92rem;
-        font-weight: 500;
-        transition: color 0.2s ease, transform 0.2s ease;
-      }
-      .toc-list a::before {
-        content: counter(toc, decimal-leading-zero);
-        font-family: "Exo", sans-serif;
-        font-size: 0.78rem;
-        font-weight: 700;
-        color: var(--accent);
-        opacity: 0.75;
-      }
-      .toc-list a:hover { color: var(--ink); transform: translateX(4px); }
-
-      /* ── Read-more links inside article body ── */
-      .panel a.inline-link {
-        color: var(--accent-light);
-        font-weight: 600;
-        text-decoration: underline;
-        text-underline-offset: 3px;
-        text-decoration-color: rgba(122, 176, 255, 0.4);
-        transition: color 0.2s ease, text-decoration-color 0.2s ease;
-      }
-      .panel a.inline-link:hover {
-        color: var(--ink);
-        text-decoration-color: var(--accent);
-      }
-
-      /* ── Key-facts card (entity signals for local SEO) ── */
-      .factgrid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 12px;
-        margin: 6px 0 20px;
-      }
-      .factgrid > div {
-        background: rgba(59, 130, 246, 0.05);
-        border: 1px solid var(--border);
-        border-left: 3px solid var(--accent);
-        border-radius: 12px;
-        padding: 14px 16px;
-      }
-      .factgrid dt {
-        font-size: 0.7rem;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        color: var(--accent);
-        margin-bottom: 4px;
-      }
-      .factgrid dd {
         margin: 0;
-        color: var(--ink);
-        font-weight: 600;
-        font-size: 0.95rem;
+        line-height: 1.6;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
       }
-
-      .panel {
-        /* Halka transparent card — peeche portfolio ka blue glow dikhta rahe */
-        background: rgba(21, 31, 58, 0.55);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        border: 1px solid var(--border);
-        border-radius: 18px;
-        padding: 46px;
-        box-shadow: 0 12px 38px rgba(2, 6, 18, 0.08);
-        position: relative;
-      }
-      /* portfolio-jaisa corner accent */
-      .panel::before,
-      .panel::after {
-        content: "";
-        position: absolute;
-        width: 30px;
-        height: 30px;
-        border-color: var(--accent);
-        border-style: solid;
-        opacity: 0.9;
-      }
-      .panel::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; border-top-left-radius: 18px; }
-      .panel::after { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; border-bottom-right-radius: 18px; }
-
-      .panel h2 {
-        font-family: "Exo", sans-serif;
-        font-size: 1.7rem;
-        line-height: 1.3;
-        margin-bottom: 10px;
-      }
-      .panel .sub {
-        color: var(--accent);
-        text-transform: uppercase;
-        letter-spacing: 3px;
-        font-size: 0.72rem;
-        margin-bottom: 18px;
-        display: block;
-      }
-      .panel > p, .panel ul, .panel ol {
-        color: var(--muted);
-        margin-bottom: 18px;
-      }
-      .panel > p:last-child, .panel ul:last-child, .panel ol:last-child { margin-bottom: 0; }
-      .panel ul, .panel ol { padding-left: 20px; }
-      .panel li { margin-bottom: 8px; }
-      .panel strong { color: var(--ink); }
-      .panel h3 {
-        font-family: "Exo", sans-serif;
-        font-size: 1.15rem;
-        margin: 26px 0 10px;
-        color: var(--ink);
-      }
-      .panel h3:first-child { margin-top: 22px; }
-
-      /* chip / tag pills */
-      .chips {
+      .blog-card-footer {
+        margin-top: auto;
         display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin: 6px 0 20px;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 14px;
+        border-top: 1px solid rgba(96, 165, 250, 0.12);
       }
-      .chips span {
-        font-size: 0.72rem;
-        padding: 5px 12px;
-        border-radius: 20px;
-        border: 1px solid rgba(59, 130, 246, 0.4);
-        background: rgba(59, 130, 246, 0.08);
-        color: var(--accent-light);
-      }
-
-      /* two-column intro rows inside panels */
-      .two-col {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 14px 26px;
-        margin: 14px 0 20px;
-      }
-      .two-col div {
-        background: rgba(59, 130, 246, 0.05);
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 14px 16px;
-      }
-      .two-col strong { display: block; color: var(--ink); margin-bottom: 3px; }
-      .two-col span { color: var(--muted); font-size: 0.92rem; }
-
-      /* numbered steps for the chatbot walkthrough */
-      .steps { counter-reset: step; list-style: none; padding-left: 0; }
-      .steps li {
-        counter-increment: step;
-        position: relative;
-        padding-left: 52px;
-        margin-bottom: 16px;
-      }
-      .steps li::before {
-        content: counter(step);
-        position: absolute;
-        left: 0; top: 0;
-        width: 34px; height: 34px;
-        border-radius: 10px;
-        border: 1px solid var(--border);
-        background: rgba(59, 130, 246, 0.08);
+      .read-more {
         color: var(--accent);
         font-weight: 700;
-        display: grid;
-        place-items: center;
+        font-size: 0.85rem;
+        transition: color 0.3s ease;
+      }
+      .read-more:hover { color: var(--accent-light); }
+
+      /* ── Empty state ── */
+      .empty-blog {
+        text-align: center;
+        padding: 80px 20px;
+      }
+      .empty-blog p {
+        color: var(--muted);
+        font-size: 1.05rem;
+        max-width: 500px;
+        margin: 0 auto 20px;
       }
 
       /* ── CTA ── */
       .cta-panel {
         text-align: center;
         padding: 54px 40px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        margin-top: 60px;
       }
       .cta-panel h2 { margin-bottom: 12px; }
       .cta-panel p { color: var(--muted); max-width: 480px; margin: 0 auto 26px; }
       .btn-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-
       .btn {
         display: inline-block;
         font-family: "Sora", sans-serif;
@@ -680,7 +491,7 @@
         transform: translateY(-2px);
       }
 
-      /* ── Footer (same as portfolio) ── */
+      /* ── Footer ── */
       footer {
         border-top: 1px solid var(--border);
         padding: 34px 0;
@@ -708,473 +519,96 @@
 
       /* ── Responsive ── */
       @media (max-width: 860px) {
-        .panel { padding: 30px 22px; }
-        .two-col { grid-template-columns: 1fr; }
-        .page-hero { padding: 40px 0 50px; }
+        .blog-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+        .blog-card-thumb { height: 180px; }
+        .blog-card-body { padding: 20px; }
       }
       @media (max-width: 520px) {
         .back-link { font-size: 0.72rem; padding: 9px 15px; letter-spacing: 1px; }
-        .logo { font-size: 1.05rem; }
+        .blog-hero { padding: 40px 0 40px; }
+        .filters { gap: 8px; }
+        .filter-btn { padding: 7px 14px; font-size: 0.75rem; }
       }
     </style>
   </head>
 
   <body>
-    <!-- ═══ Particles canvas — portfolio jaisa hi floating background ═══ -->
+    <!-- Particles canvas -->
     <canvas id="particles" aria-hidden="true"></canvas>
 
-    <!-- ═══ NAVBAR — minimal: sirf "Back to Portfolio" link (koi section link nahi) ═══ -->
+    <!-- NAVBAR -->
     <header class="site-header">
       <nav id="navbar" aria-label="Main">
         <div class="container nav-inner">
-          <a href="/blog" class="logo" aria-label="Rashi Sharma portfolio — home"><span class="logo-accent">RASHI</span><span class="logo-light">.SHARMA</span></a>
-          <a href="/" class="back-link">
-            <span class="back-arrow" aria-hidden="true">&#8592;</span> Back to Portfolio
-          </a>
+          <a href="/blog" class="logo" aria-label="Rashi Sharma blog"><span class="logo-accent">RASHI</span><span class="logo-light">.SHARMA</span></a>
+          <a href="/" class="back-link">&#8592; Back to Portfolio</a>
         </div>
       </nav>
     </header>
 
-    <!-- ═══ BREADCRUMB — mirrors the BreadcrumbList JSON-LD above ═══ -->
-    <nav class="breadcrumb-nav" aria-label="Breadcrumb">
-      <div class="container">
-        <ol class="breadcrumb">
-          <li><a href="/">Home</a></li>
-          <li><a href="/#about">About</a></li>
-          <li><span aria-current="page">About Rashi</span></li>
-        </ol>
-      </div>
-    </nav>
-
-    <!-- ═══ HERO — exactly one H1, intro line and location ═══ -->
-    <section class="page-hero" aria-labelledby="page-title">
+    <!-- BLOG HERO -->
+    <section class="blog-hero" aria-labelledby="blog-title">
       <div class="container">
         <div class="avatar">
           <img
             src="images/rashi-about.svg"
             alt="Portrait of Rashi Sharma, AI and web developer from Pundri, Kaithal, Haryana"
-            width="120"
-            height="120"
+            width="110"
+            height="110"
             loading="eager"
             decoding="async"
-            fetchpriority="high"
           />
         </div>
-        <p class="eyebrow">About Rashi — the full story</p>
-        <h1 id="page-title">
-          I'm Rashi Sharma — <span class="text-gradient">AI Developer &amp; Web Developer in Kaithal, Haryana</span>
-        </h1>
-        <p class="lead">
-          I'm an AI developer and web developer from Pundri, Kaithal, turning technology, design and AI
-          into things people remember — from websites and chatbots to devotional reels and marketing
-          campaigns. I'm also a video editor and graphic designer.
+        <p class="blog-eyebrow">My Blog &mdash; Latest Articles</p>
+        <h1 id="blog-title">Thoughts on Web Dev, AI &amp; Digital Marketing</h1>
+        <p>
+          I write about web development, AI tools, SEO, digital marketing, portfolio building
+          and freelancing &mdash; everything I learn while building in public from
+          Pundri, Kaithal, Haryana.
         </p>
-        <p class="location">Based in Pundri, Kaithal, Haryana, India</p>
-        <p class="byline">
-          By <strong>Rashi Sharma</strong> &middot; Published
-          <time datetime="2026-09-30">30 September 2026</time> &middot; Updated
-          <time datetime="2026-10-03">3 October 2026</time>
-        </p>
-
-        <!-- Key facts: quick, scannable answers that also act as entity signals -->
-        <dl class="factgrid">
-          <div>
-            <dt>Role</dt>
-            <dd>AI &amp; Web Developer</dd>
-          </div>
-          <div>
-            <dt>Based in</dt>
-            <dd>Pundri, Kaithal, Haryana</dd>
-          </div>
-          <div>
-            <dt>Qualification</dt>
-            <dd>NIELIT O Level</dd>
-          </div>
-          <div>
-            <dt>Core stack</dt>
-            <dd>HTML, CSS, JS, React, Node.js</dd>
-          </div>
-        </dl>
-
-        <!-- TABLE OF CONTENTS — internal anchor links to every H2 on this page -->
-        <nav class="toc" aria-labelledby="toc-heading">
-          <p class="toc-title" id="toc-heading">In this article</p>
-          <ol class="toc-list">
-            <li><a href="#journey">My Journey — NIELIT O Level to AI developer</a></li>
-            <li><a href="#ai">AI Tools &amp; How I Built My Chatbot</a></li>
-            <li><a href="#web">Web Development — Idea to Live Website</a></li>
-            <li><a href="#video">Video Editing — Techniques That Retain Attention</a></li>
-            <li><a href="#design">Graphic Designing — Design That Communicates</a></li>
-            <li><a href="#seo">SEO — Getting Found on Google</a></li>
-            <li><a href="#marketing">Digital Marketing with AI</a></li>
-            <li><a href="#contact-cta">Work Together — Contact Me</a></li>
-          </ol>
-        </nav>
       </div>
     </section>
 
-    <main>
-      <!-- One article element wraps the whole post; each panel is a labelled section
-           inside it. This matches the BlogPosting JSON-LD declared in the head. -->
-      <article class="post-body">
-      <!-- ═══════════════ a. MY JOURNEY ═══════════════ -->
-      <section class="section section-anchor" id="journey" aria-labelledby="journey-heading">
-        <div class="container">
-          <div class="panel">
-            <span class="sub">01 · My Journey</span>
-            <h2 id="journey-heading">From NIELIT O Level to becoming an AI developer</h2>
-            <p>
-              My story started in <strong>Pundri, Kaithal</strong> — a small town where computers
-              felt like magic. I finished my Class 10th in 2023 and Class 12th in 2024, and somewhere
-              in between I realised that technology wasn't just a subject, it was a language I wanted
-              to speak fluently.
-            </p>
+    <!-- FILTERS -->
+    <div class="container">
+      <div class="filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="web-development">Web Development</button>
+        <button class="filter-btn" data-filter="digital-marketing">Digital Marketing</button>
+        <button class="filter-btn" data-filter="ai">AI</button>
+        <button class="filter-btn" data-filter="seo">SEO</button>
+      </div>
+    </div>
 
-            <h3>The technical foundation — NIELIT O Level</h3>
-            <p>
-              After school I completed the <strong>NIELIT O Level</strong> — a government-issued,
-              recognised certificate from the National Institute of Electronics &amp; Information
-              Technology. This was my real induction into programming. It gave me solid, structured
-              foundations in:
-            </p>
-            <div class="chips">
-              <span>HTML</span><span>CSS</span><span>JavaScript</span><span>Python</span><span>C++</span><span>IoT</span>
-            </div>
-            <p>
-              Unlike quick YouTube tutorials, O Level pushed me through assignments, practicals and
-              theory. That discipline is what I still rely on — I don't just watch code, I build.
-              You can see the result of that training in my
-              <a class="inline-link" href="/#projects">live web development projects</a> and the
-              <a class="inline-link" href="/#skills">full list of technical skills</a> I've built since.
-            </p>
+    <!-- BLOG CARDS GRID -->
+    <div class="container">
+      <div class="blog-grid" id="blogGrid">
+        <!-- Blog cards injected here by JS -->
+      </div>
 
-            <h3>The software developer upgrade</h3>
-            <p>
-              Once the fundamentals were in place, I went deeper on my own. I taught myself modern
-              front-end development with <strong>React + Vite</strong>, moved into the back end with
-              <strong>Node.js + Express</strong>, and learned to manage versions and workflows with
-              <strong>GitHub</strong>. I deploy my sites through <strong>Vercel</strong> and
-              <strong>Render</strong>, so everything I build actually goes live.
-            </p>
+      <!-- Empty state (shown when no cards match filter) -->
+      <div class="empty-blog" id="emptyState" style="display:none;">
+        <p>No articles found in this category yet. Check back soon!</p>
+      </div>
+    </div>
 
-            <h3>And then came AI</h3>
-            <p>
-              AI changed everything for me. Instead of just using tools, I started building with
-              them — training myself in ChatGPT, Gemini and Claude workflows, and eventually
-              <strong>building my very own chatbot</strong> using AI models (you can read exactly how
-              below). Today I call myself an AI developer not because I use AI, but because I
-              integrate AI into real products.
-            </p>
-          </div>
+    <!-- CTA -->
+    <div class="container">
+      <div class="cta-panel">
+        <h2>Want to work together?</h2>
+        <p>
+          Have a website in mind, a video to edit, or a brand that needs visibility? Let's
+          combine AI, design and development to build something memorable. I'm available for
+          freelance web development, AI chatbot work, SEO and video editing.
+        </p>
+        <div class="btn-row">
+          <a href="/#contact" class="btn btn-primary">Contact Me</a>
+          <a href="/" class="btn btn-outline">&#8592; Back to Portfolio</a>
         </div>
-      </section>
+      </div>
+    </div>
 
-      <!-- ═══════════════ b. AI TOOLS & CHATBOT ═══════════════ -->
-      <section class="section section-anchor" id="ai" aria-labelledby="ai-heading">
-        <div class="container">
-          <div class="panel">
-            <span class="sub">02 · AI Tools &amp; Chatbot Building</span>
-            <h2 id="ai-heading">How I use and build with AI</h2>
-
-            <h3>The AI tools in my daily workflow</h3>
-            <p>
-              Tools are only as powerful as your prompt engineering and your sense of what to trust.
-              These are the assistants I use almost every day:
-            </p>
-            <div class="two-col">
-              <div><strong>ChatGPT</strong><span>Ideation, coding help, writing, problem-solving</span></div>
-              <div><strong>Google Gemini</strong><span>Research, brainstorming and multimodal tasks</span></div>
-              <div><strong>Claude AI</strong><span>Long-form thinking, code review, structured output</span></div>
-              <div><strong>Canva AI</strong><span>Design drafts, image generation, text effects</span></div>
-              <div><strong>Gamma AI</strong><span>Presentations, decks and pitch documents</span></div>
-              <div><strong>AI video tools</strong><span>Generating and enhancing short video clips</span></div>
-            </div>
-
-            <h3>How I built my own chatbot — step by step</h3>
-            <p>
-              Building a chatbot taught me more than any course. This is the exact process I followed:
-            </p>
-            <ol class="steps">
-              <li>
-                <strong>Defined its purpose.</strong> I decided what my chatbot should do — answer
-                questions about me, my skills and my work, like a smart digital assistant.
-              </li>
-              <li>
-                <strong>Picked the AI brain.</strong> I connected the chatbot to a large language
-                model using an API, so it could understand and reply naturally instead of using
-                pre-written answers.
-              </li>
-              <li>
-                <strong>Wrote the instructions (system prompt).</strong> This is the secret step — I
-                gave the model a clear personality, tone and boundaries so answers stay helpful and
-                on-brand.
-              </li>
-              <li>
-                <strong>Built the chat interface.</strong> Using HTML, CSS and JavaScript I designed
-                a friendly chat window with a message bubble layout, typing states and a clean
-                mobile layout.
-              </li>
-              <li>
-                <strong>Connected the back end.</strong> A small Node.js + Express server takes each
-                user message, sends it to the AI model, and returns the reply — safely, without
-                exposing any keys.
-              </li>
-              <li>
-                <strong>Tested and refined.</strong> I asked it tricky questions, fixed responses that
-                felt robotic, and polished how errors and empty states are handled.
-              </li>
-              <li>
-                <strong>Deployed it.</strong> I pushed the code to GitHub and deployed the bot so it
-                runs live for anyone to use.
-              </li>
-            </ol>
-
-            <h3>AI video generation</h3>
-            <p>
-              I also use AI tools to generate video content — creating short clips from text prompts
-              and enhancing them with AI. Combined with my CapCut editing, this lets me produce
-              content for my <strong>Bal Gopal Leela</strong> YouTube channel and Instagram much
-              faster than traditional filming would allow.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- ═══════════════ c. WEB DEVELOPMENT ═══════════════ -->
-      <section class="section section-anchor" id="web" aria-labelledby="web-heading">
-        <div class="container">
-          <div class="panel">
-            <span class="sub">03 · Web Development</span>
-            <h2 id="web-heading">My full-stack process — from idea to live website</h2>
-
-            <h3>My tech stack</h3>
-            <div class="chips">
-              <span>HTML</span><span>CSS</span><span>JavaScript</span>
-              <span>React</span><span>Vite</span><span>Node.js</span><span>Express</span>
-              <span>GitHub</span><span>Vercel</span><span>Render</span>
-            </div>
-            <p>
-              I build responsive, fast-loading websites. I use vanilla HTML/CSS/JS when a project
-              needs to be lightweight and instant, and move to <strong>React + Vite</strong> when a
-              site needs real interactivity and reusable components. For anything that needs a
-              database or an API, I write the back end in <strong>Node.js + Express</strong>.
-            </p>
-
-            <h3>How I actually build and ship a website</h3>
-            <ol class="steps">
-              <li><strong>Clarify the goal.</strong> What is the site for? Who visits it? What action should they take? I answer these before writing a single tag.</li>
-              <li><strong>Plan the structure.</strong> I map out pages, sections and a clear content hierarchy — this also becomes the SEO skeleton.</li>
-              <li><strong>Design the experience.</strong> I design with colour, typography and spacing in mind so the site feels cohesive and modern.</li>
-              <li><strong>Build responsive HTML &amp; CSS.</strong> Mobile-first, semantic tags, accessible and fast-loading.</li>
-              <li><strong>Bring it alive with JavaScript.</strong> Interactions, animations, forms and dynamic content.</li>
-              <li><strong>Add quality checks.</strong> I test on mobile, tablet and desktop, check performance and fix broken links.</li>
-              <li><strong>Deploy through GitHub + Vercel/Render.</strong> I push code to GitHub, then deploy — every update goes live cleanly.</li>
-            </ol>
-
-            <p>
-              This exact pipeline powers my portfolio, my school website projects and the full-stack
-              admin systems I build for clients — one consistent, repeatable way to go from
-              <strong>idea → code → live URL</strong>. One of the first sites I shipped this way is
-              the <a class="inline-link" href="https://zip-repl-anjali-kids-school.vercel.app/" target="_blank" rel="noopener noreferrer">Anjali Kids School website</a>,
-              a responsive school site built with HTML, CSS and JavaScript.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- ═══════════════ d. VIDEO EDITING ═══════════════ -->
-      <section class="section section-anchor" id="video" aria-labelledby="video-heading">
-        <div class="container">
-          <div class="panel">
-            <span class="sub">04 · Video Editing</span>
-            <h2 id="video-heading">Editing that keeps attention</h2>
-
-            <h3>My editing techniques</h3>
-            <p>
-              I edit in <strong>CapCut</strong> and treat every video like a short film — even if it's
-              a 30-second reel. The techniques I use most:
-            </p>
-            <div class="two-col">
-              <div><strong>Jump cuts</strong><span>Removing the dead air so every frame earns its place</span></div>
-              <div><strong>Keyframe animation</strong><span>Animating text, images and motion for lively scenes</span></div>
-              <div><strong>Auto captions + styling</strong><span>Readable captions for sound-off viewing</span></div>
-              <div><strong>Transitions</strong><span>Clean cuts and smooth fades that don't distract</span></div>
-              <div><strong>Color grading</strong><span>Consistent tones so the feed looks professional</span></div>
-              <div><strong>Pacing &amp; rhythm</strong><span>Matching cuts to the beat for energy</span></div>
-            </div>
-
-            <h3>Where I apply it</h3>
-            <p>
-              My main channel <strong>Bal Gopal Leela</strong> is a YouTube channel where I create
-              <strong>devotional 3D-animated content</strong> — I generate and animate the visuals,
-              edit them into stories, caption them and package them for upload. On Instagram I run a
-              <strong>shayari page</strong>, turning short poetic texts into visually pleasing,
-              scroll-stopping reels with animated text and clean backgrounds.
-            </p>
-            <p>
-              It's the same muscle for everything: understand the emotion of the video, keep the
-              rhythm tight, and always edit for the viewer's attention span.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- ═══════════════ e. GRAPHIC DESIGNING ═══════════════ -->
-      <section class="section section-anchor" id="design" aria-labelledby="design-heading">
-        <div class="container">
-          <div class="panel">
-            <span class="sub">05 · Graphic Designing</span>
-            <h2 id="design-heading">Design that communicates instantly</h2>
-
-            <h3>What I design</h3>
-            <p>
-              Good design isn't decoration — it's communication. I create visual assets that carry
-              a clear message:
-            </p>
-            <div class="two-col">
-              <div><strong>Social media graphics</strong><span>Posts and stories for Instagram and other platforms</span></div>
-              <div><strong>YouTube thumbnails</strong><span>High-contrast, curiosity-driven click magnets</span></div>
-              <div><strong>Website visuals</strong><span>Banners, icons and page graphics that match a brand</span></div>
-              <div><strong>Presentations</strong><span>Clean decks for school, projects and clients</span></div>
-            </div>
-
-            <h3>My workflow — Canva AI plus human refinement</h3>
-            <p>
-              I start fast: <strong>Canva AI</strong> helps me concept — suggesting layouts, generating
-              images and drafting typography. But I never publish AI output as-is. I refine
-              everything manually — fixing alignment, balancing colour, adjusting hierarchy and
-              simplifying until the design feels intentional, not generated.
-            </p>
-            <p>
-              The result is a repeatable blend: AI speed for the first draft, human taste for the
-              final polish.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- ═══════════════ f. SEO ═══════════════ -->
-      <section class="section section-anchor" id="seo" aria-labelledby="seo-heading">
-        <div class="container">
-          <div class="panel">
-            <span class="sub">06 · SEO</span>
-            <h2 id="seo-heading">Getting found on Google</h2>
-
-            <h3>On-page SEO fundamentals</h3>
-            <p>
-              On-page SEO is where ranking actually lives. Every page I optimise gets a unique
-              <strong>title tag</strong> (under 60 characters), a <strong>meta description</strong>
-              (150–160 characters) that makes people want to click, and a logical
-              <strong>heading structure</strong> — one H1 per page, with H2s and H3s organising the
-              content the way Google expects.
-            </p>
-
-            <h3>Keyword placement that works</h3>
-            <p>
-              I place primary keywords where they matter most — in the title, the first paragraph,
-              headings and image alt text — without stuffing. The goal is natural language that both
-              humans and search engines understand clearly.
-            </p>
-
-            <h3>Content depth over content length</h3>
-            <p>
-              Ranking isn't about word count; it's about whether a page fully answers what someone
-              searched for. I write complete, structured content that covers a topic thoroughly, with
-              headings, lists and examples — so visitors leave satisfied and search engines treat the
-              page as an authority.
-            </p>
-
-            <h3>Technical SEO basics</h3>
-            <p>
-              I apply the fundamentals behind the scenes too: semantic HTML5 tags
-              (<code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;footer&gt;</code>),
-              fast-loading code, mobile-first responsive design, clean links, and structured data
-              (JSON-LD) so search engines understand who the page is about.
-            </p>
-
-            <h3>Local SEO for Kaithal &amp; Haryana</h3>
-            <p>
-              For offline businesses the win is local. I use <strong>location-based keywords</strong>
-              like "best web developer in Kaithal", optimise <strong>Google Business Profile</strong>
-              listings, encourage local reviews, and make sure Name, Address and Phone details are
-              consistent across the web. For Pundri, Kaithal and all of Haryana, this is how a small
-              business shows up when people nearby search for it.
-            </p>
-            <p>
-              If you're searching for an <strong>AI developer or web developer in Kaithal, Haryana</strong>,
-              the fastest way to see whether I fit is to look at the
-              <a class="inline-link" href="/#projects">projects I've shipped</a> and then
-              <a class="inline-link" href="/#contact">send me a message</a> — I reply to every enquiry.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- ═══════════════ g. DIGITAL MARKETING WITH AI ═══════════════ -->
-      <section class="section section-anchor" id="marketing" aria-labelledby="marketing-heading">
-        <div class="container">
-          <div class="panel">
-            <span class="sub">07 · Digital Marketing with AI</span>
-            <h2 id="marketing-heading">Marketing that runs on intelligence</h2>
-
-            <h3>What I'm currently learning</h3>
-            <p>
-              I'm studying <strong>Digital Marketing with AI</strong> at the
-              <strong>Zedking Group of Institute</strong>. It's the missing piece that connects all my
-              technical skills to the real world — because building great things is only half the
-              battle; the other half is getting them seen.
-            </p>
-
-            <h3>How AI changes marketing</h3>
-            <p>
-              AI makes marketing measurable and fast. I learn to use AI for
-              <strong>content generation</strong>, <strong>audience segmentation</strong>,
-              <strong>ad copy</strong> and <strong>automation</strong> — planning campaigns, testing
-              messages, and adjusting based on data instead of guesswork.
-            </p>
-
-            <h3>How it all combines</h3>
-            <p>
-              This is what makes my work different: I don't offer just one skill. I can
-              <strong>build</strong> the website (web development), <strong>make it visible</strong>
-              (SEO + digital marketing), <strong>design the assets</strong> (graphics), and
-              <strong>create the videos</strong> (editing + AI animation) that promote it. Every
-              skill feeds the next — which is exactly how a modern brand should work.
-            </p>
-            <p>
-              Want the short version? Read the sections above in order, or jump straight to
-              <a class="inline-link" href="#ai">how I build with AI</a>,
-              <a class="inline-link" href="#web">how I build websites</a> and
-              <a class="inline-link" href="#seo">how I get sites ranked on Google</a>.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- ═══════════════ CTA ═══════════════════════════════ -->
-      <section class="section" id="contact-cta" aria-labelledby="cta-heading">
-        <div class="container">
-          <div class="panel cta-panel">
-            <span class="sub">Let's talk</span>
-            <h2 id="cta-heading">Want to work together?</h2>
-            <p>
-              Have a website in mind, a video to edit, or a brand that needs visibility? Let's
-              combine AI, design and development to build something memorable. I'm available for
-              freelance web development, AI chatbot work, SEO and video editing.
-            </p>
-            <div class="btn-row">
-              <a href="/#contact" class="btn btn-primary">Contact Me</a>
-              <a href="/#projects" class="btn btn-outline">View My Projects</a>
-              <a href="/#skills" class="btn btn-outline">See My Skills</a>
-              <a href="/" class="btn btn-outline">&#8592; Back to Portfolio</a>
-            </div>
-          </div>
-        </div>
-      </section>
-      </article>
-    </main>
-
-    <!-- ═══ FOOTER — descriptive internal links for crawl flow ═══ -->
+    <!-- FOOTER -->
     <footer>
       <div class="container footer-inner">
         <nav class="footer-links" aria-label="Footer">
@@ -1183,7 +617,6 @@
           <a href="/#skills">Skills</a>
           <a href="/#projects">Projects</a>
           <a href="/#contact">Contact</a>
-          <a href="/blog">Read My Full Story</a>
           <a href="/rashi-sharma">Who is Rashi Sharma?</a>
           <a href="/#faq">FAQ</a>
         </nav>
@@ -1201,12 +634,10 @@
       </div>
     </footer>
 
-    <!-- ═══ Script: navbar scroll state + background particles ═══ -->
+    <!-- Scripts -->
     <script>
+      /* Navbar scroll state */
       (function () {
-        "use strict";
-
-        /* ---- Navbar scroll state ---- */
         var navbar = document.getElementById("navbar");
         function onScroll() {
           if (window.scrollY > 50) navbar.classList.add("scrolled");
@@ -1214,8 +645,10 @@
         }
         window.addEventListener("scroll", onScroll, { passive: true });
         onScroll();
+      })();
 
-        /* ---- Floating particles (portfolio jaisa background) ---- */
+      /* Floating particles */
+      (function () {
         var canvas = document.getElementById("particles");
         if (!canvas || !canvas.getContext) return;
         var ctx = canvas.getContext("2d");
@@ -1250,17 +683,14 @@
 
         (function draw() {
           ctx.clearRect(0, 0, canvas.width, canvas.height);
-
           for (var j = 0; j < particles.length; j++) {
             var p = particles[j];
             p.x += p.vx;
             p.y += p.vy;
-
             if (p.x < -10) p.x = canvas.width + 10;
             if (p.x > canvas.width + 10) p.x = -10;
             if (p.y < -10) p.y = canvas.height + 10;
             if (p.y > canvas.height + 10) p.y = -10;
-
             var g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
             g.addColorStop(0, "rgba(122,176,255,0.55)");
             g.addColorStop(1, "rgba(122,176,255,0)");
@@ -1269,10 +699,121 @@
             ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
             ctx.fill();
           }
-
           requestAnimationFrame(draw);
         })();
       })();
+
+      /* ── Blog posts data ── */
+      var posts = [
+        {
+          id: 1,
+          title: "How to Deploy a Static Site to Vercel — Beginner Guide",
+          category: "web-development",
+          date: "14 Oct 2026",
+          excerpt: "Step-by-step guide to deploying your HTML/CSS/JS site on Vercel for free, connecting a custom domain, and setting up clean URLs.",
+          image: "images/rashi-about.svg",
+          tags: ["Vercel", "Deployment", "Static Site"],
+          readTime: "5 min read"
+        },
+        {
+          id: 2,
+          title: "AI Tools I Use Daily as a Web Developer",
+          category: "ai",
+          date: "10 Oct 2026",
+          excerpt: "ChatGPT, Gemini, Claude, Canva AI & Gamma AI — how I use each one in my workflow and why I still refine everything manually.",
+          image: "images/og-cover-rashi-sharma.jpg",
+          tags: ["AI", "Tools", "Workflow"],
+          readTime: "6 min read"
+        },
+        {
+          id: 3,
+          title: "SEO Basics for Personal Portfolio Websites",
+          category: "seo",
+          date: "06 Oct 2026",
+          excerpt: "Title tags, meta descriptions, JSON-LD schema, image sitemaps & IndexNow — everything you need to rank your portfolio on Google.",
+          image: "images/rashi-about.svg",
+          tags: ["SEO", "Google", "Portfolio"],
+          readTime: "7 min read"
+        },
+        {
+          id: 4,
+          title: "Building My First AI Chatbot from Scratch",
+          category: "ai",
+          date: "01 Oct 2026",
+          excerpt: "From picking the model to writing the system prompt and deploying on Render — the exact steps I followed to build my own chatbot.",
+          image: "images/og-cover-rashi-sharma.jpg",
+          tags: ["AI Chatbot", "Node.js", "Deploy"],
+          readTime: "8 min read"
+        },
+        {
+          id: 5,
+          title: "Digital Marketing for Freelancers — Getting Your First Client",
+          category: "digital-marketing",
+          date: "25 Sep 2026",
+          excerpt: "How to position yourself, build a portfolio that converts, and use SEO + social proof to attract clients from Kaithal and beyond.",
+          image: "images/rashi-about.svg",
+          tags: ["Freelancing", "Marketing", "Client Acquisition"],
+          readTime: "6 min read"
+        },
+        {
+          id: 6,
+          title: "Why I Chose NIELIT O Level Before Learning React",
+          category: "web-development",
+          date: "18 Sep 2026",
+          excerpt: "Structured fundamentals matter. My journey from Class 10th/12th to NIELIT O Level and why it made learning React and Node.js easier.",
+          image: "images/og-cover-rashi-sharma.jpg",
+          tags: ["NIELIT", "Learning Path", "Career"],
+          readTime: "4 min read"
+        }
+      ];
+
+      /* ── Render blog cards ── */
+      function renderBlog(posts) {
+        var grid = document.getElementById("blogGrid");
+        var empty = document.getElementById("emptyState");
+        if (!grid) return;
+
+        if (!posts || posts.length === 0) {
+          grid.innerHTML = "";
+          empty.style.display = "block";
+          return;
+        }
+        empty.style.display = "none";
+
+        grid.innerHTML = posts.map(function (p) {
+          return '<article class="blog-card reveal visible">' +
+            '<div class="blog-card-thumb">' +
+              '<img src="' + p.image + '" alt="' + p.title + '" loading="lazy" decoding="async" />' +
+              '<span class="blog-card-tag">' + p.category + '</span>' +
+            '</div>' +
+            '<div class="blog-card-body">' +
+              '<span class="blog-card-date">' + p.date + ' &middot; ' + p.readTime + '</span>' +
+              '<h3>' + p.title + '</h3>' +
+              '<p>' + p.excerpt + '</p>' +
+            '</div>' +
+            '<div class="blog-card-footer">' +
+              '<div class="tags">' + p.tags.map(function (t) {
+                return '<span style="font-size:0.72rem;padding:4px 10px;border-radius:12px;border:1px solid rgba(59,130,246,0.4);background:rgba(59,130,246,0.08);color:var(--accent-light);margin-right:6px;margin-bottom:6px;display:inline-block;">' + t + '</span>';
+              }).join('') + '</div>' +
+              '<a href="#" class="read-more">Read Article &rarr;</a>' +
+            '</div>' +
+          '</article>';
+        }).join("");
+      }
+
+      renderBlog(posts);
+
+      /* ── Filter buttons ── */
+      var filterBtns = document.querySelectorAll(".filter-btn");
+      filterBtns.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          filterBtns.forEach(function (b) { b.classList.remove("active"); });
+          btn.classList.add("active");
+          var cat = btn.getAttribute("data-filter");
+          var filtered = cat === "all" ? posts : posts.filter(function (p) { return p.category === cat; });
+          renderBlog(filtered);
+        });
+      });
     </script>
   </body>
 </html>
