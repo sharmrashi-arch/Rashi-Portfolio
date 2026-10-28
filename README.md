@@ -1,6 +1,6 @@
 <div align="center">
 
-# Rashi Sharma — Portfolio
+# Rashi Sharma — portfolio
 
 **Web Developer & Digital Marketing Specialist · Pundri, Kaithal, Haryana, India**
 
