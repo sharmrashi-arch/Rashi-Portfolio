@@ -21,7 +21,7 @@
     "id": 4,
     "topic": "Using Supabase Storage for image uploads",
     "keyword": "Supabase Storage image upload",
-    "used": false
+    "used": true
   },
   {
     "id": 5,

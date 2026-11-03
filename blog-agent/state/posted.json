@@ -19,5 +19,12 @@
     "date": "2026-10-26",
     "blogger_post_id": "1611670597544851869",
     "image_file": "how-to-deploy-a-nodejs-api-to-render-a-beginners-guide.jpg"
+  },
+  {
+    "topic_id": 4,
+    "title": "How to Upload Images with Supabase Storage – A Beginner’s Guide",
+    "date": "2026-11-03",
+    "blogger_post_id": "8156091184306036739",
+    "image_file": "how-to-upload-images-with-supabase-storage-a-beginners-guide.jpg"
   }
 ]
