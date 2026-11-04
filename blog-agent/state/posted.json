@@ -26,5 +26,12 @@
     "date": "2026-11-03",
     "blogger_post_id": "8156091184306036739",
     "image_file": "how-to-upload-images-with-supabase-storage-a-beginners-guide.jpg"
+  },
+  {
+    "topic_id": 5,
+    "title": "How to Set Up a Supabase Database for Your Portfolio",
+    "date": "2026-11-04",
+    "blogger_post_id": "8287974840113366498",
+    "image_file": "how-to-set-up-a-supabase-database-for-your-portfolio.jpg"
   }
 ]
