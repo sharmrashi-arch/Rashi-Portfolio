@@ -277,6 +277,47 @@ const DEFAULT_PROJECTS = [
   }
 ];
 
+const DEFAULT_THEME = {
+  dark: {
+    cream: "#0b1224",
+    creamSoft: "#101a32",
+    surface: "#151f3a",
+    ink: "#e8eefb",
+    muted: "#94a5c9",
+    accent: "#3b82f6",
+    accentLight: "#7ab0ff",
+    gold: "#c9872d",
+    border: "rgba(96, 165, 250, 0.18)"
+  },
+  light: {
+    cream: "#f8fafc",
+    creamSoft: "#f1f5f9",
+    surface: "#ffffff",
+    ink: "#0f172a",
+    muted: "#475569",
+    accent: "#2563eb",
+    accentLight: "#3b82f6",
+    gold: "#b45309",
+    border: "rgba(37, 99, 235, 0.18)"
+  },
+  buttons: {
+    primaryBg: "#3b82f6",
+    primaryText: "#ffffff",
+    primaryHover: "#2563eb",
+    secondaryBg: "#151f3a",
+    secondaryText: "#e8eefb",
+    secondaryHover: "#1e2a4a"
+  },
+  cards: {
+    cardBg: "#151f3a",
+    cardBorder: "rgba(96, 165, 250, 0.18)",
+    panelBg: "#131b2b",
+    panelBorder: "#212c42",
+    inputBg: "#0b111d",
+    inputBorder: "#212c42"
+  }
+};
+
 function loadData(raw) {
   const d = raw && typeof raw === "object" ? raw : {};
   const legacy = !raw || raw.site === undefined;
@@ -296,6 +337,12 @@ function loadData(raw) {
   d.journey = normaliseJourney(d.journey);
   d.skills = Array.isArray(d.skills) ? d.skills : [];
   d.projects = Array.isArray(d.projects) ? d.projects : [];
+  d.theme = d.theme && typeof d.theme === "object" ? d.theme : {};
+  // Merge with defaults for each section
+  d.theme.dark = Object.assign({}, DEFAULT_THEME.dark, d.theme.dark || {});
+  d.theme.light = Object.assign({}, DEFAULT_THEME.light, d.theme.light || {});
+  d.theme.buttons = Object.assign({}, DEFAULT_THEME.buttons, d.theme.buttons || {});
+  d.theme.cards = Object.assign({}, DEFAULT_THEME.cards, d.theme.cards || {});
   if (legacy && !d.skills.length && !d.projects.length) {
     d.skills = DEFAULT_SKILLS;
     d.projects = DEFAULT_PROJECTS;
@@ -1063,6 +1110,7 @@ const server = http.createServer(function (req, res) {
           heroImage: assetUrlPublic(store.site.heroImage, req),
           aboutImage: assetUrlPublic(store.site.aboutImage, req)
         }),
+        theme: store.theme,
         skills: (store.skills || []).map(function (s) {
           var c = Object.assign({}, s);
           if (typeof c.icon === "string") c.icon = assetUrlPublic(c.icon, req);
@@ -1654,6 +1702,25 @@ async function handleAdminApi(req, res, pathname, method) {
         fromEmail: FROM_EMAIL
       }
     });
+    return;
+  }
+
+  /* Theme colors */
+  if (pathname === "/api/admin/theme" && method === "GET") {
+    sendJson(res, 200, { ok: true, data: store.theme });
+    return;
+  }
+  if (pathname === "/api/admin/theme" && method === "PUT") {
+    if (!authOk(req, res)) return;
+    const body = JSON.parse(await readBody(req));
+    store.theme = {
+      dark: Object.assign({}, DEFAULT_THEME.dark, body.dark || {}),
+      light: Object.assign({}, DEFAULT_THEME.light, body.light || {}),
+      buttons: Object.assign({}, DEFAULT_THEME.buttons, body.buttons || {}),
+      cards: Object.assign({}, DEFAULT_THEME.cards, body.cards || {})
+    };
+    await saveData(store);
+    sendJson(res, 200, { ok: true, data: store.theme });
     return;
   }
 

@@ -306,6 +306,57 @@
   /* ============ Dynamic site content (from /api/site) ============ */
   var PROJECTS_EXPANDED = false;
 
+  /* Apply theme CSS variables from API */
+  function applyTheme(theme) {
+    if (!theme || typeof theme !== "object") return;
+    var root = document.documentElement;
+    
+    // Remove any existing dynamic theme style
+    var existingStyle = document.getElementById("dynamic-theme");
+    if (existingStyle) existingStyle.remove();
+    
+    // Apply dark mode variables (base) on :root
+    if (theme.dark && typeof theme.dark === "object") {
+      Object.keys(theme.dark).forEach(function (key) {
+        var value = theme.dark[key];
+        if (value !== undefined && value !== null) {
+          var cssVar = "--" + key;
+          root.style.setProperty(cssVar, value);
+        }
+      });
+    }
+    
+    // Apply buttons and cards variables on :root
+    ["buttons", "cards"].forEach(function (section) {
+      if (theme[section] && typeof theme[section] === "object") {
+        Object.keys(theme[section]).forEach(function (key) {
+          var value = theme[section][key];
+          if (value !== undefined && value !== null) {
+            var cssVar = "--" + key;
+            root.style.setProperty(cssVar, value);
+          }
+        });
+      }
+    });
+    
+    // Inject light mode overrides via a style element for [data-theme="light"]
+    if (theme.light && typeof theme.light === "object") {
+      var lightCss = "[data-theme=\"light\"] {";
+      Object.keys(theme.light).forEach(function (key) {
+        var value = theme.light[key];
+        if (value !== undefined && value !== null) {
+          lightCss += " --" + key + ": " + value + ";";
+        }
+      });
+      lightCss += " }";
+      
+      var style = document.createElement("style");
+      style.id = "dynamic-theme";
+      style.textContent = lightCss;
+      document.head.appendChild(style);
+    }
+  }
+
   function setText(id, value) {
     var el = document.getElementById(id);
     if (el && typeof value === "string" && value.trim()) el.textContent = value;
@@ -480,6 +531,8 @@
     .then(function (d) {
       if (!d || !d.ok) return;
       var site = d.data.site || {};
+      var theme = d.data.theme || {};
+      applyTheme(theme);
 
       if (site.heroImage) {
         var heroImg = document.getElementById("heroImg");

@@ -217,5 +217,45 @@
         "text": "Completed my NIELIT O Level - mastering HTML, CSS, JavaScript, Python, IoT and C++."
       }
     ]
+  },
+  "theme": {
+    "dark": {
+      "cream": "#0b1224",
+      "creamSoft": "#101a32",
+      "surface": "#151f3a",
+      "ink": "#e8eefb",
+      "muted": "#94a5c9",
+      "accent": "#3b82f6",
+      "accentLight": "#7ab0ff",
+      "gold": "#c9872d",
+      "border": "rgba(96, 165, 250, 0.18)"
+    },
+    "light": {
+      "cream": "#f8fafc",
+      "creamSoft": "#f1f5f9",
+      "surface": "#ffffff",
+      "ink": "#0f172a",
+      "muted": "#475569",
+      "accent": "#2563eb",
+      "accentLight": "#3b82f6",
+      "gold": "#b45309",
+      "border": "rgba(37, 99, 235, 0.18)"
+    },
+    "buttons": {
+      "primaryBg": "#3b82f6",
+      "primaryText": "#ffffff",
+      "primaryHover": "#2563eb",
+      "secondaryBg": "#151f3a",
+      "secondaryText": "#e8eefb",
+      "secondaryHover": "#1e2a4a"
+    },
+    "cards": {
+      "cardBg": "#151f3a",
+      "cardBorder": "rgba(96, 165, 250, 0.18)",
+      "panelBg": "#131b2b",
+      "panelBorder": "#212c42",
+      "inputBg": "#0b111d",
+      "inputBorder": "#212c42"
+    }
   }
 }

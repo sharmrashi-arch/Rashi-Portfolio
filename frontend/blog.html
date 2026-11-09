@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -14,10 +14,10 @@
     </script>
 
     <!-- SEO -->
-    <title>Rashi Sharma | Blog — AI, Web Dev & Digital Marketing</title>
+    <title>Rashi Sharma | Blog â€” AI, Web Dev & Digital Marketing</title>
     <meta
       name="description"
-      content="Rashi Sharma's blog — articles on web development, digital marketing, AI, SEO, portfolio building and freelancing from Pundri, Kaithal, Haryana."
+      content="Rashi Sharma's blog â€” articles on web development, digital marketing, AI, SEO, portfolio building and freelancing from Pundri, Kaithal, Haryana."
     />
     <meta name="author" content="Rashi Sharma" />
     <meta name="google-site-verification" content="Pjs2_n_bErnH0rFPSZ66FMFOsOeSZkK_onEVJyZfOj8" />
@@ -29,12 +29,12 @@
     <link rel="canonical" href="https://rashisharma-portfolio.vercel.app/blog" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Rashi Sharma — Blog" />
+    <meta property="og:site_name" content="Rashi Sharma â€” Blog" />
     <meta property="og:locale" content="en_IN" />
-    <meta property="og:title" content="Rashi Sharma | Blog — AI, Web Dev & Digital Marketing" />
+    <meta property="og:title" content="Rashi Sharma | Blog â€” AI, Web Dev & Digital Marketing" />
     <meta
       property="og:description"
-      content="Rashi Sharma's blog — articles on web development, digital marketing, AI, SEO, portfolio building and freelancing."
+      content="Rashi Sharma's blog â€” articles on web development, digital marketing, AI, SEO, portfolio building and freelancing."
     />
     <meta property="og:url" content="https://rashisharma-portfolio.vercel.app/blog" />
     <meta property="og:image" content="https://rashisharma-portfolio.vercel.app/images/og-cover-rashi-sharma.jpg" />
@@ -42,10 +42,10 @@
     <meta property="og:image:height" content="630" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Rashi Sharma | Blog — AI, Web Dev & Digital Marketing" />
+    <meta name="twitter:title" content="Rashi Sharma | Blog â€” AI, Web Dev & Digital Marketing" />
     <meta
       name="twitter:description"
-      content="Rashi Sharma's blog — articles on web development, digital marketing, AI, SEO, portfolio building and freelancing."
+      content="Rashi Sharma's blog â€” articles on web development, digital marketing, AI, SEO, portfolio building and freelancing."
     />
     <meta name="twitter:image" content="https://rashisharma-portfolio.vercel.app/images/og-cover-rashi-sharma.jpg" />
 
@@ -859,7 +859,7 @@
               <span>Thoughts on Web Dev, AI & Digital Marketing</span>
             </h1>
             <p class="hero-lead">
-              Practical guides, learnings and insights on web development, AI tools, SEO, digital marketing, portfolio building and freelancing — written while building in public from Pundri, Kaithal, Haryana.
+              Practical guides, learnings and insights on web development, AI tools, SEO, digital marketing, portfolio building and freelancing â€” written while building in public from Pundri, Kaithal, Haryana.
             </p>
             <div class="hero-actions">
               <a class="btn btn-primary" href="#articles">Explore Articles <i class="bi bi-arrow-down"></i></a>
@@ -979,7 +979,7 @@
       var posts = [
         {
           id: 1,
-          title: "How to Deploy a Static Site to Vercel — Beginner Guide",
+          title: "How to Deploy a Static Site to Vercel â€” Beginner Guide",
           category: "web-development",
           categoryLabel: "Web Development",
           date: "14 Oct 2026",
@@ -997,7 +997,7 @@
           categoryLabel: "AI & Tools",
           date: "10 Oct 2026",
           readTime: "6 min read",
-          excerpt: "ChatGPT, Gemini, Claude, Canva AI & Gamma AI — how I use each one in my workflow and why I still refine everything manually.",
+          excerpt: "ChatGPT, Gemini, Claude, Canva AI & Gamma AI â€” how I use each one in my workflow and why I still refine everything manually.",
           image: "images/og-cover-rashi-sharma.jpg",
           tags: ["AI", "Tools", "Workflow"],
           author: "Rashi Sharma",
@@ -1010,7 +1010,7 @@
           categoryLabel: "SEO",
           date: "06 Oct 2026",
           readTime: "7 min read",
-          excerpt: "Title tags, meta descriptions, JSON-LD schema, image sitemaps & IndexNow — everything you need to rank your portfolio on Google.",
+          excerpt: "Title tags, meta descriptions, JSON-LD schema, image sitemaps & IndexNow â€” everything you need to rank your portfolio on Google.",
           image: "images/rashi-about.svg",
           tags: ["SEO", "Google", "Portfolio"],
           author: "Rashi Sharma",
@@ -1023,7 +1023,7 @@
           categoryLabel: "AI & Tools",
           date: "01 Oct 2026",
           readTime: "8 min read",
-          excerpt: "From picking the model to writing the system prompt and deploying on Render — the exact steps I followed to build my own chatbot.",
+          excerpt: "From picking the model to writing the system prompt and deploying on Render â€” the exact steps I followed to build my own chatbot.",
           image: "images/og-cover-rashi-sharma.jpg",
           tags: ["AI Chatbot", "Node.js", "Deploy"],
           author: "Rashi Sharma",
@@ -1031,7 +1031,7 @@
         },
         {
           id: 5,
-          title: "Digital Marketing for Freelancers — Getting Your First Client",
+          title: "Digital Marketing for Freelancers â€” Getting Your First Client",
           category: "digital-marketing",
           categoryLabel: "Digital Marketing",
           date: "25 Sep 2026",
@@ -1196,5 +1196,58 @@
 
       applyFilters();
     </script>
+      <script>
+      // Dynamic theme from API
+      (function() {
+        var API_BASE = 'https://rashi-portfolio-96cw.onrender.com';
+        function applyTheme(theme) {
+          if (!theme || typeof theme !== 'object') return;
+          var root = document.documentElement;
+          var existingStyle = document.getElementById('dynamic-theme');
+          if (existingStyle) existingStyle.remove();
+          if (theme.dark && typeof theme.dark === 'object') {
+            Object.keys(theme.dark).forEach(function(key) {
+              var value = theme.dark[key];
+              if (value !== undefined && value !== null) {
+                root.style.setProperty('--' + key, value);
+              }
+            });
+          }
+          ['buttons', 'cards'].forEach(function(section) {
+            if (theme[section] && typeof theme[section] === 'object') {
+              Object.keys(theme[section]).forEach(function(key) {
+                var value = theme[section][key];
+                if (value !== undefined && value !== null) {
+                  root.style.setProperty('--' + key, value);
+                }
+              });
+            }
+          });
+          if (theme.light && typeof theme.light === 'object') {
+            var lightCss = '[data-theme=\"light\"] {';
+            Object.keys(theme.light).forEach(function(key) {
+              var value = theme.light[key];
+              if (value !== undefined && value !== null) {
+                lightCss += ' --' + key + ': ' + value + ';';
+              }
+            });
+            lightCss += ' }';
+            var style = document.createElement('style');
+            style.id = 'dynamic-theme';
+            style.textContent = lightCss;
+            document.head.appendChild(style);
+          }
+        }
+        fetch(API_BASE + '/api/site')
+          .then(function(r) { return r.ok ? r.json() : null; })
+          .then(function(d) {
+            if (d && d.ok && d.data && d.data.theme) {
+              applyTheme(d.data.theme);
+            }
+          })
+          .catch(function() {});
+      })();
+    </script>
   </body>
+</html></body>
 </html>
