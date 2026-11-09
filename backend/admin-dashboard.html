@@ -1575,39 +1575,10 @@
     $("setRecInline").textContent = s.recoveryEmail || "â€”";
     $("crUser").placeholder = s.username || "admin";
     $("sbUser").textContent = s.username || "Admin";
-    $("setJson").textContent = JSON.stringify(s, null, 2);
+$("setJson").textContent = JSON.stringify(s, null, 2);
   }
 
-  
   /* ═════ Theme Colors ═════ */
-  const THEME_INPUTS = {
-    dark: { cream: "thDarkCream", creamSoft: "thDarkCreamSoft", surface: "thDarkSurface", ink: "thDarkInk", muted: "thDarkMuted", accent: "thDarkAccent", accentLight: "thDarkAccentLight", gold: "thDarkGold", border: "thDarkBorder" },
-    light: { cream: "thLightCream", creamSoft: "thLightCreamSoft", surface: "thLightSurface", ink: "thLightInk", muted: "thLightMuted", accent: "thLightAccent", accentLight: "thLightAccentLight", gold: "thLightGold", border: "thLightBorder" },
-    buttons: { primaryBg: "thBtnPrimaryBg", primaryText: "thBtnPrimaryText", primaryHover: "thBtnPrimaryHover", secondaryBg: "thBtnSecondaryBg", secondaryText: "thBtnSecondaryText", secondaryHover: "thBtnSecondaryHover" },
-    cards: { cardBg: "thCardBg", cardBorder: "thCardBorder", panelBg: "thPanelBg", panelBorder: "thPanelBorder", inputBg: "thInputBg", inputBorder: "thInputBorder" }
-  };
-
-  const DEFAULT_THEME = {
-    dark: { cream: "#0b1224", creamSoft: "#101a32", surface: "#151f3a", ink: "#e8eefb", muted: "#94a5c9", accent: "#3b82f6", accentLight: "#7ab0ff", gold: "#c9872d", border: "rgba(96, 165, 250, 0.18)" },
-    light: { cream: "#f8fafc", creamSoft: "#f1f5f9", surface: "#ffffff", ink: "#0f172a", muted: "#475569", accent: "#2563eb", accentLight: "#3b82f6", gold: "#b45309", border: "rgba(37, 99, 235, 0.18)" },
-    buttons: { primaryBg: "#3b82f6", primaryText: "#ffffff", primaryHover: "#2563eb", secondaryBg: "#151f3a", secondaryText: "#e8eefb", secondaryHover: "#1e2a4a" },
-    cards: { cardBg: "#151f3a", cardBorder: "rgba(96, 165, 250, 0.18)", panelBg: "#131b2b", panelBorder: "#212c42", inputBg: "#0b111d", inputBorder: "#212c42" }
-  };
-
-  function applyThemePreview(theme) { const preview = themePreview; if (!preview) return; const cssVars = --cream: ; --cream-soft: ; --surface: ; --ink: ; --muted: ; --accent: ; --accent-light: ; --gold: ; --border: ; --panel: ; --panel-2: ; --line: ; --line-soft: ;; preview.style.cssText = cssVars + preview.style.cssText; const primaryBtn = preview.querySelector(".btn-primary"); const secondaryBtn = preview.querySelector(".btn:not(.btn-primary):not(.btn-danger-ghost)"); const ghostBtn = preview.querySelector(".btn-danger-ghost"); if (primaryBtn) { primaryBtn.style.background = theme.buttons.primaryBg; primaryBtn.style.borderColor = theme.buttons.primaryBg; primaryBtn.style.color = theme.buttons.primaryText; } if (secondaryBtn) { secondaryBtn.style.background = theme.buttons.secondaryBg; secondaryBtn.style.borderColor = theme.cards.cardBorder; secondaryBtn.style.color = theme.buttons.secondaryText; } if (ghostBtn) { ghostBtn.style.color = theme.dark.muted; ghostBtn.style.borderColor = "transparent"; ghostBtn.style.background = "transparent"; } }
-
-  function setThemeInputs(theme) { const t = theme || DEFAULT_THEME; Object.entries(THEME_INPUTS.dark).forEach(([key, id]) => { const el = ; if (el && t.dark[key]) el.value = t.dark[key]; }); Object.entries(THEME_INPUTS.light).forEach(([key, id]) => { const el = ; if (el && t.light[key]) el.value = t.light[key]; }); Object.entries(THEME_INPUTS.buttons).forEach(([key, id]) => { const el = ; if (el && t.buttons[key]) el.value = t.buttons[key]; }); Object.entries(THEME_INPUTS.cards).forEach(([key, id]) => { const el = ; if (el && t.cards[key]) el.value = t.cards[key]; }); applyThemePreview(t); }
-
-  function getThemeFromInputs() { const theme = { dark: {}, light: {}, buttons: {}, cards: {} }; Object.entries(THEME_INPUTS.dark).forEach(([key, id]) => { const el = ; if (el) theme.dark[key] = el.value; }); Object.entries(THEME_INPUTS.light).forEach(([key, id]) => { const el = ; if (el) theme.light[key] = el.value; }); Object.entries(THEME_INPUTS.buttons).forEach(([key, id]) => { const el = ; if (el) theme.buttons[key] = el.value; }); Object.entries(THEME_INPUTS.cards).forEach(([key, id]) => { const el = ; if (el) theme.cards[key] = el.value; }); return theme; }
-
-  async function loadTheme() { const d = await api("/api/admin/theme"); if (d && d.ok && d.data) { setThemeInputs(d.data); } else { setThemeInputs(DEFAULT_THEME); } }
-
-  Object.values(THEME_INPUTS).forEach(group => { Object.values(group).forEach(id => { const el = ; if (el) { el.addEventListener("input", function() { const theme = getThemeFromInputs(); applyThemePreview(theme); }); } }); });
-
-  themeForm.addEventListener("submit", withBusy(themeForm.querySelector('[type=submit]'), "Saving…", async function () { const theme = getThemeFromInputs(); const d = await api("/api/admin/theme", jsonPut(theme)); if (d && d.ok) { toast("Theme colors save ho gaye!", "ok"); applyThemePreview(theme); } else { throw new Error((d && d.error) || "Save nahi hua."); } }));
-
-  themeReset.addEventListener("click", function () { if (!confirm("Saare colors default pe reset kar dein?")) return; setThemeInputs(DEFAULT_THEME); toast("Default colors restore ho gaye. Save dabake confirm karo.", "ok"); });
-/* â•â•â•â•â• Theme Colors â•â•â•â•â• */
   const THEME_INPUTS = {
     dark: { cream: "thDarkCream", creamSoft: "thDarkCreamSoft", surface: "thDarkSurface", ink: "thDarkInk", muted: "thDarkMuted", accent: "thDarkAccent", accentLight: "thDarkAccentLight", gold: "thDarkGold", border: "thDarkBorder" },
     light: { cream: "thLightCream", creamSoft: "thLightCreamSoft", surface: "thLightSurface", ink: "thLightInk", muted: "thLightMuted", accent: "thLightAccent", accentLight: "thLightAccentLight", gold: "thLightGold", border: "thLightBorder" },
@@ -1634,7 +1605,9 @@
 
   $("themeForm").addEventListener("submit", withBusy($("themeForm").querySelector('[type=submit]'), "Savingâ€¦", async function () { const theme = getThemeFromInputs(); const d = await api("/api/admin/theme", jsonPut(theme)); if (d && d.ok) { toast("Theme colors save ho gaye!", "ok"); applyThemePreview(theme); } else { throw new Error((d && d.error) || "Save nahi hua."); } }));
 
-  $("themeReset").addEventListener("click", function () { if (!confirm("Saare colors default pe reset kar dein?")) return; setThemeInputs(DEFAULT_THEME); toast("Default colors restore ho gaye. Save dabake confirm karo.", "ok"); });$("credForm").addEventListener("submit", withBusy($("credForm").querySelector('[type=submit]'), "Updatingâ€¦", async function () {
+  $("themeReset").addEventListener("click", function () { if (!confirm("Saare colors default pe reset kar dein?")) return; setThemeInputs(DEFAULT_THEME); toast("Default colors restore ho gaye. Save dabake confirm karo.", "ok"); });
+
+  $("credForm").addEventListener("submit", withBusy($("credForm").querySelector('[type=submit]'), "Updatingâ€¦", async function () {
     const newPass = $("crPass").value;
     if (newPass && newPass !== $("crPass2").value) {
       throw new Error("Naya password dono jagah same nahi hai.");
