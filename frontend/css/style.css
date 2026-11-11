@@ -41,7 +41,6 @@ body {
     radial-gradient(circle at 18% 22%, rgba(59, 130, 246, 0.14), transparent 42%),
     radial-gradient(circle at 84% 72%, rgba(59, 130, 246, 0.1), transparent 38%),
     linear-gradient(to bottom right, var(--cream), #070d1c);
-  background-attachment: fixed;
   overflow-x: hidden;
   line-height: 1.7;
   transition: background 0.3s ease, color 0.3s ease;
@@ -52,6 +51,40 @@ body {
     radial-gradient(circle at 18% 22%, rgba(37, 99, 235, 0.1), transparent 42%),
     radial-gradient(circle at 84% 72%, rgba(8, 145, 178, 0.08), transparent 38%),
     linear-gradient(to bottom right, var(--cream), #e2e8f0);
+}
+
+/* Performance optimizations */
+#particles {
+  will-change: transform;
+  contain: strict;
+}
+
+.project-thumb img {
+  will-change: transform;
+  contain: paint;
+}
+
+.section {
+  content-visibility: auto;
+  contain-intrinsic-size: 1000px;
+}
+
+.section:first-of-type {
+  content-visibility: visible;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  #particles {
+    display: none !important;
+  }
 }
 
 a {

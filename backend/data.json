@@ -1,4 +1,4 @@
-{
+﻿{
   "messages": [],
   "skills": [
     {
@@ -156,7 +156,7 @@
   "site": {
     "projectsVisible": 2,
     "projectsCtaText": "View All Projects",
-    "heroImage": "images/portfolio.webp",
+    "heroImage": "images/rashi-sharma-web-developer-digital-marketer.webp",
     "heroGreeting": "Hello, welcome to my world",
     "heroTagline": "The creative mind behind intelligent digital experiences",
     "heroCtaText": "Get In Touch",
