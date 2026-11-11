@@ -200,18 +200,21 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Exo:wght@300;400;600;700&family=Sora:wght@300;400;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Exo:wght@300;400;600;700&family=Sora:wght@300;400;600;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo:wght@300;400;600;700&family=Sora:wght@300;400;600;700&display=swap" media="print" onload="this.media='all'" />
 
     <link rel="preconnect" href="https://zip-repl-anjali-kids-school.vercel.app" />
     <link rel="preconnect" href="https://block-blast-7161.ai.studio" />
     <link rel="dns-prefetch" href="//zip-repl-anjali-kids-school.vercel.app" />
     <link rel="dns-prefetch" href="//block-blast-7161.ai.studio" />
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" media="print" onload="this.media='all'" />
+
+    <link rel="preload" as="style" href="css/style.css" />
+    <link rel="stylesheet" href="css/style.css" media="print" onload="this.media='all'" />
     <!-- Without JS, scroll-reveal never fires and every section stays at
          opacity:0. Force content visible so no-JS users and text-only
          crawlers still see it. -->
